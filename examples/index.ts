@@ -12,10 +12,10 @@ const getUserQuery = {
       name: types.string,
       bankAccount: {
         id: types.number,
-        branch: types.string,
-      },
-    },
-  },
+        branch: types.string
+      }
+    }
+  }
 }
 
 const gqlString = graphqlify.query(getUserQuery)
@@ -36,7 +36,7 @@ console.log(gqlString)
 async function run() {
   // We would like to type this!
   const result: GraphQLData<typeof getUserQuery> = await executeGraphql(
-    graphqlify('query', getUserQuery),
+    graphqlify('query', getUserQuery)
   )
 
   // As we cast `result` to `typeof getUser`,

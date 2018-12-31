@@ -1,14 +1,17 @@
 {
-  "name": "typed-graphqlify",
+  "name": "gql-tsqb",
   "version": "1.0.0",
-  "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
+  "description": "GraphQL query builder for typescript. Write GQL queries as objects so that TS compiler can typecheck your queries",
   "keywords": [
     "graphql",
     "typescript",
     "utility"
   ],
-  "repository": "git@github.com:acro5piano/typed-graphqlify",
-  "author": "gosho-kazuya <ketsume0211@gmail.com>",
+  "repository": "git@github.com:capaj/gql-tsqb",
+  "contributors": [
+    "gosho-kazuya <ketsume0211@gmail.com>",
+    "Jiri Spac <capajj@gmail.com>"
+  ],
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -20,7 +23,7 @@
     "clean": "rm -rf dist/*",
     "copy-dts": "cp dist/src/index.d.ts dist",
     "dist": "npm-run-all clean build copy-dts",
-    "test": "jest --maxWorkers=4",
+    "test": "jest",
     "prepublish": "npm run dist"
   },
   "dependencies": {},
@@ -31,7 +34,7 @@
     "jest": "^23.6.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.15.3",
-    "rollup": "^0.68.2",
+    "rollup": "^1.0.0",
     "rollup-plugin-typescript2": "^0.18.1",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",

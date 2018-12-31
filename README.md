@@ -1,22 +1,21 @@
-[![CircleCI](https://circleci.com/gh/acro5piano/typed-graphqlify.svg?style=svg)](https://circleci.com/gh/acro5piano/typed-graphqlify)
-[![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
+[![npm version](https://badge.fury.io/js/gql-tsqb.svg)](https://badge.fury.io/js/gql-tsqb)
 
-![image](https://github.com/acro5piano/typed-graphqlify/blob/master/logo-fixed.png)
+![image](https://github.com/capaj/gql-tsqb/blob/master/logo-fixed.png)
 
-# typed-graphqlify
+# gql-tsqb
 
-Build Typed GraphQL Query in TypeScript. Better TypeScript + GraphQL experience.
+Build Typed GraphQL Queries in TypeScript. Convenience of writing the query interface once and generating the GraphQL query from it.
 
 # Install
 
 ```
-npm install --save typed-graphqlify
+npm install --save gql-tsqb
 ```
 
 Or if you use Yarn:
 
 ```
-yarn add typed-graphqlify
+yarn add gql-tsqb
 ```
 
 # Motivation
@@ -53,18 +52,17 @@ const query = graphql(gql`
 apolloClient.query<GetUserQueryData>(query).then(data => ...)
 ```
 
-This is so painful.
+This is duplicates the shape of the object.
+To add a new field to our entity, we have to edit both GraphQL query and TypeScript interface. And TS checking does not work if we do something wrong.
 
-The biggest problem is the redundancy in our codebase, which makes it difficult to keep things in sync. To add a new field to our entity, we have to care about both GraphQL and TypeScript interface. And type checking does not work if we do something wrong.
-
-**typed-graphqlify** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class. Additional features including graphql-tag, or Fragment can be implemented by other tools like Apollo.
+**gql-tsqb** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class.
 
 # How to use
 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { graphqlify, types, params } from 'typed-graphqlify'
+import { graphqlify, types, params } from 'gql-tsqb'
 
 const getUserQuery = {
   user: params(
@@ -74,10 +72,10 @@ const getUserQuery = {
       name: types.string,
       bankAccount: {
         id: types.number,
-        branch: types.optional.string,
-      },
-    },
-  ),
+        branch: types.optional.string
+      }
+    }
+  )
 }
 ```
 
@@ -106,7 +104,7 @@ Finally, execute the GraphQL:
 
 ```typescript
 // GraphQLData is a type helper which returns one level down
-import { GraphQLData } from 'typed-graphqlify'
+import { GraphQLData } from 'gql-tsqb'
 import { executeGraphql } from 'some-graphql-request-library'
 
 // We would like to type this!
@@ -126,7 +124,7 @@ const result: GraphQLData<typeof getUserQuery> = await executeGraphql(gqlString)
 // }
 ```
 
-![image](https://github.com/acro5piano/typed-graphqlify/blob/master/screenshot.jpg)
+![image](https://github.com/capaj/gql-tsqb/blob/master/screenshot.jpg)
 
 # Features
 
@@ -156,10 +154,10 @@ graphqlify.query(
     user: {
       id: types.number,
       name: types.string,
-      isActive: types.boolean,
-    },
+      isActive: types.boolean
+    }
   },
-  'getUser',
+  'getUser'
 )
 ```
 
@@ -182,11 +180,11 @@ graphqlify.mutation(
     updateUser: params(
       { input: types.raw('UserInput') },
       {
-        id: types.number,
-      },
-    ),
+        id: types.number
+      }
+    )
   },
-  'updateUser',
+  'updateUser'
 )
 ```
 
@@ -195,17 +193,17 @@ graphqlify.mutation(
 By default graphql variables are named the same as they are defined in the field. When you have multiple fields with the same variable name, you need to rename them. Use `$` for this:
 
 ```typescript
-import { graphqlify, types, params, $ } from 'typed-graphqlify'
+import { graphqlify, types, params, $ } from 'gql-tsqb'
 graphqlify.mutation(
   {
     updateUser: params(
       { input: $('userInput', types.raw('UserInput')) },
       {
-        id: types.number,
-      },
-    ),
+        id: types.number
+      }
+    )
   },
-  'updateUser',
+  'updateUser'
 )
 ```
 
@@ -259,13 +257,13 @@ graphqlify.query(
           name: types.string,
           children: {
             id: types.number,
-            name: types.string,
-          },
-        },
-      },
-    },
+            name: types.string
+          }
+        }
+      }
+    }
   },
-  'getUser',
+  'getUser'
 )
 ```
 
@@ -287,11 +285,11 @@ graphqlify.query(
   {
     users: params({ status: types.string }, [
       {
-        id: types.number,
-      },
-    ]),
+        id: types.number
+      }
+    ])
   },
-  'getUsers',
+  'getUsers'
 )
 ```
 
@@ -300,7 +298,7 @@ graphqlify.query(
 Add `types.optional` or `optional` helper method to define optional field.
 
 ```typescript
-import { types, optional } from 'typed-graphqlify'
+import { types, optional } from 'gql-tsqb'
 
 graphqlify.query(
   {
@@ -309,11 +307,11 @@ graphqlify.query(
       name: types.optional.string, // <-- user.name is `string | undefined`
       bankAccount: optional({
         // <-- user.bankAccount is `{ id: number } | undefined`
-        id: types.number,
-      }),
-    },
+        id: types.number
+      })
+    }
   },
-  'getUser',
+  'getUser'
 )
 ```
 
@@ -337,10 +335,10 @@ graphqlify.query(
     user: {
       id: types.number,
       name: types.string,
-      __typename: types.constant('User'),
-    },
+      __typename: types.constant('User')
+    }
   },
-  'getUser',
+  'getUser'
 )
 ```
 
@@ -361,7 +359,7 @@ query getUser {
 ```typescript
 enum UserType {
   'Student',
-  'Teacher',
+  'Teacher'
 }
 
 graphqlify.query(
@@ -369,10 +367,10 @@ graphqlify.query(
     user: {
       id: types.number,
       name: types.string,
-      type: types.oneOf(UserType),
-    },
+      type: types.oneOf(UserType)
+    }
   },
-  'getUser',
+  'getUser'
 )
 ```
 
@@ -400,18 +398,18 @@ graphqlify.query(
   {
     father: {
       id: types.number,
-      name: types.string,
+      name: types.string
     },
     mother: {
       id: types.number,
-      name: types.number,
-    },
+      name: types.number
+    }
   },
-  'getFatherAndMother',
+  'getFatherAndMother'
 )
 ```
 
-See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
+See more examples at [`src/index.test.ts`](https://github.com/capaj/gql-tsqb/blob/master/src/index.test.ts)
 
 # Why not use `apollo client:codegen`?
 
@@ -419,7 +417,7 @@ There are some GraphQL -> TypeScript convertion tools. The most famous one is Ap
 
 https://github.com/apollographql/apollo-tooling#apollo-clientcodegen-output
 
-In this section, we would like to explain why `typed-graphqlify` comes.
+In this section, we would like to explain why `gql-tsqb` comes.
 
 Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't disrespect Apollo codegen.
 
@@ -436,7 +434,7 @@ There are some issues to generate interfaces with Apollo codegen.
 
 I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is too large to find out what is the problem.
 
-On the other hand, `typed-graphqlify` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
+On the other hand, `gql-tsqb` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
 
 ## Multiple Queries problem
 
@@ -447,7 +445,7 @@ Currently Apollo codegen cannot handle multiple schemas.
 
 Although I know this is a kind of edge case, but if we have the same type name on different schemas, which schema is taken?
 
-## typed-graphqlify works even without schema
+## gql-tsqb works even without schema
 
 Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
 I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.

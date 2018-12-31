@@ -5,21 +5,21 @@ export default {
   plugins: [
     typescript({
       tslib: require('tslib'),
-      declaration: true,
-    }),
+      declaration: true
+    })
   ],
-  external: id => !id.startsWith('.') && !id.startsWith('/'),
+  external: (id) => !id.startsWith('.') && !id.startsWith('/'),
   output: [
     {
       file: 'dist/index.js',
       format: 'cjs',
-      name: 'typed-graphqlify',
-      sourcemap: true,
+      name: 'gql-tsqb',
+      sourcemap: true
     },
     {
       file: 'dist/index.es.js',
       format: 'es',
-      sourcemap: true,
-    },
-  ],
+      sourcemap: true
+    }
+  ]
 }

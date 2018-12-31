@@ -1,4 +1,5 @@
-import { graphqlify, types, optional, params, $ } from './index'
+import { graphqlify, types, params, $, fragment } from './index'
+import { optional } from './types'
 // import { GraphQLData } from './index'
 import { gql } from './test-utils'
 
@@ -12,10 +13,10 @@ describe('graphqlify', () => {
           name: types.string,
           bankAccount: {
             id: types.number,
-            branch: types.string,
-          },
-        },
-      ),
+            branch: types.string
+          }
+        }
+      )
     }
 
     const actual = graphqlify.query(queryObject, 'getUser')
@@ -37,8 +38,8 @@ describe('graphqlify', () => {
   it('render no params GraphQL', () => {
     const queryObject = {
       user: {
-        id: types.number,
-      },
+        id: types.number
+      }
     }
     const actual = graphqlify.query(queryObject, 'getUser')
 
@@ -57,11 +58,11 @@ describe('graphqlify', () => {
         student: {
           mother: {
             father: {
-              id: types.number,
-            },
-          },
-        },
-      },
+              id: types.number
+            }
+          }
+        }
+      }
     }
     const actual = graphqlify.query(queryObject, 'getUser')
 
@@ -80,14 +81,34 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('renders string params in quotes', () => {
+    const queryObject = {
+      user: params(
+        { status: 'active' },
+        {
+          id: types.number
+        }
+      )
+    }
+    const actual = graphqlify.query(queryObject, 'getActiveUsers')
+
+    expect(actual).toEqual(gql`
+      query getActiveUsers {
+        user(status: "active") {
+          id
+        }
+      }
+    `)
+  })
+
   it('render multiple GraphQL', () => {
     const queryObject = {
       user: {
-        id: types.number,
+        id: types.number
       },
       bankAccount: {
-        id: types.number,
-      },
+        id: types.number
+      }
     }
 
     const actual = graphqlify.query(queryObject, 'getUser')
@@ -108,20 +129,20 @@ describe('graphqlify', () => {
     const queryObject = {
       user: params(
         {
-          id: 1,
+          id: 1
         },
         {
-          id: types.number,
-        },
+          id: types.number
+        }
       ),
       bankAccount: params(
         {
-          id: 2,
+          id: 2
         },
         {
-          id: types.number,
-        },
-      ),
+          id: types.number
+        }
+      )
     }
     const actual = graphqlify.query(queryObject, 'getUser')
 
@@ -142,15 +163,15 @@ describe('graphqlify', () => {
       user: params(
         { id: 1 },
         {
-          id: types.number,
-        },
+          id: types.number
+        }
       ),
       bankAccount: params(
         { id: 2 },
         {
-          id: types.number,
-        },
-      ),
+          id: types.number
+        }
+      )
     }
     const query = graphqlify.query(queryObject)
 
@@ -172,11 +193,11 @@ describe('graphqlify', () => {
         user: params(
           { id: optional(types.number) },
           {
-            id: types.number,
-          },
-        ),
+            id: types.number
+          }
+        )
       },
-      'getUserById',
+      'getUserById'
     )
 
     expect(query).toEqual(gql`
@@ -198,15 +219,15 @@ describe('graphqlify', () => {
       user: params(
         { id: $('userId', optional(types.number)) },
         {
-          id: types.number,
-        },
+          id: types.number
+        }
       ),
       bankAccount: params(
         { id: optional(types.number) },
         {
-          id: types.number,
-        },
-      ),
+          id: types.number
+        }
+      )
     }
     const actual = graphqlify.query(queryObject, 'getUserAndBankAccount')
 
@@ -227,9 +248,9 @@ describe('graphqlify', () => {
       updateUser: params(
         { name: types.string },
         {
-          id: types.number,
-        },
-      ),
+          id: types.number
+        }
+      )
     }
     const actual = graphqlify.mutation(queryObject, 'updateUser')
 
@@ -247,9 +268,9 @@ describe('graphqlify', () => {
       updateUser: params(
         { input: types.raw('UserInput') },
         {
-          id: types.number,
-        },
-      ),
+          id: types.number
+        }
+      )
     }
     const actual = graphqlify.mutation(queryObject, 'updateUser')
 
@@ -265,8 +286,8 @@ describe('graphqlify', () => {
   it('render optional field', () => {
     const queryObject = {
       user: optional({
-        id: types.number,
-      }),
+        id: types.number
+      })
     }
     const actual = graphqlify.query(queryObject, 'getUser')
 
@@ -283,9 +304,9 @@ describe('graphqlify', () => {
     const queryObject = {
       users: [
         {
-          id: types.number,
-        },
-      ],
+          id: types.number
+        }
+      ]
     }
     const actual = graphqlify.query(queryObject, 'getUsers')
 
@@ -302,8 +323,8 @@ describe('graphqlify', () => {
     const queryObject = {
       users: {
         id: types.number,
-        __typename: types.constant('User'),
-      },
+        __typename: types.constant('User')
+      }
     }
     const actual = graphqlify.query(queryObject, 'getUsers')
 
@@ -329,9 +350,9 @@ describe('graphqlify', () => {
     const queryObject = {
       users: params({ status: types.string }, [
         {
-          id: types.number,
-        },
-      ]),
+          id: types.number
+        }
+      ])
     }
     const actual = graphqlify.query(queryObject, 'getUsers')
 
@@ -347,14 +368,14 @@ describe('graphqlify', () => {
   it('render enum', () => {
     enum UserType {
       'Student',
-      'Teacher',
+      'Teacher'
     }
 
     const queryObject = {
       user: {
         id: types.number,
-        type: types.oneOf(UserType),
-      },
+        type: types.oneOf(UserType)
+      }
     }
     const actual = graphqlify.query(queryObject, 'getUser')
 
@@ -371,6 +392,42 @@ describe('graphqlify', () => {
         user {
           id
           type
+        }
+      }
+    `)
+  })
+
+  it.skip('renders inline fragment spread', async () => {
+    const queryObject = {
+      users: [
+        fragment(
+          {
+            id: types.number
+          },
+          {
+            AdminUser: {
+              email: types.string
+            },
+            RegularUser: {
+              created_at: types.string
+            }
+          }
+        )
+      ]
+    }
+    // console.log(queryObject.users[1].)
+    const actual = graphqlify.query(queryObject, 'getUsers')
+
+    expect(actual).toEqual(gql`
+      query getUsers {
+        users {
+          id
+          ... on AdminUser {
+            email
+          }
+          ... on RegularUser {
+            created_at
+          }
         }
       }
     `)

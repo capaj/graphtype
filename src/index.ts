@@ -1,164 +1,7 @@
-export type GraphQLData<T extends {}> = {
-  value: T[keyof T]
-}['value']
+import { OperationVariable, Fragments } from './types'
+import { compileToGql, paramsWeakMap } from './compileToGql'
 
-export function optional<T>(obj: T): T | null {
-  if (obj instanceof CoreType) {
-    const newCoreType = new CoreType(obj.type)
-
-    newCoreType.optional = true
-    return (newCoreType as any) as T
-  }
-  return obj
-}
-
-function constant<T extends string>(c: T): T {
-  return c
-}
-
-function oneOf<T extends {}>(e: T): keyof T {
-  return Object.keys(e)[0] as keyof T
-}
-
-export enum TypeFlags {
-  String = 'String',
-  Number = 'Number',
-  Boolean = 'Boolean',
-  Date = 'Date',
-}
-
-class CoreType {
-  type: TypeFlags
-  optional: boolean = false
-  constructor(type: TypeFlags) {
-    this.type = type
-  }
-}
-
-class RawType {
-  raw: string
-  constructor(raw: string) {
-    this.raw = raw
-  }
-}
-
-class OperationVariable {
-  coreType: CoreType
-  varName: string
-  constructor(varName: string, coreType: CoreType) {
-    this.coreType = coreType
-    this.varName = varName
-  }
-}
-
-export class types {
-  static number: number = (new CoreType(TypeFlags.Number) as any) as number
-  static string: string = (new CoreType(TypeFlags.String) as any) as string
-  static boolean: boolean = (new CoreType(TypeFlags.Boolean) as any) as boolean
-  static Date: Date = (new CoreType(TypeFlags.Date) as any) as Date
-  static optional: Partial<typeof types> = types
-  static constant = constant
-  static oneOf = oneOf
-  static raw(name: string) {
-    return new RawType(name)
-  }
-}
-
-const paramsWeakMap = new WeakMap()
-
-const getParams = (params: any) => {
-  if (!params) {
-    return ''
-  }
-  const variables = Object.keys(params)
-    .map(key => {
-      const paramValue = params[key]
-
-      if (paramValue instanceof CoreType) {
-        return `${key}: $${key}`
-      } else if (paramValue instanceof OperationVariable) {
-        return `${key}: $${paramValue.varName}`
-      }
-      if (paramValue instanceof RawType) {
-        return `${key}: $${key}`
-      } else {
-        return `${key}: ${paramValue}`
-      }
-    })
-    .join(', ')
-  return `(${variables})`
-}
-
-function compileToGql(queryObject: any, opName: string) {
-  const operationParamsObject: { [key: string]: CoreType | OperationVariable | RawType } = {}
-
-  const fields = Object.keys(queryObject)
-    .map(fieldName => {
-      // console.log('dataType: ', fieldName)
-      const fieldValue = queryObject[fieldName]
-      const paramsObject = paramsWeakMap.get(fieldValue)
-      // console.log('paramsObject: ', paramsObject)
-      let params = ''
-      if (paramsObject) {
-        Object.keys(paramsObject).forEach(paramName => {
-          const newParamDef = paramsObject[paramName]
-          // console.log('newParamDef: ', newParamDef, paramName)
-
-          if (
-            !(newParamDef instanceof CoreType) &&
-            !(newParamDef instanceof OperationVariable) &&
-            !(newParamDef instanceof RawType)
-          ) {
-            // this is just a raw value-we put it inline without naming a variable
-            return
-          }
-          const existingParamDef = operationParamsObject[paramName]
-
-          if (existingParamDef) {
-            throw new Error(
-              `variable for parameter "${paramName}" for field "${fieldName}" must be named as there already is a variable named as such`,
-            )
-          }
-          if (newParamDef instanceof OperationVariable) {
-            operationParamsObject[newParamDef.varName] = newParamDef
-          } else {
-            operationParamsObject[paramName] = newParamDef
-          }
-        })
-        params = getParams(paramsObject)
-      }
-
-      const joinedFields = joinFieldRecursively(fieldValue)
-
-      return `${fieldName}${params} { ${joinedFields} }`
-    })
-    .join(' ')
-  // console.log('operationParamsObject: ', operationParamsObject)
-  const operationParamsPresent = Object.keys(operationParamsObject).length > 0
-  if (operationParamsPresent) {
-    const operationParamsString = `(${Object.entries(operationParamsObject)
-      .map(([key, value]) => {
-        if (value instanceof OperationVariable) {
-          const exclamationMark = value.coreType.optional ? '' : '!'
-
-          return '$' + key + ': ' + value.coreType.type + exclamationMark
-        } else if (value instanceof CoreType) {
-          const exclamationMark = value.optional ? '' : '!'
-          return '$' + key + ': ' + value.type + exclamationMark
-        } else if (value instanceof RawType) {
-          return '$' + key + ': ' + value.raw
-        }
-        throw new Error(`unknown param type`)
-      })
-      .join(', ')})`
-    return `${opName}${operationParamsString} { ${fields} }`
-  } else {
-    if (!opName) {
-      return `{ ${fields} }`
-    }
-    return `${opName} { ${fields} }`
-  }
-}
+export { types } from './types'
 
 export const graphqlify = {
   query(queryObject: any, operationName: string = '') {
@@ -169,23 +12,7 @@ export const graphqlify = {
   },
   subscription(queryObject: any, operationName: string = '') {
     return `subscription ${compileToGql(queryObject, operationName)}`
-  },
-}
-
-// TODO: Tail Call Recursion
-const joinFieldRecursively = (fieldOrObject: any): string => {
-  const joinedFields = Object.keys(fieldOrObject)
-    .map(key => {
-      if (Array.isArray(fieldOrObject)) {
-        return `${joinFieldRecursively(fieldOrObject[0])}`
-      }
-      if (typeof fieldOrObject[key] === 'object' && !(fieldOrObject[key] instanceof CoreType)) {
-        return `${key} { ${joinFieldRecursively(fieldOrObject[key])} }`
-      }
-      return key
-    })
-    .join(' ')
-  return joinedFields
+  }
 }
 
 export function params<T extends object>(params: object, fields: T): T {
@@ -195,4 +22,34 @@ export function params<T extends object>(params: object, fields: T): T {
 
 export function $(varName: string, type: any) {
   return new OperationVariable(varName, type)
+}
+
+// Names of properties in T with types that include undefined
+type OptionalPropertyNames<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never
+}[keyof T]
+
+type Diff<T, U> = T extends U ? never : T
+// Common properties from L and R with undefined in R[K] replaced by type in L[K]
+type SpreadProperties<L, R, K extends keyof L & keyof R> = {
+  [P in K]: L[P] | Diff<R[P], undefined>
+}
+
+// Type of { ...L, ...R }
+type Spread<L, R> =
+  // Properties in L that don't exist in R
+  Pick<L, Diff<keyof L, keyof R>> &
+    // Properties in R with types that exclude undefined
+    Pick<R, Diff<keyof R, OptionalPropertyNames<R>>> &
+    // Properties in R, with types that include undefined, that don't exist in L
+    Pick<R, Diff<OptionalPropertyNames<R>, keyof L>> &
+    // Properties in R, with types that include undefined, that exist in L
+    SpreadProperties<L, R, OptionalPropertyNames<R> & keyof L>
+
+export function fragment<
+  AT extends object,
+  T extends object,
+  TK extends keyof T
+>(onAllObject: AT, onTypesObject: T): Spread<AT, T[TK]> {
+  return new Fragments(onAllObject, onTypesObject) as any
 }
