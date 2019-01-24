@@ -13,7 +13,7 @@ export default {
     {
       file: 'dist/index.js',
       format: 'cjs',
-      name: 'gql-tsqb',
+      name: 'graphtype',
       sourcemap: true
     },
     {

@@ -1,21 +1,21 @@
-[![npm version](https://badge.fury.io/js/gql-tsqb.svg)](https://badge.fury.io/js/gql-tsqb)
+[![npm version](https://badge.fury.io/js/graphtype.svg)](https://badge.fury.io/js/graphtype)
 
-![image](https://github.com/capaj/gql-tsqb/blob/master/logo-fixed.png)
+![image](https://github.com/capaj/graphtype/blob/master/logo-fixed.png)
 
-# gql-tsqb
+# graphtype
 
 Build Typed GraphQL Queries in TypeScript. Convenience of writing the query interface once and generating the GraphQL query from it.
 
 # Install
 
 ```
-npm install --save gql-tsqb
+npm install --save graphtype
 ```
 
 Or if you use Yarn:
 
 ```
-yarn add gql-tsqb
+yarn add graphtype
 ```
 
 # Motivation
@@ -55,14 +55,14 @@ apolloClient.query<GetUserQueryData>(query).then(data => ...)
 This is duplicates the shape of the object.
 To add a new field to our entity, we have to edit both GraphQL query and TypeScript interface. And TS checking does not work if we do something wrong.
 
-**gql-tsqb** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class.
+**graphtype** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class.
 
 # How to use
 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { graphqlify, types, params } from 'gql-tsqb'
+import { graphqlify, types, params } from 'graphtype'
 
 const getUserQuery = {
   user: params(
@@ -104,7 +104,7 @@ Finally, execute the GraphQL:
 
 ```typescript
 // GraphQLData is a type helper which returns one level down
-import { GraphQLData } from 'gql-tsqb'
+import { GraphQLData } from 'graphtype'
 import { executeGraphql } from 'some-graphql-request-library'
 
 // We would like to type this!
@@ -124,7 +124,7 @@ const result: GraphQLData<typeof getUserQuery> = await executeGraphql(gqlString)
 // }
 ```
 
-![image](https://github.com/capaj/gql-tsqb/blob/master/screenshot.jpg)
+![image](https://github.com/capaj/graphtype/blob/master/screenshot.jpg)
 
 # Features
 
@@ -193,7 +193,7 @@ graphqlify.mutation(
 By default graphql variables are named the same as they are defined in the field. When you have multiple fields with the same variable name, you need to rename them. Use `$` for this:
 
 ```typescript
-import { graphqlify, types, params, $ } from 'gql-tsqb'
+import { graphqlify, types, params, $ } from 'graphtype'
 graphqlify.mutation(
   {
     updateUser: params(
@@ -298,7 +298,7 @@ graphqlify.query(
 Add `types.optional` or `optional` helper method to define optional field.
 
 ```typescript
-import { types, optional } from 'gql-tsqb'
+import { types, optional } from 'graphtype'
 
 graphqlify.query(
   {
@@ -409,7 +409,7 @@ graphqlify.query(
 )
 ```
 
-See more examples at [`src/index.test.ts`](https://github.com/capaj/gql-tsqb/blob/master/src/index.test.ts)
+See more examples at [`src/index.test.ts`](https://github.com/capaj/graphtype/blob/master/src/index.test.ts)
 
 # Why not use `apollo client:codegen`?
 
@@ -417,7 +417,7 @@ There are some GraphQL -> TypeScript convertion tools. The most famous one is Ap
 
 https://github.com/apollographql/apollo-tooling#apollo-clientcodegen-output
 
-In this section, we would like to explain why `gql-tsqb` comes.
+In this section, we would like to explain why `graphtype` comes.
 
 Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't disrespect Apollo codegen.
 
@@ -434,7 +434,7 @@ There are some issues to generate interfaces with Apollo codegen.
 
 I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is too large to find out what is the problem.
 
-On the other hand, `gql-tsqb` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
+On the other hand, `graphtype` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
 
 ## Multiple Queries problem
 
@@ -445,7 +445,7 @@ Currently Apollo codegen cannot handle multiple schemas.
 
 Although I know this is a kind of edge case, but if we have the same type name on different schemas, which schema is taken?
 
-## gql-tsqb works even without schema
+## graphtype works even without schema
 
 Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
 I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.

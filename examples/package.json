@@ -7,7 +7,7 @@
     "start": "ts-node index.ts"
   },
   "dependencies": {
-    "gql-tsqb": "1.0.0"
+    "graphtype": "1.0.0"
   },
   "devDependencies": {
     "ts-node": "^7.0.1",

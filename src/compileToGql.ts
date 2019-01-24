@@ -1,14 +1,21 @@
 import { CoreType, RawType, OperationVariable } from './types'
-
-export const paramsWeakMap = new WeakMap()
+import { get, isObject } from 'lodash'
+import debug from 'debug'
+const log = debug('graphtype')
 
 export const getParams = (params: any) => {
   if (!params) {
     return ''
   }
   const variables = Object.keys(params)
+    .filter((key) => {
+      const paramValue = params[key]
+
+      return !isObject(paramValue) && !paramValue.__typename // filter out objects without a typename-these are probably params for nested fields returned by the current field
+    })
     .map((key) => {
       const paramValue = params[key]
+      log('paramValue: ', paramValue)
 
       if (paramValue instanceof CoreType) {
         return `${key}: $${key}`
@@ -29,40 +36,66 @@ export const getParams = (params: any) => {
   return `(${variables})`
 }
 
-// TODO: Tail Call Recursion
-export const joinFieldRecursively = (fieldOrObject: any): string => {
-  const joinedFields = Object.keys(fieldOrObject)
-    .map((key) => {
-      if (Array.isArray(fieldOrObject)) {
-        return `${joinFieldRecursively(fieldOrObject[0])}`
-      }
-      if (
-        typeof fieldOrObject[key] === 'object' &&
-        !(fieldOrObject[key] instanceof CoreType)
-      ) {
-        return `${key} { ${joinFieldRecursively(fieldOrObject[key])} }`
-      }
-      return key
-    })
-    .join(' ')
-  return joinedFields
-}
-
-export function compileToGql(queryObject: any, opName: string) {
+export function compileToGql(
+  queryObject: any,
+  allParamsObject: any,
+  opName?: string
+) {
   const operationParamsObject: {
     [key: string]: CoreType | OperationVariable | RawType
   } = {}
+
+  const joinFieldRecursively = (
+    fieldOrObject: any,
+    parentPath: string
+  ): string => {
+    log('fieldOrObject: ', fieldOrObject)
+    const joinedFields = Object.keys(fieldOrObject)
+      .map((key) => {
+        log('key: ', key, parentPath)
+        const paramValue = get(allParamsObject, `${parentPath}.${key}`)
+        log('paramValue: ', paramValue)
+
+        let paramsAfterKey = ''
+        if (isObject(paramValue)) {
+          paramsAfterKey = getParams(paramValue)
+        }
+        if (Array.isArray(fieldOrObject)) {
+          return `${joinFieldRecursively(
+            fieldOrObject[0],
+            parentPath
+          )}${paramsAfterKey}`
+        }
+        if (
+          typeof fieldOrObject[key] === 'object' &&
+          !(fieldOrObject[key] instanceof CoreType)
+        ) {
+          return `${key}${paramsAfterKey} { ${joinFieldRecursively(
+            fieldOrObject[key],
+            parentPath + `.${key}`
+          )} }`
+        }
+
+        return key
+      })
+      .join(' ')
+    log('joinedFields: ', joinedFields)
+    return joinedFields
+  }
   const fields = Object.keys(queryObject)
     .map((fieldName) => {
-      // console.log('dataType: ', fieldName)
+      log('fieldName: ', fieldName)
+
       const fieldValue = queryObject[fieldName]
-      const paramsObject = paramsWeakMap.get(fieldValue)
+
+      const paramsObject = get(allParamsObject, fieldName)
+      log('paramsObject: ', paramsObject)
 
       let params = ''
       if (paramsObject) {
         Object.keys(paramsObject).forEach((paramName) => {
           const newParamDef = paramsObject[paramName]
-          // console.log('newParamDef: ', newParamDef, paramName)
+          // log('newParamDef: ', newParamDef, paramName)
           if (
             !(newParamDef instanceof CoreType) &&
             !(newParamDef instanceof OperationVariable) &&
@@ -84,12 +117,14 @@ export function compileToGql(queryObject: any, opName: string) {
           }
         })
         params = getParams(paramsObject)
+        log('params: ', params)
       }
-      const joinedFields = joinFieldRecursively(fieldValue)
+      const joinedFields = joinFieldRecursively(fieldValue, fieldName)
+      // log('fieldValue: ', fieldValue)
       return `${fieldName}${params} { ${joinedFields} }`
     })
     .join(' ')
-  // console.log('operationParamsObject: ', operationParamsObject)
+  // log('operationParamsObject: ', operationParamsObject)
   const operationParamsPresent = Object.keys(operationParamsObject).length > 0
   if (operationParamsPresent) {
     const operationParamsString = `(${Object.entries(operationParamsObject)

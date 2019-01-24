@@ -1,6 +1,7 @@
 export type GraphQLData<T extends {}> = {
   value: T[keyof T]
 }['value']
+
 export function optional<T>(obj: T): T | null {
   if (obj instanceof CoreType) {
     const newCoreType = new CoreType(obj.type)
@@ -15,6 +16,11 @@ export function constant<T extends string>(c: T): T {
 export function oneOf<T extends {}>(e: T): keyof T {
   return Object.keys(e)[0] as keyof T
 }
+
+function custom<T>(): T {
+  return '' as any
+}
+
 export enum TypeFlags {
   String = 'String',
   Number = 'Number',
@@ -61,6 +67,7 @@ export class types {
   static optional: Partial<typeof types> = types
   static constant = constant
   static oneOf = oneOf
+  static custom = custom
   static raw(name: string) {
     return new RawType(name)
   }

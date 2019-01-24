@@ -1,23 +1,37 @@
 import { OperationVariable, Fragments } from './types'
-import { compileToGql, paramsWeakMap } from './compileToGql'
+import { compileToGql } from './compileToGql'
 
 export { types } from './types'
 
-export const graphqlify = {
-  query(queryObject: any, operationName: string = '') {
-    return `query ${compileToGql(queryObject, operationName)}`
-  },
-  mutation(queryObject: any, operationName: string = '') {
-    return `mutation ${compileToGql(queryObject, operationName)}`
-  },
-  subscription(queryObject: any, operationName: string = '') {
-    return `subscription ${compileToGql(queryObject, operationName)}`
-  }
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends Array<infer U>
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : DeepPartial<T[P]>
 }
 
-export function params<T extends object>(params: object, fields: T): T {
-  paramsWeakMap.set(fields, params)
-  return fields
+export function graphtype<QueryTypes, ParamTypes>() {
+  return (
+    queryObject: DeepPartial<QueryTypes>,
+    opts: {
+      query?: string
+      mutation?: string
+      subscription?: string
+      params?: DeepPartial<ParamTypes>
+    }
+  ) => {
+    let op = 'query'
+    let operationName = opts.query
+    if (opts.mutation) {
+      op = 'mutation'
+      op = opts.mutation
+    } else if (opts.subscription) {
+      op = 'subscription'
+      op = opts.subscription
+    }
+    return `${op} ${compileToGql(queryObject, opts.params, operationName)}`
+  }
 }
 
 export function $(varName: string, type: any) {
