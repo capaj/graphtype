@@ -9,7 +9,7 @@ Build Typed GraphQL Queries in TypeScript. Convenience of writing the query inte
 # Install
 
 ```
-npm install --save graphtype
+npm install graphtype
 ```
 
 Or if you use Yarn:
@@ -20,7 +20,7 @@ yarn add graphtype
 
 # Motivation
 
-We all know that GraphQL is so great and solves many problems that we have with REST API, like overfetching and underfetching. But developing a GraphQL Client in TypeScript is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
+We all know that GraphQL is so great and solves many problems that we have with REST API, like overfetching and underfetching. Although writing queries is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
 
 When we use GraphQL library such as Apollo, We have to define query and its interface like this:
 
@@ -55,7 +55,7 @@ apolloClient.query<GetUserQueryData>(query).then(data => ...)
 This is duplicates the shape of the object.
 To add a new field to our entity, we have to edit both GraphQL query and TypeScript interface. And TS checking does not work if we do something wrong.
 
-**graphtype** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class.
+**graphtype** tries to solve this. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class.
 
 # How to use
 
@@ -436,23 +436,15 @@ I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is to
 
 On the other hand, `graphtype` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
 
-## Multiple Queries problem
+## Multiple Schema problem
 
 Currently Apollo codegen cannot handle multiple schemas.
 
 - https://github.com/apollographql/apollo-tooling/issues/588
 - https://github.com/apollographql/apollo-tooling/issues/554
 
-Although I know this is a kind of edge case, but if we have the same type name on different schemas, which schema is taken?
-
-## graphtype works even without schema
-
-Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
-I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.
-
 # Thanks
 
-Inspired by
+Forked from early version of
 
-- https://github.com/kadirahq/graphqlify
-- https://github.com/19majkel94/type-graphql
+- https://github.com/acro5piano/typed-graphqlify
