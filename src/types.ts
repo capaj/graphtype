@@ -2,10 +2,10 @@ export type GraphQLData<T extends {}> = {
   value: T[keyof T]
 }['value']
 
-export function optional<T>(obj: T): T | null {
+export function nullable<T>(obj: T): T | null {
   if (obj instanceof CoreType) {
     const newCoreType = new CoreType(obj.type)
-    newCoreType.optional = true
+    newCoreType.nullable = true
     return (newCoreType as any) as T
   }
   return obj
@@ -29,7 +29,7 @@ export enum TypeFlags {
 }
 export class CoreType {
   type: TypeFlags
-  optional: boolean = false
+  nullable: boolean = false
   constructor(type: TypeFlags) {
     this.type = type
   }

@@ -19,16 +19,16 @@ export function graphtype<QueryTypes, ParamTypes>() {
       mutation?: string
       subscription?: string
       params?: DeepPartial<ParamTypes>
-    }
+    } = {}
   ) => {
     let op = 'query'
     let operationName = opts.query
     if (opts.mutation) {
       op = 'mutation'
-      op = opts.mutation
+      operationName = opts.mutation
     } else if (opts.subscription) {
       op = 'subscription'
-      op = opts.subscription
+      operationName = opts.subscription
     }
     return `${op} ${compileToGql(queryObject, opts.params, operationName)}`
   }

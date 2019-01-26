@@ -3,15 +3,26 @@ import { get, isObject } from 'lodash'
 import debug from 'debug'
 const log = debug('graphtype')
 
+const operationParamTypes = [CoreType, OperationVariable, RawType]
+
 export const getParams = (params: any) => {
   if (!params) {
     return ''
   }
   const variables = Object.keys(params)
     .filter((key) => {
+      log('key: ', key)
       const paramValue = params[key]
+      if (
+        operationParamTypes.find((t) => {
+          return paramValue instanceof t
+        })
+      ) {
+        return true
+      }
+      const skip = !isObject(paramValue) && !paramValue.__typename
 
-      return !isObject(paramValue) && !paramValue.__typename // filter out objects without a typename-these are probably params for nested fields returned by the current field
+      return skip // filter out objects without a typename-these are probably params for nested fields returned by the current field
     })
     .map((key) => {
       const paramValue = params[key]
@@ -117,7 +128,7 @@ export function compileToGql(
           }
         })
         params = getParams(paramsObject)
-        log('params: ', params)
+        log(`params "${fieldName}" compiled as: `, params)
       }
       const joinedFields = joinFieldRecursively(fieldValue, fieldName)
       // log('fieldValue: ', fieldValue)
@@ -130,10 +141,10 @@ export function compileToGql(
     const operationParamsString = `(${Object.entries(operationParamsObject)
       .map(([key, value]) => {
         if (value instanceof OperationVariable) {
-          const exclamationMark = value.coreType.optional ? '' : '!'
+          const exclamationMark = value.coreType.nullable ? '' : '!'
           return '$' + key + ': ' + value.coreType.type + exclamationMark
         } else if (value instanceof CoreType) {
-          const exclamationMark = value.optional ? '' : '!'
+          const exclamationMark = value.nullable ? '' : '!'
           return '$' + key + ': ' + value.type + exclamationMark
         } else if (value instanceof RawType) {
           return '$' + key + ': ' + value.raw

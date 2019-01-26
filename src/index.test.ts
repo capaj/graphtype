@@ -1,5 +1,5 @@
-import { graphtype, types } from './index'
-// import { optional } from './types'
+import { graphtype, types, $ } from './index'
+import { nullable } from './types'
 // import { GraphQLData } from './index'
 import { gql } from './test-utils'
 
@@ -203,215 +203,226 @@ describe('graphqlify', () => {
     `)
   })
 
-  // it('render variable param and name it the same', () => {
-  //   const query = graphtype.query(
-  //     {
-  //       user: params(
-  //         { id: optional(types.number) },
-  //         {
-  //           id: types.number
-  //         }
-  //       )
-  //     },
-  //     'getUserById'
-  //   )
+  it('render variable param and name it the same', () => {
+    expect(
+      query(
+        {
+          user: {
+            id: types.number
+          }
+        },
+        {
+          query: 'getUserById',
+          params: { user: { id: nullable(types.number) } }
+        }
+      )
+    ).toEqual(gql`
+      query getUserById($id: Number) {
+        user(id: $id) {
+          id
+        }
+      }
+    `)
+  })
 
-  //   expect(query).toEqual(gql`
-  //     query getUserById($id: Number) {
-  //       user(id: $id) {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
+  it('render variable params with an alias', () => {
+    const fragment = {
+      id: types.number
+    }
+    // const paramsObject = {
+    //   userId: types.number,
+    //   bankAccountId: types.number
+    // }
 
-  // it('render variable params with an alias', () => {
-  //   // const paramsObject = {
-  //   //   userId: types.number,
-  //   //   bankAccountId: types.number
-  //   // }
+    expect(
+      query(
+        {
+          user: fragment,
+          bankAccount: fragment
+        },
+        {
+          query: 'getUserAndBankAccount',
+          params: {
+            user: { id: $('userId', nullable(types.number)) },
+            bankAccount: {
+              id: nullable(types.number)
+            }
+          }
+        }
+      )
+    ).toEqual(gql`
+      query getUserAndBankAccount($userId: Number, $id: Number) {
+        user(id: $userId) {
+          id
+        }
+        bankAccount(id: $id) {
+          id
+        }
+      }
+    `)
+  })
 
-  //   const queryObject = {
-  //     user: params(
-  //       { id: $('userId', optional(types.number)) },
-  //       {
-  //         id: types.number
-  //       }
-  //     ),
-  //     bankAccount: params(
-  //       { id: optional(types.number) },
-  //       {
-  //         id: types.number
-  //       }
-  //     )
-  //   }
-  //   const actual = graphtype.query(queryObject, 'getUserAndBankAccount')
+  it('render mutation', () => {
+    expect(
+      query(
+        {
+          updateUser: {
+            id: types.number
+          }
+        },
+        {
+          mutation: 'updateUser',
+          params: { updateUser: { name: types.string } }
+        }
+      )
+    ).toEqual(gql`
+      mutation updateUser($name: String!) {
+        updateUser(name: $name) {
+          id
+        }
+      }
+    `)
+  })
 
-  //   expect(actual).toEqual(gql`
-  //     query getUserAndBankAccount($userId: Number, $id: Number) {
-  //       user(id: $userId) {
-  //         id
-  //       }
-  //       bankAccount(id: $id) {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
+  it('render mutation with custom type name', () => {
+    expect(
+      query(
+        {
+          updateUser: {
+            id: types.number
+          }
+        },
+        {
+          mutation: 'updateUser',
+          params: { updateUser: { input: types.raw('UserInput') } }
+        }
+      )
+    ).toEqual(gql`
+      mutation updateUser($input: UserInput) {
+        updateUser(input: $input) {
+          id
+        }
+      }
+    `)
+  })
 
-  // it('render mutation', () => {
-  //   const queryObject = {
-  //     updateUser: params(
-  //       { name: types.string },
-  //       {
-  //         id: types.number
-  //       }
-  //     )
-  //   }
-  //   const actual = graphtype.mutation(queryObject, 'updateUser')
+  it('render nullable field', () => {
+    expect(
+      query(
+        {
+          user: nullable({
+            id: types.number
+          })
+        },
+        { query: 'getUser' }
+      )
+    ).toEqual(gql`
+      query getUser {
+        user {
+          id
+        }
+      }
+    `)
+  })
 
-  //   expect(actual).toEqual(gql`
-  //     mutation updateUser($name: String!) {
-  //       updateUser(name: $name) {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
+  it('render array field', () => {
+    expect(
+      query(
+        {
+          users: [
+            {
+              id: types.number
+            }
+          ]
+        },
+        { query: 'getUsers' }
+      )
+    ).toEqual(gql`
+      query getUsers {
+        users {
+          id
+        }
+      }
+    `)
+  })
 
-  // it('render mutation with custom type name', () => {
-  //   const queryObject = {
-  //     updateUser: params(
-  //       { input: types.raw('UserInput') },
-  //       {
-  //         id: types.number
-  //       }
-  //     )
-  //   }
-  //   const actual = graphtype.mutation(queryObject, 'updateUser')
+  it('render __typename itself', () => {
+    // just type check
+    // const a: GraphQLData<typeof queryObject> = {
+    //   users: {
+    //     id: 1,
+    //     __typename: 'User',
+    //   },
+    // }
 
-  //   expect(actual).toEqual(gql`
-  //     mutation updateUser($input: UserInput) {
-  //       updateUser(input: $input) {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
+    expect(
+      query({
+        users: {
+          id: types.number,
+          __typename: types.constant('User')
+        }
+      })
+    ).toEqual(gql`
+      query {
+        users {
+          id
+          __typename
+        }
+      }
+    `)
+  })
 
-  // it('render optional field', () => {
-  //   const queryObject = {
-  //     user: optional({
-  //       id: types.number
-  //     })
-  //   }
-  //   const actual = graphtype.query(queryObject, 'getUser')
+  it('render parameters when array', () => {
+    expect(
+      query(
+        {
+          users: [
+            {
+              id: types.number
+            }
+          ]
+        },
+        { query: 'getUsers', params: { users: { status: types.string } } }
+      )
+    ).toEqual(gql`
+      query getUsers($status: String!) {
+        users(status: $status) {
+          id
+        }
+      }
+    `)
+  })
 
-  //   expect(actual).toEqual(gql`
-  //     query getUser {
-  //       user {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
+  it('render enum', () => {
+    enum UserType {
+      'Student',
+      'Teacher'
+    }
 
-  // it('render array field', () => {
-  //   const queryObject = {
-  //     users: [
-  //       {
-  //         id: types.number
-  //       }
-  //     ]
-  //   }
-  //   const actual = graphtype.query(queryObject, 'getUsers')
+    // just type check
+    // const a: GraphQLData<typeof queryObject> = {
+    //   user: {
+    //     id: 1,
+    //     type: 'foo',
+    //   },
+    // }
 
-  //   expect(actual).toEqual(gql`
-  //     query getUsers {
-  //       users {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
-
-  // it('render __typename itself', () => {
-  //   const queryObject = {
-  //     users: {
-  //       id: types.number,
-  //       __typename: types.constant('User')
-  //     }
-  //   }
-  //   const actual = graphtype.query(queryObject, 'getUsers')
-
-  //   // just type check
-  //   // const a: GraphQLData<typeof queryObject> = {
-  //   //   users: {
-  //   //     id: 1,
-  //   //     __typename: 'User',
-  //   //   },
-  //   // }
-
-  //   expect(actual).toEqual(gql`
-  //     query getUsers {
-  //       users {
-  //         id
-  //         __typename
-  //       }
-  //     }
-  //   `)
-  // })
-
-  // it('render parameters when array', () => {
-  //   const queryObject = {
-  //     users: params({ status: types.string }, [
-  //       {
-  //         id: types.number
-  //       }
-  //     ])
-  //   }
-  //   const actual = graphtype.query(queryObject, 'getUsers')
-
-  //   expect(actual).toEqual(gql`
-  //     query getUsers($status: String!) {
-  //       users(status: $status) {
-  //         id
-  //       }
-  //     }
-  //   `)
-  // })
-
-  // it('render enum', () => {
-  //   enum UserType {
-  //     'Student',
-  //     'Teacher'
-  //   }
-
-  //   const queryObject = {
-  //     user: {
-  //       id: types.number,
-  //       type: types.oneOf(UserType)
-  //     }
-  //   }
-  //   const actual = graphtype.query(queryObject, 'getUser')
-
-  //   // just type check
-  //   // const a: GraphQLData<typeof queryObject> = {
-  //   //   user: {
-  //   //     id: 1,
-  //   //     type: 'foo',
-  //   //   },
-  //   // }
-
-  //   expect(actual).toEqual(gql`
-  //     query getUser {
-  //       user {
-  //         id
-  //         type
-  //       }
-  //     }
-  //   `)
-  // })
+    expect(
+      query({
+        user: {
+          id: types.number,
+          type: types.oneOf(UserType)
+        }
+      })
+    ).toEqual(gql`
+      query {
+        user {
+          id
+          type
+        }
+      }
+    `)
+  })
 
   // it.skip('renders inline fragment spread', async () => {
   //   const queryObject = {
@@ -432,7 +443,7 @@ describe('graphqlify', () => {
   //     ]
   //   }
   //   // console.log(queryObject.users[1].)
-  //   const actual = graphtype.query(queryObject, 'getUsers')
+  //   query(queryObject, 'getUsers')
 
   //   expect(actual).toEqual(gql`
   //     query getUsers {
