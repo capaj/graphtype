@@ -1,5 +1,5 @@
 [![npm version](https://badge.fury.io/js/graphtype.svg)](https://badge.fury.io/js/graphtype)
-
+[![Build Status](https://travis-ci.org/capaj/graphtype.svg?branch=master)](https://travis-ci.org/capaj/graphtype)
 ![image](https://github.com/capaj/graphtype/blob/master/logo-fixed.png)
 
 # graphtype
