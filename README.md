@@ -4,7 +4,7 @@
 
 # graphtype
 
-Build Typed GraphQL Queries in TypeScript. Convenience of writing the query interface once and generating the GraphQL query from it.
+Build Type-safe GraphQL Queries in TypeScript. Let the compiler typecheck your queries.
 
 # Install
 
