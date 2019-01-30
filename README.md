@@ -443,8 +443,11 @@ Currently Apollo codegen cannot handle multiple schemas.
 - https://github.com/apollographql/apollo-tooling/issues/588
 - https://github.com/apollographql/apollo-tooling/issues/554
 
-# Thanks
+# Related projects
 
-Forked from early version of
+This project was initially forked from early version of
 
 - https://github.com/acro5piano/typed-graphqlify
+
+Currently it is much more like this project: https://github.com/helios1138/graphql-typed-client
+Probably most important difference is graphql-typed-client requires [whole schema.json to be loaded at runtime](https://github.com/helios1138/graphql-typed-client/issues/7). This generated file can be very big for complex schemas, so that's why I decided to maintain project as a ligtweight alternative to graphql-typed-client.
