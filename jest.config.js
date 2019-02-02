@@ -1,5 +1,5 @@
 module.exports = {
-  testRegex: '.*\\.test\\.tsx?$',
+  testRegex: '.*\\.spec\\.tsx?$',
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
@@ -11,5 +11,10 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/*.ts'],
   testEnvironment: 'jsdom',
-  testURL: 'http://localhost/'
+  testURL: 'http://localhost/',
+  globals: {
+    'ts-jest': {
+      diagnostics: false
+    }
+  }
 }

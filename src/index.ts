@@ -2,6 +2,7 @@ import { OperationVariable, Fragments } from './types'
 import { compileToGql } from './compileToGql'
 
 export { types } from './types'
+export { types as t } from './types'
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>

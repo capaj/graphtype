@@ -62,17 +62,17 @@ To add a new field to our entity, we have to edit both GraphQL query and TypeScr
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { graphqlify, types, params } from 'graphtype'
+import { graphqlify, t, params } from 'graphtype'
 
 const getUserQuery = {
   user: params(
     { id: 1 },
     {
-      id: types.number,
-      name: types.string,
+      id: t.Number,
+      name: t.String,
       bankAccount: {
-        id: types.number,
-        branch: types.optional.string
+        id: t.Number,
+        branch: t.nullable.String
       }
     }
   )
@@ -81,7 +81,7 @@ const getUserQuery = {
 
 Note that we use our `types` helper to define types in the result.
 
-Then, convert the JS Object to GraphQL (string) with `graphqlify`:
+Then, convert the JS Object to GraphQL (String) with `graphqlify`:
 
 ```typescript
 const gqlString = graphqlify.query(getUserQuery)
@@ -114,11 +114,11 @@ const result: GraphQLData<typeof getUserQuery> = await executeGraphql(gqlString)
 // Now, `result` type looks like this:
 // interface result {
 //   user: {
-//     id: number
-//     name: string
+//     id: Number
+//     name: String
 //     bankAccount: {
-//       id: number
-//       branch?: string
+//       id: Number
+//       branch?: String
 //     }
 //   }
 // }
@@ -132,7 +132,7 @@ const result: GraphQLData<typeof getUserQuery> = await executeGraphql(gqlString)
 - Array Query
 - Input variables, parameters
 - Query and Mutation
-- Optional types
+- Nullable types
 
 # Examples
 
@@ -152,8 +152,8 @@ query getUser {
 graphqlify.query(
   {
     user: {
-      id: types.number,
-      name: types.string,
+      id: types.Number,
+      name: types.String,
       isActive: types.boolean
     }
   },
@@ -180,7 +180,7 @@ graphqlify.mutation(
     updateUser: params(
       { input: types.raw('UserInput') },
       {
-        id: types.number
+        id: types.Number
       }
     )
   },
@@ -199,7 +199,7 @@ graphqlify.mutation(
     updateUser: params(
       { input: $('userInput', types.raw('UserInput')) },
       {
-        id: types.number
+        id: types.Number
       }
     )
   },
@@ -247,17 +247,17 @@ query getUser {
 graphqlify.query(
   {
     user: {
-      id: types.number,
-      name: types.string,
+      id: types.Number,
+      name: types.String,
       parent: {
-        id: types.number,
-        name: types.string,
+        id: types.Number,
+        name: types.String,
         grandParent: {
-          id: types.number,
-          name: types.string,
+          id: types.Number,
+          name: types.String,
           children: {
-            id: types.number,
-            name: types.string
+            id: types.Number,
+            name: types.String
           }
         }
       }
@@ -283,9 +283,9 @@ query getUsers {
 ```typescript
 graphqlify.query(
   {
-    users: params({ status: types.string }, [
+    users: params({ status: types.String }, [
       {
-        id: types.number
+        id: types.Number
       }
     ])
   },
@@ -293,21 +293,21 @@ graphqlify.query(
 )
 ```
 
-## Optional Field
+## Nullable Fields
 
-Add `types.optional` or `optional` helper method to define optional field.
+Add `types.nullable` or `nullable` helper method to define nullable field.
 
 ```typescript
-import { types, optional } from 'graphtype'
+import { types, nullable } from 'graphtype'
 
 graphqlify.query(
   {
     user: {
-      id: types.number,
-      name: types.optional.string, // <-- user.name is `string | undefined`
-      bankAccount: optional({
-        // <-- user.bankAccount is `{ id: number } | undefined`
-        id: types.number
+      id: types.Number,
+      name: types.nullable.String, // <-- user.name is `String | undefined`
+      bankAccount: nullable({
+        // <-- user.bankAccount is `{ id: Number } | undefined`
+        id: types.Number
       })
     }
   },
@@ -333,8 +333,8 @@ query getUser {
 graphqlify.query(
   {
     user: {
-      id: types.number,
-      name: types.string,
+      id: types.Number,
+      name: types.String,
       __typename: types.constant('User')
     }
   },
@@ -365,8 +365,8 @@ enum UserType {
 graphqlify.query(
   {
     user: {
-      id: types.number,
-      name: types.string,
+      id: types.Number,
+      name: types.String,
       type: types.oneOf(UserType)
     }
   },
@@ -397,12 +397,12 @@ query getFatherAndMother {
 graphqlify.query(
   {
     father: {
-      id: types.number,
-      name: types.string
+      id: types.Number,
+      name: types.String
     },
     mother: {
-      id: types.number,
-      name: types.number
+      id: types.Number,
+      name: types.Number
     }
   },
   'getFatherAndMother'
@@ -445,9 +445,10 @@ Currently Apollo codegen cannot handle multiple schemas.
 
 # Related projects
 
-This project was initially forked from early version of
+This project was initially forked from an early version of
 
 - https://github.com/acro5piano/typed-graphqlify
 
 Currently it is much more like this project: https://github.com/helios1138/graphql-typed-client
-Probably most important difference is graphql-typed-client requires [whole schema.json to be loaded at runtime](https://github.com/helios1138/graphql-typed-client/issues/7). This generated file can be very big for complex schemas, so that's why I decided to maintain project as a ligtweight alternative to graphql-typed-client.
+
+- Probably most important difference is graphql-typed-client requires [whole schema.json to be loaded at runtime](https://github.com/helios1138/graphql-typed-client/issues/7). This generated file can be very big for complex schemas, so that's why I decided to maintain project as a ligtweight alternative to graphql-typed-client.

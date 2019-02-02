@@ -1,0 +1,1926 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderSchemaTypes should render 1`] = `
+"export const INode = {
+	id: t.ID
+})
+
+export const IActor = {
+	avatarUrl: t.String, 
+	login: t.String, 
+	resourcePath: t.String, 
+	url: t.String
+})
+
+export const IRegistryPackageOwner = {
+	id: t.ID
+})
+
+export const IRegistryPackageSearch = {
+	id: t.ID
+})
+
+export const IProjectOwner = {
+	id: t.ID, 
+	projectsResourcePath: t.String, 
+	projectsUrl: t.String, 
+	viewerCanCreateProjects: t.Boolean
+})
+
+export const IClosable = {
+	closed: t.Boolean, 
+	closedAt: t.nullable.DateTime
+})
+
+export const IUpdatable = {
+	viewerCanUpdate: t.Boolean
+})
+
+export const IAssignable = {
+	
+})
+
+export const IRepositoryOwner = {
+	avatarUrl: t.String, 
+	id: t.ID, 
+	login: t.String, 
+	resourcePath: t.String, 
+	url: t.String
+})
+
+export const ISubscribable = {
+	id: t.ID, 
+	viewerCanSubscribe: t.Boolean
+})
+
+export const IStarrable = {
+	id: t.ID, 
+	viewerHasStarred: t.Boolean
+})
+
+export const IUniformResourceLocatable = {
+	resourcePath: t.String, 
+	url: t.String
+})
+
+export const IRepositoryInfo = {
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	descriptionHTML: t.String, 
+	forkCount: t.Int, 
+	hasIssuesEnabled: t.Boolean, 
+	hasWikiEnabled: t.Boolean, 
+	homepageUrl: t.nullable.String, 
+	isArchived: t.Boolean, 
+	isFork: t.Boolean, 
+	isLocked: t.Boolean, 
+	isMirror: t.Boolean, 
+	isPrivate: t.Boolean, 
+	mirrorUrl: t.nullable.String, 
+	name: t.String, 
+	nameWithOwner: t.String, 
+	pushedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	shortDescriptionHTML: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+})
+
+export const IComment = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	publishedAt: t.nullable.DateTime, 
+	updatedAt: t.DateTime, 
+	viewerDidAuthor: t.Boolean
+})
+
+export const IUpdatableComment = {
+	
+})
+
+export const ILabelable = {
+	
+})
+
+export const ILockable = {
+	locked: t.Boolean
+})
+
+export const IReactable = {
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	viewerCanReact: t.Boolean
+})
+
+export const IRepositoryNode = {
+	
+})
+
+export const IDeletable = {
+	viewerCanDelete: t.Boolean
+})
+
+export const IGitObject = {
+	abbreviatedOid: t.String, 
+	commitResourcePath: t.String, 
+	commitUrl: t.String, 
+	id: t.ID
+})
+
+export const IGitSignature = {
+	email: t.String, 
+	isValid: t.Boolean, 
+	payload: t.String, 
+	signature: t.String, 
+	wasSignedByGitHub: t.Boolean
+})
+
+export const IContribution = {
+	isRestricted: t.Boolean, 
+	occurredAt: t.DateTime, 
+	resourcePath: t.String, 
+	url: t.String
+})export const OTQuery = {
+	
+}
+
+export const OTCodeOfConduct = {
+	body: t.nullable.String, 
+	key: t.String, 
+	name: t.String, 
+	url: t.nullable.String
+}
+
+export const OTLicense = {
+	body: t.String, 
+	description: t.nullable.String, 
+	featured: t.Boolean, 
+	hidden: t.Boolean, 
+	id: t.ID, 
+	implementation: t.nullable.String, 
+	key: t.String, 
+	name: t.String, 
+	nickname: t.nullable.String, 
+	pseudoLicense: t.Boolean, 
+	spdxId: t.nullable.String, 
+	url: t.nullable.String
+}
+
+export const OTLicenseRule = {
+	description: t.String, 
+	key: t.String, 
+	label: t.String
+}
+
+export const OTMarketplaceCategory = {
+	description: t.nullable.String, 
+	howItWorks: t.nullable.String, 
+	id: t.ID, 
+	name: t.String, 
+	primaryListingCount: t.Int, 
+	resourcePath: t.String, 
+	secondaryListingCount: t.Int, 
+	slug: t.String, 
+	url: t.String
+}
+
+export const OTMarketplaceListing = {
+	companyUrl: t.nullable.String, 
+	configurationResourcePath: t.String, 
+	configurationUrl: t.String, 
+	documentationUrl: t.nullable.String, 
+	extendedDescription: t.nullable.String, 
+	extendedDescriptionHTML: t.String, 
+	fullDescription: t.String, 
+	fullDescriptionHTML: t.String, 
+	hasApprovalBeenRequested: t.Boolean, 
+	hasPublishedFreeTrialPlans: t.Boolean, 
+	hasTermsOfService: t.Boolean, 
+	howItWorks: t.nullable.String, 
+	howItWorksHTML: t.String, 
+	id: t.ID, 
+	installationUrl: t.nullable.String, 
+	installedForViewer: t.Boolean, 
+	isApproved: t.Boolean, 
+	isDelisted: t.Boolean, 
+	isDraft: t.Boolean, 
+	isPaid: t.Boolean, 
+	isRejected: t.Boolean, 
+	logoBackgroundColor: t.String, 
+	logoUrl: t.nullable.String, 
+	name: t.String, 
+	normalizedShortDescription: t.String, 
+	pricingUrl: t.nullable.String, 
+	privacyPolicyUrl: t.String, 
+	resourcePath: t.String, 
+	screenshotUrls: t.String, 
+	shortDescription: t.String, 
+	slug: t.String, 
+	statusUrl: t.nullable.String, 
+	supportEmail: t.nullable.String, 
+	supportUrl: t.String, 
+	termsOfServiceUrl: t.nullable.String, 
+	url: t.String, 
+	viewerCanAddPlans: t.Boolean, 
+	viewerCanApprove: t.Boolean, 
+	viewerCanDelist: t.Boolean, 
+	viewerCanEdit: t.Boolean, 
+	viewerCanEditCategories: t.Boolean, 
+	viewerCanEditPlans: t.Boolean, 
+	viewerCanRedraft: t.Boolean, 
+	viewerCanReject: t.Boolean, 
+	viewerCanRequestApproval: t.Boolean, 
+	viewerHasPurchased: t.Boolean, 
+	viewerHasPurchasedForAllOrganizations: t.Boolean, 
+	viewerIsListingAdmin: t.Boolean
+}
+
+export const OTApp = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	description: t.nullable.String, 
+	id: t.ID, 
+	logoBackgroundColor: t.String, 
+	logoUrl: t.String, 
+	name: t.String, 
+	slug: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTMarketplaceListingConnection = {
+	totalCount: t.Int
+}
+
+export const OTMarketplaceListingEdge = {
+	cursor: t.String
+}
+
+export const OTPageInfo = {
+	endCursor: t.nullable.String, 
+	hasNextPage: t.Boolean, 
+	hasPreviousPage: t.Boolean, 
+	startCursor: t.nullable.String
+}
+
+export const OTGitHubMetadata = {
+	gitIpAddresses: t.nullable.String, 
+	hookIpAddresses: t.nullable.String, 
+	importerIpAddresses: t.nullable.String, 
+	isPasswordAuthenticationVerifiable: t.Boolean, 
+	pagesIpAddresses: t.nullable.String
+}
+
+export const OTOrganization = {
+	avatarUrl: t.String, 
+	databaseId: t.nullable.Int, 
+	description: t.nullable.String, 
+	email: t.nullable.String, 
+	id: t.ID, 
+	isVerified: t.Boolean, 
+	location: t.nullable.String, 
+	login: t.String, 
+	name: t.nullable.String, 
+	newTeamResourcePath: t.String, 
+	newTeamUrl: t.String, 
+	organizationBillingEmail: t.nullable.String, 
+	projectsResourcePath: t.String, 
+	projectsUrl: t.String, 
+	requiresTwoFactorAuthentication: t.nullable.Boolean, 
+	resourcePath: t.String, 
+	teamsResourcePath: t.String, 
+	teamsUrl: t.String, 
+	url: t.String, 
+	viewerCanAdminister: t.Boolean, 
+	viewerCanCreateProjects: t.Boolean, 
+	viewerCanCreateRepositories: t.Boolean, 
+	viewerCanCreateTeams: t.Boolean, 
+	viewerIsAMember: t.Boolean, 
+	websiteUrl: t.nullable.String
+}
+
+export const OTProject = {
+	body: t.nullable.String, 
+	bodyHTML: t.String, 
+	closed: t.Boolean, 
+	closedAt: t.nullable.DateTime, 
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	name: t.String, 
+	number: t.Int, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanUpdate: t.Boolean
+}
+
+export const OTProjectColumnConnection = {
+	totalCount: t.Int
+}
+
+export const OTProjectColumnEdge = {
+	cursor: t.String
+}
+
+export const OTProjectColumn = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	name: t.String, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTProjectCardConnection = {
+	totalCount: t.Int
+}
+
+export const OTProjectCardEdge = {
+	cursor: t.String
+}
+
+export const OTProjectCard = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	isArchived: t.Boolean, 
+	note: t.nullable.String, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTIssue = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	closed: t.Boolean, 
+	closedAt: t.nullable.DateTime, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	locked: t.Boolean, 
+	number: t.Int, 
+	publishedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	title: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanReact: t.Boolean, 
+	viewerCanSubscribe: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTUserConnection = {
+	totalCount: t.Int
+}
+
+export const OTUserEdge = {
+	cursor: t.String
+}
+
+export const OTUser = {
+	avatarUrl: t.String, 
+	bio: t.nullable.String, 
+	bioHTML: t.String, 
+	company: t.nullable.String, 
+	companyHTML: t.String, 
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	email: t.String, 
+	id: t.ID, 
+	isBountyHunter: t.Boolean, 
+	isCampusExpert: t.Boolean, 
+	isDeveloperProgramMember: t.Boolean, 
+	isEmployee: t.Boolean, 
+	isHireable: t.Boolean, 
+	isSiteAdmin: t.Boolean, 
+	isViewer: t.Boolean, 
+	location: t.nullable.String, 
+	login: t.String, 
+	name: t.nullable.String, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanFollow: t.Boolean, 
+	viewerIsFollowing: t.Boolean, 
+	websiteUrl: t.nullable.String
+}
+
+export const OTRepositoryConnection = {
+	totalCount: t.Int, 
+	totalDiskUsage: t.Int
+}
+
+export const OTRepositoryEdge = {
+	cursor: t.String
+}
+
+export const OTRepository = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	description: t.nullable.String, 
+	descriptionHTML: t.String, 
+	diskUsage: t.nullable.Int, 
+	forkCount: t.Int, 
+	hasIssuesEnabled: t.Boolean, 
+	hasWikiEnabled: t.Boolean, 
+	homepageUrl: t.nullable.String, 
+	id: t.ID, 
+	isArchived: t.Boolean, 
+	isFork: t.Boolean, 
+	isLocked: t.Boolean, 
+	isMirror: t.Boolean, 
+	isPrivate: t.Boolean, 
+	mergeCommitAllowed: t.Boolean, 
+	mirrorUrl: t.nullable.String, 
+	name: t.String, 
+	nameWithOwner: t.String, 
+	projectsResourcePath: t.String, 
+	projectsUrl: t.String, 
+	pushedAt: t.nullable.DateTime, 
+	rebaseMergeAllowed: t.Boolean, 
+	resourcePath: t.String, 
+	shortDescriptionHTML: t.String, 
+	squashMergeAllowed: t.Boolean, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanAdminister: t.Boolean, 
+	viewerCanCreateProjects: t.Boolean, 
+	viewerCanSubscribe: t.Boolean, 
+	viewerCanUpdateTopics: t.Boolean, 
+	viewerHasStarred: t.Boolean
+}
+
+export const OTStargazerConnection = {
+	totalCount: t.Int
+}
+
+export const OTStargazerEdge = {
+	cursor: t.String, 
+	starredAt: t.DateTime
+}
+
+export const OTBranchProtectionRuleConnection = {
+	totalCount: t.Int
+}
+
+export const OTBranchProtectionRuleEdge = {
+	cursor: t.String
+}
+
+export const OTBranchProtectionRule = {
+	databaseId: t.nullable.Int, 
+	dismissesStaleReviews: t.Boolean, 
+	id: t.ID, 
+	isAdminEnforced: t.Boolean, 
+	pattern: t.String, 
+	requiredApprovingReviewCount: t.nullable.Int, 
+	requiredStatusCheckContexts: t.nullable.String, 
+	requiresApprovingReviews: t.Boolean, 
+	requiresCommitSignatures: t.Boolean, 
+	requiresStatusChecks: t.Boolean, 
+	requiresStrictStatusChecks: t.Boolean, 
+	restrictsPushes: t.Boolean, 
+	restrictsReviewDismissals: t.Boolean
+}
+
+export const OTBranchProtectionRuleConflictConnection = {
+	totalCount: t.Int
+}
+
+export const OTBranchProtectionRuleConflictEdge = {
+	cursor: t.String
+}
+
+export const OTBranchProtectionRuleConflict = {
+	
+}
+
+export const OTRef = {
+	id: t.ID, 
+	name: t.String, 
+	prefix: t.String
+}
+
+export const OTPullRequestConnection = {
+	totalCount: t.Int
+}
+
+export const OTPullRequestEdge = {
+	cursor: t.String
+}
+
+export const OTPullRequest = {
+	additions: t.Int, 
+	baseRefName: t.String, 
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	changedFiles: t.Int, 
+	closed: t.Boolean, 
+	closedAt: t.nullable.DateTime, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	deletions: t.Int, 
+	headRefName: t.String, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	isCrossRepository: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	locked: t.Boolean, 
+	maintainerCanModify: t.Boolean, 
+	merged: t.Boolean, 
+	mergedAt: t.nullable.DateTime, 
+	number: t.Int, 
+	permalink: t.String, 
+	publishedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	revertResourcePath: t.String, 
+	revertUrl: t.String, 
+	title: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanApplySuggestion: t.Boolean, 
+	viewerCanReact: t.Boolean, 
+	viewerCanSubscribe: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTUserContentEditConnection = {
+	totalCount: t.Int
+}
+
+export const OTUserContentEditEdge = {
+	cursor: t.String
+}
+
+export const OTUserContentEdit = {
+	createdAt: t.DateTime, 
+	deletedAt: t.nullable.DateTime, 
+	diff: t.nullable.String, 
+	editedAt: t.DateTime, 
+	id: t.ID, 
+	updatedAt: t.DateTime
+}
+
+export const OTLabelConnection = {
+	totalCount: t.Int
+}
+
+export const OTLabelEdge = {
+	cursor: t.String
+}
+
+export const OTLabel = {
+	color: t.String, 
+	createdAt: t.nullable.DateTime, 
+	description: t.nullable.String, 
+	id: t.ID, 
+	isDefault: t.Boolean, 
+	name: t.String, 
+	resourcePath: t.String, 
+	updatedAt: t.nullable.DateTime, 
+	url: t.String
+}
+
+export const OTIssueConnection = {
+	totalCount: t.Int
+}
+
+export const OTIssueEdge = {
+	cursor: t.String
+}
+
+export const OTReactionGroup = {
+	createdAt: t.nullable.DateTime, 
+	viewerHasReacted: t.Boolean
+}
+
+export const OTReactingUserConnection = {
+	totalCount: t.Int
+}
+
+export const OTReactingUserEdge = {
+	cursor: t.String, 
+	reactedAt: t.DateTime
+}
+
+export const OTReactionConnection = {
+	totalCount: t.Int, 
+	viewerHasReacted: t.Boolean
+}
+
+export const OTReactionEdge = {
+	cursor: t.String
+}
+
+export const OTReaction = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTIssueCommentConnection = {
+	totalCount: t.Int
+}
+
+export const OTIssueCommentEdge = {
+	cursor: t.String
+}
+
+export const OTIssueComment = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	isMinimized: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	minimizedReason: t.nullable.String, 
+	publishedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanDelete: t.Boolean, 
+	viewerCanMinimize: t.Boolean, 
+	viewerCanReact: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTPullRequestCommitConnection = {
+	totalCount: t.Int
+}
+
+export const OTPullRequestCommitEdge = {
+	cursor: t.String
+}
+
+export const OTPullRequestCommit = {
+	id: t.ID, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTCommit = {
+	abbreviatedOid: t.String, 
+	additions: t.Int, 
+	authoredByCommitter: t.Boolean, 
+	authoredDate: t.DateTime, 
+	changedFiles: t.Int, 
+	commitResourcePath: t.String, 
+	commitUrl: t.String, 
+	committedDate: t.DateTime, 
+	committedViaWeb: t.Boolean, 
+	deletions: t.Int, 
+	id: t.ID, 
+	message: t.String, 
+	messageBody: t.String, 
+	messageBodyHTML: t.String, 
+	messageHeadline: t.String, 
+	messageHeadlineHTML: t.String, 
+	pushedDate: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	tarballUrl: t.String, 
+	treeResourcePath: t.String, 
+	treeUrl: t.String, 
+	url: t.String, 
+	viewerCanSubscribe: t.Boolean, 
+	zipballUrl: t.String
+}
+
+export const OTGitActor = {
+	avatarUrl: t.String, 
+	email: t.nullable.String, 
+	name: t.nullable.String
+}
+
+export const OTBlame = {
+	
+}
+
+export const OTBlameRange = {
+	age: t.Int, 
+	endingLine: t.Int, 
+	startingLine: t.Int
+}
+
+export const OTCommitCommentConnection = {
+	totalCount: t.Int
+}
+
+export const OTCommitCommentEdge = {
+	cursor: t.String
+}
+
+export const OTCommitComment = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	isMinimized: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	minimizedReason: t.nullable.String, 
+	path: t.nullable.String, 
+	position: t.nullable.Int, 
+	publishedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanDelete: t.Boolean, 
+	viewerCanMinimize: t.Boolean, 
+	viewerCanReact: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTCommitHistoryConnection = {
+	totalCount: t.Int
+}
+
+export const OTCommitEdge = {
+	cursor: t.String
+}
+
+export const OTCommitConnection = {
+	totalCount: t.Int
+}
+
+export const OTStatus = {
+	id: t.ID
+}
+
+export const OTStatusContext = {
+	context: t.String, 
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	id: t.ID, 
+	targetUrl: t.nullable.String
+}
+
+export const OTTree = {
+	abbreviatedOid: t.String, 
+	commitResourcePath: t.String, 
+	commitUrl: t.String, 
+	id: t.ID
+}
+
+export const OTTreeEntry = {
+	mode: t.Int, 
+	name: t.String, 
+	type: t.String
+}
+
+export const OTMilestone = {
+	closed: t.Boolean, 
+	closedAt: t.nullable.DateTime, 
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	dueOn: t.nullable.DateTime, 
+	id: t.ID, 
+	number: t.Int, 
+	resourcePath: t.String, 
+	title: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTReviewRequestConnection = {
+	totalCount: t.Int
+}
+
+export const OTReviewRequestEdge = {
+	cursor: t.String
+}
+
+export const OTReviewRequest = {
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTTeam = {
+	avatarUrl: t.nullable.String, 
+	combinedSlug: t.String, 
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	editTeamResourcePath: t.String, 
+	editTeamUrl: t.String, 
+	id: t.ID, 
+	membersResourcePath: t.String, 
+	membersUrl: t.String, 
+	name: t.String, 
+	newTeamResourcePath: t.String, 
+	newTeamUrl: t.String, 
+	repositoriesResourcePath: t.String, 
+	repositoriesUrl: t.String, 
+	resourcePath: t.String, 
+	slug: t.String, 
+	teamsResourcePath: t.String, 
+	teamsUrl: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanAdminister: t.Boolean, 
+	viewerCanSubscribe: t.Boolean
+}
+
+export const OTTeamConnection = {
+	totalCount: t.Int
+}
+
+export const OTTeamEdge = {
+	cursor: t.String
+}
+
+export const OTOrganizationInvitationConnection = {
+	totalCount: t.Int
+}
+
+export const OTOrganizationInvitationEdge = {
+	cursor: t.String
+}
+
+export const OTOrganizationInvitation = {
+	createdAt: t.DateTime, 
+	email: t.nullable.String, 
+	id: t.ID
+}
+
+export const OTTeamMemberConnection = {
+	totalCount: t.Int
+}
+
+export const OTTeamMemberEdge = {
+	cursor: t.String, 
+	memberAccessResourcePath: t.String, 
+	memberAccessUrl: t.String
+}
+
+export const OTTeamRepositoryConnection = {
+	totalCount: t.Int
+}
+
+export const OTTeamRepositoryEdge = {
+	cursor: t.String
+}
+
+export const OTPullRequestReviewConnection = {
+	totalCount: t.Int
+}
+
+export const OTPullRequestReviewEdge = {
+	cursor: t.String
+}
+
+export const OTPullRequestReview = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	publishedAt: t.nullable.DateTime,
+	resourcePath: t.String, 
+	submittedAt: t.nullable.DateTime, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanDelete: t.Boolean, 
+	viewerCanReact: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTPullRequestReviewCommentConnection = {
+	totalCount: t.Int
+}
+
+export const OTPullRequestReviewCommentEdge = {
+	cursor: t.String
+}
+
+export const OTPullRequestReviewComment = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	diffHunk: t.String, 
+	draftedAt: t.DateTime, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	isMinimized: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	minimizedReason: t.nullable.String, 
+	originalPosition: t.Int, 
+	outdated: t.Boolean, 
+	path: t.String, 
+	position: t.nullable.Int, 
+	publishedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String, 
+	viewerCanDelete: t.Boolean, 
+	viewerCanMinimize: t.Boolean, 
+	viewerCanReact: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTSuggestedReviewer = {
+	isAuthor: t.Boolean, 
+	isCommenter: t.Boolean
+}
+
+export const OTPullRequestTimelineConnection = {
+	totalCount: t.Int
+}
+
+export const OTPullRequestTimelineItemEdge = {
+	cursor: t.String
+}
+
+export const OTCommitCommentThread = {
+	id: t.ID, 
+	path: t.nullable.String, 
+	position: t.nullable.Int
+}
+
+export const OTPullRequestReviewThread = {
+	id: t.ID
+}
+
+export const OTClosedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTReopenedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTSubscribedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTUnsubscribedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTMergedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	mergeRefName: t.String, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTReferencedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	isCrossRepository: t.Boolean, 
+	isDirectReference: t.Boolean
+}
+
+export const OTCrossReferencedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	isCrossRepository: t.Boolean, 
+	referencedAt: t.DateTime, 
+	resourcePath: t.String, 
+	url: t.String, 
+	willCloseTarget: t.Boolean
+}
+
+export const OTAssignedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTUnassignedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTLabeledEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTUnlabeledEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTMilestonedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	milestoneTitle: t.String
+}
+
+export const OTDemilestonedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	milestoneTitle: t.String
+}
+
+export const OTRenamedTitleEvent = {
+	createdAt: t.DateTime, 
+	currentTitle: t.String, 
+	id: t.ID, 
+	previousTitle: t.String
+}
+
+export const OTLockedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTUnlockedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTDeployedEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTDeployment = {
+	commitOid: t.String, 
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	description: t.nullable.String, 
+	environment: t.nullable.String, 
+	id: t.ID, 
+	payload: t.nullable.String, 
+	task: t.nullable.String, 
+	updatedAt: t.DateTime
+}
+
+export const OTDeploymentStatus = {
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	environmentUrl: t.nullable.String, 
+	id: t.ID, 
+	logUrl: t.nullable.String, 
+	updatedAt: t.DateTime
+}
+
+export const OTDeploymentStatusConnection = {
+	totalCount: t.Int
+}
+
+export const OTDeploymentStatusEdge = {
+	cursor: t.String
+}
+
+export const OTDeploymentEnvironmentChangedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTHeadRefDeletedEvent = {
+	createdAt: t.DateTime, 
+	headRefName: t.String, 
+	id: t.ID
+}
+
+export const OTHeadRefRestoredEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTHeadRefForcePushedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTBaseRefForcePushedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTReviewRequestedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTReviewRequestRemovedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTReviewDismissedEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	message: t.String, 
+	messageHtml: t.String, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTRefConnection = {
+	totalCount: t.Int
+}
+
+export const OTRefEdge = {
+	cursor: t.String
+}
+
+export const OTPushAllowanceConnection = {
+	totalCount: t.Int
+}
+
+export const OTPushAllowanceEdge = {
+	cursor: t.String
+}
+
+export const OTPushAllowance = {
+	id: t.ID
+}
+
+export const OTReviewDismissalAllowanceConnection = {
+	totalCount: t.Int
+}
+
+export const OTReviewDismissalAllowanceEdge = {
+	cursor: t.String
+}
+
+export const OTReviewDismissalAllowance = {
+	id: t.ID
+}
+
+export const OTRepositoryCollaboratorConnection = {
+	totalCount: t.Int
+}
+
+export const OTRepositoryCollaboratorEdge = {
+	cursor: t.String
+}
+
+export const OTDeployKeyConnection = {
+	totalCount: t.Int
+}
+
+export const OTDeployKeyEdge = {
+	cursor: t.String
+}
+
+export const OTDeployKey = {
+	createdAt: t.DateTime, 
+	id: t.ID, 
+	key: t.String, 
+	readOnly: t.Boolean, 
+	title: t.String, 
+	verified: t.Boolean
+}
+
+export const OTDeploymentConnection = {
+	totalCount: t.Int
+}
+
+export const OTDeploymentEdge = {
+	cursor: t.String
+}
+
+export const OTLanguageConnection = {
+	totalCount: t.Int, 
+	totalSize: t.Int
+}
+
+export const OTLanguageEdge = {
+	cursor: t.String, 
+	size: t.Int
+}
+
+export const OTLanguage = {
+	color: t.nullable.String, 
+	id: t.ID, 
+	name: t.String
+}
+
+export const OTMilestoneConnection = {
+	totalCount: t.Int
+}
+
+export const OTMilestoneEdge = {
+	cursor: t.String
+}
+
+export const OTProjectConnection = {
+	totalCount: t.Int
+}
+
+export const OTProjectEdge = {
+	cursor: t.String
+}
+
+export const OTProtectedBranchConnection = {
+	totalCount: t.Int
+}
+
+export const OTProtectedBranchEdge = {
+	cursor: t.String
+}
+
+export const OTProtectedBranch = {
+	hasDismissableStaleReviews: t.Boolean, 
+	hasRequiredReviews: t.Boolean, 
+	hasRequiredStatusChecks: t.Boolean, 
+	hasRestrictedPushes: t.Boolean, 
+	hasRestrictedReviewDismissals: t.Boolean, 
+	hasStrictRequiredStatusChecks: t.Boolean, 
+	id: t.ID, 
+	isAdminEnforced: t.Boolean, 
+	name: t.String, 
+	requiredStatusCheckContexts: t.nullable.String
+}
+
+export const OTRelease = {
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	id: t.ID, 
+	isDraft: t.Boolean, 
+	isPrerelease: t.Boolean, 
+	name: t.nullable.String, 
+	publishedAt: t.nullable.DateTime, 
+	resourcePath: t.String, 
+	tagName: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTReleaseAssetConnection = {
+	totalCount: t.Int
+}
+
+export const OTReleaseAssetEdge = {
+	cursor: t.String
+}
+
+export const OTReleaseAsset = {
+	contentType: t.String, 
+	createdAt: t.DateTime, 
+	downloadCount: t.Int, 
+	downloadUrl: t.String, 
+	id: t.ID, 
+	name: t.String, 
+	size: t.Int, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTReleaseConnection = {
+	totalCount: t.Int
+}
+
+export const OTReleaseEdge = {
+	cursor: t.String
+}
+
+export const OTRepositoryTopicConnection = {
+	totalCount: t.Int
+}
+
+export const OTRepositoryTopicEdge = {
+	cursor: t.String
+}
+
+export const OTRepositoryTopic = {
+	id: t.ID, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTTopic = {
+	id: t.ID, 
+	name: t.String, 
+	viewerHasStarred: t.Boolean
+}
+
+export const OTContributionsCollection = {
+	doesEndInCurrentMonth: t.Boolean, 
+	endedAt: t.DateTime, 
+	hasActivityInThePast: t.Boolean, 
+	hasAnyContributions: t.Boolean, 
+	hasAnyRestrictedContributions: t.Boolean, 
+	isSingleDay: t.Boolean, 
+	restrictedContributionsCount: t.Int, 
+	startedAt: t.DateTime, 
+	totalCommitContributions: t.Int, 
+	totalIssueContributions: t.Int, 
+	totalPullRequestContributions: t.Int, 
+	totalPullRequestReviewContributions: t.Int, 
+	totalRepositoriesWithContributedCommits: t.Int, 
+	totalRepositoriesWithContributedIssues: t.Int, 
+	totalRepositoriesWithContributedPullRequestReviews: t.Int, 
+	totalRepositoriesWithContributedPullRequests: t.Int, 
+	totalRepositoryContributions: t.Int
+}
+
+export const OTContributionCalendar = {
+	colors: t.String, 
+	isHalloween: t.Boolean, 
+	totalContributions: t.Int
+}
+
+export const OTContributionCalendarMonth = {
+	name: t.String, 
+	totalWeeks: t.Int, 
+	year: t.Int
+}
+
+export const OTContributionCalendarWeek = {
+	
+}
+
+export const OTContributionCalendarDay = {
+	color: t.String, 
+	contributionCount: t.Int, 
+	weekday: t.Int
+}
+
+export const OTCreatedIssueContribution = {
+	isRestricted: t.Boolean, 
+	occurredAt: t.DateTime, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTRestrictedContribution = {
+	isRestricted: t.Boolean, 
+	occurredAt: t.DateTime, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTCreatedPullRequestContribution = {
+	isRestricted: t.Boolean, 
+	occurredAt: t.DateTime, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTCreatedIssueContributionConnection = {
+	totalCount: t.Int
+}
+
+export const OTCreatedIssueContributionEdge = {
+	cursor: t.String
+}
+
+export const OTJoinedGitHubContribution = {
+	isRestricted: t.Boolean, 
+	occurredAt: t.DateTime, 
+	resourcePath: t.String, 
+	url: t.String
+}
+
+export const OTFollowerConnection = {
+	totalCount: t.Int
+}
+
+export const OTFollowingConnection = {
+	totalCount: t.Int
+}
+
+export const OTGist = {
+	createdAt: t.DateTime, 
+	description: t.nullable.String, 
+	id: t.ID, 
+	isPublic: t.Boolean, 
+	name: t.String, 
+	pushedAt: t.nullable.DateTime, 
+	updatedAt: t.DateTime, 
+	viewerHasStarred: t.Boolean
+}
+
+export const OTGistCommentConnection = {
+	totalCount: t.Int
+}
+
+export const OTGistCommentEdge = {
+	cursor: t.String
+}
+
+export const OTGistComment = {
+	body: t.String, 
+	bodyHTML: t.String, 
+	bodyText: t.String, 
+	createdAt: t.DateTime, 
+	createdViaEmail: t.Boolean, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	includesCreatedEdit: t.Boolean, 
+	isMinimized: t.Boolean, 
+	lastEditedAt: t.nullable.DateTime, 
+	minimizedReason: t.nullable.String, 
+	publishedAt: t.nullable.DateTime, 
+	updatedAt: t.DateTime, 
+	viewerCanDelete: t.Boolean, 
+	viewerCanMinimize: t.Boolean, 
+	viewerCanUpdate: t.Boolean, 
+	viewerDidAuthor: t.Boolean
+}
+
+export const OTGistConnection = {
+	totalCount: t.Int
+}
+
+export const OTGistEdge = {
+	cursor: t.String
+}
+
+export const OTOrganizationConnection = {
+	totalCount: t.Int
+}
+
+export const OTOrganizationEdge = {
+	cursor: t.String
+}
+
+export const OTPublicKeyConnection = {
+	totalCount: t.Int
+}
+
+export const OTPublicKeyEdge = {
+	cursor: t.String
+}
+
+export const OTPublicKey = {
+	id: t.ID, 
+	key: t.String
+}
+
+export const OTStarredRepositoryConnection = {
+	totalCount: t.Int
+}
+
+export const OTStarredRepositoryEdge = {
+	cursor: t.String, 
+	starredAt: t.DateTime
+}
+
+export const OTIssueTimelineConnection = {
+	totalCount: t.Int
+}
+
+export const OTIssueTimelineItemEdge = {
+	cursor: t.String
+}
+
+export const OTTransferredEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTOrganizationMemberConnection = {
+	totalCount: t.Int
+}
+
+export const OTOrganizationMemberEdge = {
+	cursor: t.String
+}
+
+export const OTOrganizationIdentityProvider = {
+	digestMethod: t.nullable.String, 
+	id: t.ID, 
+	issuer: t.nullable.String, 
+	signatureMethod: t.nullable.String, 
+	ssoUrl: t.nullable.String
+}
+
+export const OTExternalIdentityConnection = {
+	totalCount: t.Int
+}
+
+export const OTExternalIdentityEdge = {
+	cursor: t.String
+}
+
+export const OTExternalIdentity = {
+	guid: t.String, 
+	id: t.ID
+}
+
+export const OTExternalIdentitySamlAttributes = {
+	nameId: t.nullable.String
+}
+
+export const OTExternalIdentityScimAttributes = {
+	username: t.nullable.String
+}
+
+export const OTRateLimit = {
+	cost: t.Int, 
+	limit: t.Int, 
+	nodeCount: t.Int, 
+	remaining: t.Int, 
+	resetAt: t.DateTime
+}
+
+export const OTSearchResultItemConnection = {
+	codeCount: t.Int, 
+	issueCount: t.Int, 
+	repositoryCount: t.Int, 
+	userCount: t.Int, 
+	wikiCount: t.Int
+}
+
+export const OTSearchResultItemEdge = {
+	cursor: t.String
+}
+
+export const OTTextMatch = {
+	fragment: t.String, 
+	property: t.String
+}
+
+export const OTTextMatchHighlight = {
+	beginIndice: t.Int, 
+	endIndice: t.Int, 
+	text: t.String
+}
+
+export const OTSecurityAdvisoryConnection = {
+	totalCount: t.Int
+}
+
+export const OTSecurityAdvisoryEdge = {
+	cursor: t.String
+}
+
+export const OTSecurityAdvisory = {
+	databaseId: t.nullable.Int, 
+	description: t.String, 
+	ghsaId: t.String, 
+	id: t.ID, 
+	publishedAt: t.DateTime, 
+	summary: t.String, 
+	updatedAt: t.DateTime, 
+	withdrawnAt: t.nullable.DateTime
+}
+
+export const OTSecurityAdvisoryIdentifier = {
+	type: t.String, 
+	value: t.String
+}
+
+export const OTSecurityAdvisoryReference = {
+	url: t.String
+}
+
+export const OTSecurityVulnerabilityConnection = {
+	totalCount: t.Int
+}
+
+export const OTSecurityVulnerabilityEdge = {
+	cursor: t.String
+}
+
+export const OTSecurityVulnerability = {
+	updatedAt: t.DateTime, 
+	vulnerableVersionRange: t.String
+}
+
+export const OTSecurityAdvisoryPackageVersion = {
+	identifier: t.String
+}
+
+export const OTSecurityAdvisoryPackage = {
+	name: t.String
+}
+
+export const OTMutation = {
+	
+}
+
+export const OTAcceptTopicSuggestionPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddCommentPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddProjectCardPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddProjectColumnPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddPullRequestReviewPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddPullRequestReviewCommentPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddReactionPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTAddStarPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTCreateBranchProtectionRulePayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTCreateProjectPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTDeclineTopicSuggestionPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTDeleteBranchProtectionRulePayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTDeleteProjectPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTDeleteProjectCardPayload = {
+	clientMutationId: t.nullable.String, 
+	deletedCardId: t.nullable.ID
+}
+
+export const OTDeleteProjectColumnPayload = {
+	clientMutationId: t.nullable.String, 
+	deletedColumnId: t.nullable.ID
+}
+
+export const OTDeletePullRequestReviewPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTDismissPullRequestReviewPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTLockLockablePayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTMoveProjectCardPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTMoveProjectColumnPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTRemoveOutsideCollaboratorPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTRemoveReactionPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTRemoveStarPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTRequestReviewsPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTSubmitPullRequestReviewPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUnlockLockablePayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdateBranchProtectionRulePayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdateProjectPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdateProjectCardPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdateProjectColumnPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdatePullRequestReviewPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdatePullRequestReviewCommentPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdateSubscriptionPayload = {
+	clientMutationId: t.nullable.String
+}
+
+export const OTUpdateTopicsPayload = {
+	clientMutationId: t.nullable.String, 
+	invalidTopicNames: t.nullable.String
+}
+
+export const OTRepositoryInvitationEdge = {
+	cursor: t.String
+}
+
+export const OTRepositoryInvitation = {
+	id: t.ID
+}
+
+export const OTBot = {
+	avatarUrl: t.String, 
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID, 
+	login: t.String, 
+	resourcePath: t.String, 
+	updatedAt: t.DateTime, 
+	url: t.String
+}
+
+export const OTBlob = {
+	abbreviatedOid: t.String, 
+	byteSize: t.Int, 
+	commitResourcePath: t.String, 
+	commitUrl: t.String, 
+	id: t.ID, 
+	isBinary: t.Boolean, 
+	isTruncated: t.Boolean, 
+	text: t.nullable.String
+}
+
+export const OTPullRequestTimelineItemsEdge = {
+	cursor: t.String
+}
+
+export const OTBaseRefChangedEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTAddedToProjectEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTCommentDeletedEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTConvertedNoteToIssueEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTMentionedEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTMovedColumnsInProjectEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTPinnedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTRemovedFromProjectEvent = {
+	createdAt: t.DateTime, 
+	databaseId: t.nullable.Int, 
+	id: t.ID
+}
+
+export const OTUnpinnedEvent = {
+	createdAt: t.DateTime, 
+	id: t.ID
+}
+
+export const OTIssueTimelineItemsEdge = {
+	cursor: t.String
+}
+
+export const OTTopicConnection = {
+	totalCount: t.Int
+}
+
+export const OTTopicEdge = {
+	cursor: t.String
+}
+
+export const OTCreatedPullRequestContributionConnection = {
+	totalCount: t.Int
+}
+
+export const OTCreatedPullRequestContributionEdge = {
+	cursor: t.String
+}
+
+export const OTAppEdge = {
+	cursor: t.String
+}
+
+export const OTContentAttachment = {
+	body: t.String, 
+	databaseId: t.Int, 
+	id: t.ID, 
+	title: t.String
+}
+
+export const OTContentReference = {
+	databaseId: t.Int, 
+	id: t.ID, 
+	reference: t.String
+}
+
+export const OTGpgSignature = {
+	email: t.String, 
+	isValid: t.Boolean, 
+	keyId: t.nullable.String, 
+	payload: t.String, 
+	signature: t.String, 
+	wasSignedByGitHub: t.Boolean
+}
+
+export const OTSmimeSignature = {
+	email: t.String, 
+	isValid: t.Boolean, 
+	payload: t.String, 
+	signature: t.String, 
+	wasSignedByGitHub: t.Boolean
+}
+
+export const OTTag = {
+	abbreviatedOid: t.String, 
+	commitResourcePath: t.String, 
+	commitUrl: t.String, 
+	id: t.ID, 
+	message: t.nullable.String, 
+	name: t.String
+}
+
+export const OTUnknownSignature = {
+	email: t.String, 
+	isValid: t.Boolean, 
+	payload: t.String, 
+	signature: t.String, 
+	wasSignedByGitHub: t.Boolean
+}"
+`;
