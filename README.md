@@ -344,7 +344,7 @@ graphqlify.query(
 
 ## Enum field
 
-Use `types.oneOf` method to define Enum field.
+Use `types.enum` method to define Enum field.
 
 ```graphql
 query getUser {
@@ -367,7 +367,7 @@ graphqlify.query(
     user: {
       id: types.Number,
       name: types.String,
-      type: types.oneOf(UserType)
+      type: types.enum(UserType)
     }
   },
   'getUser'
