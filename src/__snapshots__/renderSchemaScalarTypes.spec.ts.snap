@@ -1,7 +1,472 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renderSchemaTypes should render 1`] = `
-"export const INode = {
+"enum ProjectCardArchivedState {
+  'ARCHIVED', 
+	'NOT_ARCHIVED'
+}
+
+enum RepositoryPrivacy {
+  'PUBLIC', 
+	'PRIVATE'
+}
+
+enum RepositoryOrderField {
+  'CREATED_AT', 
+	'UPDATED_AT', 
+	'PUSHED_AT', 
+	'NAME', 
+	'STARGAZERS'
+}
+
+enum OrderDirection {
+  'ASC', 
+	'DESC'
+}
+
+enum RepositoryAffiliation {
+  'OWNER', 
+	'COLLABORATOR', 
+	'ORGANIZATION_MEMBER'
+}
+
+enum SubscriptionState {
+  'UNSUBSCRIBED', 
+	'SUBSCRIBED', 
+	'IGNORED'
+}
+
+enum StarOrderField {
+  'STARRED_AT'
+}
+
+enum RepositoryLockReason {
+  'MOVING', 
+	'BILLING', 
+	'RENAME', 
+	'MIGRATING'
+}
+
+enum PullRequestState {
+  'OPEN', 
+	'CLOSED', 
+	'MERGED'
+}
+
+enum IssueOrderField {
+  'CREATED_AT', 
+	'UPDATED_AT', 
+	'COMMENTS'
+}
+
+enum CommentAuthorAssociation {
+  'MEMBER', 
+	'OWNER', 
+	'COLLABORATOR', 
+	'CONTRIBUTOR', 
+	'FIRST_TIME_CONTRIBUTOR', 
+	'FIRST_TIMER', 
+	'NONE'
+}
+
+enum CommentCannotUpdateReason {
+  'INSUFFICIENT_ACCESS', 
+	'LOCKED', 
+	'LOGIN_REQUIRED', 
+	'MAINTENANCE', 
+	'VERIFIED_EMAIL_REQUIRED', 
+	'DENIED'
+}
+
+enum IssueState {
+  'OPEN', 
+	'CLOSED'
+}
+
+enum LockReason {
+  'OFF_TOPIC', 
+	'TOO_HEATED', 
+	'RESOLVED', 
+	'SPAM'
+}
+
+enum ReactionContent {
+  'THUMBS_UP', 
+	'THUMBS_DOWN', 
+	'LAUGH', 
+	'HOORAY', 
+	'CONFUSED', 
+	'HEART', 
+	'ROCKET', 
+	'EYES'
+}
+
+enum ReactionOrderField {
+  'CREATED_AT'
+}
+
+enum GitSignatureState {
+  'VALID', 
+	'INVALID', 
+	'MALFORMED_SIG', 
+	'UNKNOWN_KEY', 
+	'BAD_EMAIL', 
+	'UNVERIFIED_EMAIL', 
+	'NO_USER', 
+	'UNKNOWN_SIG_TYPE', 
+	'UNSIGNED', 
+	'GPGVERIFY_UNAVAILABLE', 
+	'GPGVERIFY_ERROR', 
+	'NOT_SIGNING_KEY', 
+	'EXPIRED_KEY', 
+	'OCSP_PENDING', 
+	'OCSP_ERROR', 
+	'BAD_CERT', 
+	'OCSP_REVOKED'
+}
+
+enum StatusState {
+  'EXPECTED', 
+	'ERROR', 
+	'FAILURE', 
+	'PENDING', 
+	'SUCCESS'
+}
+
+enum MergeableState {
+  'MERGEABLE', 
+	'CONFLICTING', 
+	'UNKNOWN'
+}
+
+enum MilestoneState {
+  'OPEN', 
+	'CLOSED'
+}
+
+enum TeamOrderField {
+  'NAME'
+}
+
+enum OrganizationInvitationType {
+  'USER', 
+	'EMAIL'
+}
+
+enum OrganizationInvitationRole {
+  'DIRECT_MEMBER', 
+	'ADMIN', 
+	'BILLING_MANAGER', 
+	'REINSTATE'
+}
+
+enum TeamMembershipType {
+  'IMMEDIATE', 
+	'CHILD_TEAM', 
+	'ALL'
+}
+
+enum TeamMemberRole {
+  'MAINTAINER', 
+	'MEMBER'
+}
+
+enum TeamMemberOrderField {
+  'LOGIN', 
+	'CREATED_AT'
+}
+
+enum TeamPrivacy {
+  'SECRET', 
+	'VISIBLE'
+}
+
+enum TeamRepositoryOrderField {
+  'CREATED_AT', 
+	'UPDATED_AT', 
+	'PUSHED_AT', 
+	'NAME', 
+	'PERMISSION', 
+	'STARGAZERS'
+}
+
+enum RepositoryPermission {
+  'ADMIN', 
+	'WRITE', 
+	'READ'
+}
+
+enum PullRequestReviewState {
+  'PENDING', 
+	'COMMENTED', 
+	'APPROVED', 
+	'CHANGES_REQUESTED', 
+	'DISMISSED'
+}
+
+enum PullRequestReviewCommentState {
+  'PENDING', 
+	'SUBMITTED'
+}
+
+enum DeploymentStatusState {
+  'PENDING', 
+	'SUCCESS', 
+	'FAILURE', 
+	'INACTIVE', 
+	'ERROR'
+}
+
+enum DeploymentState {
+  'ABANDONED', 
+	'ACTIVE', 
+	'DESTROYED', 
+	'ERROR', 
+	'FAILURE', 
+	'INACTIVE', 
+	'PENDING'
+}
+
+enum CollaboratorAffiliation {
+  'OUTSIDE', 
+	'DIRECT', 
+	'ALL'
+}
+
+enum LanguageOrderField {
+  'SIZE'
+}
+
+enum MilestoneOrderField {
+  'DUE_DATE', 
+	'CREATED_AT', 
+	'UPDATED_AT', 
+	'NUMBER'
+}
+
+enum ProjectOrderField {
+  'CREATED_AT', 
+	'UPDATED_AT', 
+	'NAME'
+}
+
+enum ProjectState {
+  'OPEN', 
+	'CLOSED'
+}
+
+enum RefOrderField {
+  'TAG_COMMIT_DATE', 
+	'ALPHABETICAL'
+}
+
+enum ReleaseOrderField {
+  'CREATED_AT', 
+	'NAME'
+}
+
+enum GistPrivacy {
+  'PUBLIC', 
+	'SECRET', 
+	'ALL'
+}
+
+enum GistOrderField {
+  'CREATED_AT', 
+	'UPDATED_AT', 
+	'PUSHED_AT'
+}
+
+enum RepositoryContributionType {
+  'COMMIT', 
+	'ISSUE', 
+	'PULL_REQUEST', 
+	'REPOSITORY', 
+	'PULL_REQUEST_REVIEW'
+}
+
+enum ProjectCardState {
+  'CONTENT_ONLY', 
+	'NOTE_ONLY', 
+	'REDACTED'
+}
+
+enum ProjectColumnPurpose {
+  'TODO', 
+	'IN_PROGRESS', 
+	'DONE'
+}
+
+enum OrganizationMemberRole {
+  'MEMBER', 
+	'ADMIN'
+}
+
+enum TeamRole {
+  'ADMIN', 
+	'MEMBER'
+}
+
+enum SearchType {
+  'ISSUE', 
+	'REPOSITORY', 
+	'USER'
+}
+
+enum SecurityAdvisoryOrderField {
+  'PUBLISHED_AT', 
+	'UPDATED_AT'
+}
+
+enum SecurityAdvisoryIdentifierType {
+  'CVE', 
+	'GHSA'
+}
+
+enum SecurityAdvisorySeverity {
+  'LOW', 
+	'MODERATE', 
+	'HIGH', 
+	'CRITICAL'
+}
+
+enum SecurityVulnerabilityOrderField {
+  'UPDATED_AT'
+}
+
+enum SecurityAdvisoryEcosystem {
+  'RUBYGEMS', 
+	'NPM', 
+	'PIP', 
+	'MAVEN', 
+	'NUGET'
+}
+
+enum PullRequestReviewEvent {
+  'COMMENT', 
+	'APPROVE', 
+	'REQUEST_CHANGES', 
+	'DISMISS'
+}
+
+enum TopicSuggestionDeclineReason {
+  'NOT_RELEVANT', 
+	'TOO_SPECIFIC', 
+	'PERSONAL_PREFERENCE', 
+	'TOO_GENERAL'
+}
+
+enum DefaultRepositoryPermissionField {
+  'NONE', 
+	'READ', 
+	'WRITE', 
+	'ADMIN'
+}
+
+enum PullRequestOrderField {
+  'CREATED_AT', 
+	'UPDATED_AT'
+}
+
+enum IssuePubSubTopic {
+  'UPDATED', 
+	'MARKASREAD', 
+	'TIMELINE', 
+	'STATE'
+}
+
+enum PullRequestPubSubTopic {
+  'UPDATED', 
+	'MARKASREAD', 
+	'HEAD_REF', 
+	'TIMELINE', 
+	'STATE'
+}
+
+enum PullRequestTimelineItemsItemType {
+  'PULL_REQUEST_COMMIT', 
+	'PULL_REQUEST_COMMIT_COMMENT_THREAD', 
+	'PULL_REQUEST_REVIEW', 
+	'PULL_REQUEST_REVIEW_THREAD', 
+	'PULL_REQUEST_REVISION_MARKER', 
+	'BASE_REF_CHANGED_EVENT', 
+	'BASE_REF_FORCE_PUSHED_EVENT', 
+	'DEPLOYED_EVENT', 
+	'DEPLOYMENT_ENVIRONMENT_CHANGED_EVENT', 
+	'HEAD_REF_DELETED_EVENT', 
+	'HEAD_REF_FORCE_PUSHED_EVENT', 
+	'HEAD_REF_RESTORED_EVENT', 
+	'MERGED_EVENT', 
+	'REVIEW_DISMISSED_EVENT', 
+	'REVIEW_REQUESTED_EVENT', 
+	'REVIEW_REQUEST_REMOVED_EVENT', 
+	'ISSUE_COMMENT', 
+	'CROSS_REFERENCED_EVENT', 
+	'ADDED_TO_PROJECT_EVENT', 
+	'ASSIGNED_EVENT', 
+	'CLOSED_EVENT', 
+	'COMMENT_DELETED_EVENT', 
+	'CONVERTED_NOTE_TO_ISSUE_EVENT', 
+	'DEMILESTONED_EVENT', 
+	'LABELED_EVENT', 
+	'LOCKED_EVENT', 
+	'MENTIONED_EVENT', 
+	'MILESTONED_EVENT', 
+	'MOVED_COLUMNS_IN_PROJECT_EVENT', 
+	'PINNED_EVENT', 
+	'REFERENCED_EVENT', 
+	'REMOVED_FROM_PROJECT_EVENT', 
+	'RENAMED_TITLE_EVENT', 
+	'REOPENED_EVENT', 
+	'SUBSCRIBED_EVENT', 
+	'TRANSFERRED_EVENT', 
+	'UNASSIGNED_EVENT', 
+	'UNLABELED_EVENT', 
+	'UNLOCKED_EVENT', 
+	'UNPINNED_EVENT', 
+	'UNSUBSCRIBED_EVENT'
+}
+
+enum IssueTimelineItemsItemType {
+  'ISSUE_COMMENT', 
+	'CROSS_REFERENCED_EVENT', 
+	'ADDED_TO_PROJECT_EVENT', 
+	'ASSIGNED_EVENT', 
+	'CLOSED_EVENT', 
+	'COMMENT_DELETED_EVENT', 
+	'CONVERTED_NOTE_TO_ISSUE_EVENT', 
+	'DEMILESTONED_EVENT', 
+	'LABELED_EVENT', 
+	'LOCKED_EVENT', 
+	'MENTIONED_EVENT', 
+	'MILESTONED_EVENT', 
+	'MOVED_COLUMNS_IN_PROJECT_EVENT', 
+	'PINNED_EVENT', 
+	'REFERENCED_EVENT', 
+	'REMOVED_FROM_PROJECT_EVENT', 
+	'RENAMED_TITLE_EVENT', 
+	'REOPENED_EVENT', 
+	'SUBSCRIBED_EVENT', 
+	'TRANSFERRED_EVENT', 
+	'UNASSIGNED_EVENT', 
+	'UNLABELED_EVENT', 
+	'UNLOCKED_EVENT', 
+	'UNPINNED_EVENT', 
+	'UNSUBSCRIBED_EVENT'
+}
+
+enum RepositoryCollaboratorAffiliation {
+  'ALL', 
+	'OUTSIDE'
+}
+
+enum ReportedContentClassifiers {
+  'SPAM', 
+	'ABUSE', 
+	'OFF_TOPIC', 
+	'OUTDATED', 
+	'RESOLVED'
+}export const INode = {
 	id: t.ID
 })
 
@@ -50,7 +515,8 @@ export const IRepositoryOwner = {
 
 export const ISubscribable = {
 	id: t.ID, 
-	viewerCanSubscribe: t.Boolean
+	viewerCanSubscribe: t.Boolean, 
+	viewerSubscription: t.nullable.enum(SubscriptionState)
 })
 
 export const IStarrable = {
@@ -76,6 +542,7 @@ export const IRepositoryInfo = {
 	isLocked: t.Boolean, 
 	isMirror: t.Boolean, 
 	isPrivate: t.Boolean, 
+	lockReason: t.nullable.enum(RepositoryLockReason), 
 	mirrorUrl: t.nullable.String, 
 	name: t.String, 
 	nameWithOwner: t.String, 
@@ -87,6 +554,7 @@ export const IRepositoryInfo = {
 })
 
 export const IComment = {
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -101,7 +569,7 @@ export const IComment = {
 })
 
 export const IUpdatableComment = {
-	
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason)
 })
 
 export const ILabelable = {
@@ -109,6 +577,7 @@ export const ILabelable = {
 })
 
 export const ILockable = {
+	activeLockReason: t.nullable.enum(LockReason), 
 	locked: t.Boolean
 })
 
@@ -138,6 +607,7 @@ export const IGitSignature = {
 	isValid: t.Boolean, 
 	payload: t.String, 
 	signature: t.String, 
+	state: t.enum(GitSignatureState), 
 	wasSignedByGitHub: t.Boolean
 })
 
@@ -316,6 +786,7 @@ export const OTProject = {
 	name: t.String, 
 	number: t.Int, 
 	resourcePath: t.String, 
+	state: t.enum(ProjectState), 
 	updatedAt: t.DateTime, 
 	url: t.String, 
 	viewerCanUpdate: t.Boolean
@@ -334,6 +805,7 @@ export const OTProjectColumn = {
 	databaseId: t.nullable.Int, 
 	id: t.ID, 
 	name: t.String, 
+	purpose: t.nullable.enum(ProjectColumnPurpose), 
 	resourcePath: t.String, 
 	updatedAt: t.DateTime, 
 	url: t.String
@@ -354,11 +826,14 @@ export const OTProjectCard = {
 	isArchived: t.Boolean, 
 	note: t.nullable.String, 
 	resourcePath: t.String, 
+	state: t.nullable.enum(ProjectCardState), 
 	updatedAt: t.DateTime, 
 	url: t.String
 }
 
 export const OTIssue = {
+	activeLockReason: t.nullable.enum(LockReason), 
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -374,13 +849,16 @@ export const OTIssue = {
 	number: t.Int, 
 	publishedAt: t.nullable.DateTime, 
 	resourcePath: t.String, 
+	state: t.enum(IssueState), 
 	title: t.String, 
 	updatedAt: t.DateTime, 
 	url: t.String, 
 	viewerCanReact: t.Boolean, 
 	viewerCanSubscribe: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
-	viewerDidAuthor: t.Boolean
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
+	viewerDidAuthor: t.Boolean, 
+	viewerSubscription: t.nullable.enum(SubscriptionState)
 }
 
 export const OTUserConnection = {
@@ -444,6 +922,7 @@ export const OTRepository = {
 	isLocked: t.Boolean, 
 	isMirror: t.Boolean, 
 	isPrivate: t.Boolean, 
+	lockReason: t.nullable.enum(RepositoryLockReason), 
 	mergeCommitAllowed: t.Boolean, 
 	mirrorUrl: t.nullable.String, 
 	name: t.String, 
@@ -461,7 +940,9 @@ export const OTRepository = {
 	viewerCanCreateProjects: t.Boolean, 
 	viewerCanSubscribe: t.Boolean, 
 	viewerCanUpdateTopics: t.Boolean, 
-	viewerHasStarred: t.Boolean
+	viewerHasStarred: t.Boolean, 
+	viewerPermission: t.nullable.enum(RepositoryPermission), 
+	viewerSubscription: t.nullable.enum(SubscriptionState)
 }
 
 export const OTStargazerConnection = {
@@ -524,7 +1005,9 @@ export const OTPullRequestEdge = {
 }
 
 export const OTPullRequest = {
+	activeLockReason: t.nullable.enum(LockReason), 
 	additions: t.Int, 
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	baseRefName: t.String, 
 	body: t.String, 
 	bodyHTML: t.String, 
@@ -543,6 +1026,7 @@ export const OTPullRequest = {
 	lastEditedAt: t.nullable.DateTime, 
 	locked: t.Boolean, 
 	maintainerCanModify: t.Boolean, 
+	mergeable: t.enum(MergeableState), 
 	merged: t.Boolean, 
 	mergedAt: t.nullable.DateTime, 
 	number: t.Int, 
@@ -551,6 +1035,7 @@ export const OTPullRequest = {
 	resourcePath: t.String, 
 	revertResourcePath: t.String, 
 	revertUrl: t.String, 
+	state: t.enum(PullRequestState), 
 	title: t.String, 
 	updatedAt: t.DateTime, 
 	url: t.String, 
@@ -558,7 +1043,9 @@ export const OTPullRequest = {
 	viewerCanReact: t.Boolean, 
 	viewerCanSubscribe: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
-	viewerDidAuthor: t.Boolean
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
+	viewerDidAuthor: t.Boolean, 
+	viewerSubscription: t.nullable.enum(SubscriptionState)
 }
 
 export const OTUserContentEditConnection = {
@@ -607,6 +1094,7 @@ export const OTIssueEdge = {
 }
 
 export const OTReactionGroup = {
+	content: t.enum(ReactionContent), 
 	createdAt: t.nullable.DateTime, 
 	viewerHasReacted: t.Boolean
 }
@@ -630,6 +1118,7 @@ export const OTReactionEdge = {
 }
 
 export const OTReaction = {
+	content: t.enum(ReactionContent), 
 	createdAt: t.DateTime, 
 	databaseId: t.nullable.Int, 
 	id: t.ID
@@ -644,6 +1133,7 @@ export const OTIssueCommentEdge = {
 }
 
 export const OTIssueComment = {
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -663,6 +1153,7 @@ export const OTIssueComment = {
 	viewerCanMinimize: t.Boolean, 
 	viewerCanReact: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
 	viewerDidAuthor: t.Boolean
 }
 
@@ -704,6 +1195,7 @@ export const OTCommit = {
 	treeUrl: t.String, 
 	url: t.String, 
 	viewerCanSubscribe: t.Boolean, 
+	viewerSubscription: t.nullable.enum(SubscriptionState), 
 	zipballUrl: t.String
 }
 
@@ -732,6 +1224,7 @@ export const OTCommitCommentEdge = {
 }
 
 export const OTCommitComment = {
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -753,6 +1246,7 @@ export const OTCommitComment = {
 	viewerCanMinimize: t.Boolean, 
 	viewerCanReact: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
 	viewerDidAuthor: t.Boolean
 }
 
@@ -769,7 +1263,8 @@ export const OTCommitConnection = {
 }
 
 export const OTStatus = {
-	id: t.ID
+	id: t.ID, 
+	state: t.enum(StatusState)
 }
 
 export const OTStatusContext = {
@@ -777,6 +1272,7 @@ export const OTStatusContext = {
 	createdAt: t.DateTime, 
 	description: t.nullable.String, 
 	id: t.ID, 
+	state: t.enum(StatusState), 
 	targetUrl: t.nullable.String
 }
 
@@ -802,6 +1298,7 @@ export const OTMilestone = {
 	id: t.ID, 
 	number: t.Int, 
 	resourcePath: t.String, 
+	state: t.enum(MilestoneState), 
 	title: t.String, 
 	updatedAt: t.DateTime, 
 	url: t.String
@@ -833,6 +1330,7 @@ export const OTTeam = {
 	name: t.String, 
 	newTeamResourcePath: t.String, 
 	newTeamUrl: t.String, 
+	privacy: t.enum(TeamPrivacy), 
 	repositoriesResourcePath: t.String, 
 	repositoriesUrl: t.String, 
 	resourcePath: t.String, 
@@ -842,7 +1340,8 @@ export const OTTeam = {
 	updatedAt: t.DateTime, 
 	url: t.String, 
 	viewerCanAdminister: t.Boolean, 
-	viewerCanSubscribe: t.Boolean
+	viewerCanSubscribe: t.Boolean, 
+	viewerSubscription: t.nullable.enum(SubscriptionState)
 }
 
 export const OTTeamConnection = {
@@ -864,7 +1363,9 @@ export const OTOrganizationInvitationEdge = {
 export const OTOrganizationInvitation = {
 	createdAt: t.DateTime, 
 	email: t.nullable.String, 
-	id: t.ID
+	id: t.ID, 
+	invitationType: t.enum(OrganizationInvitationType), 
+	role: t.enum(OrganizationInvitationRole)
 }
 
 export const OTTeamMemberConnection = {
@@ -874,7 +1375,8 @@ export const OTTeamMemberConnection = {
 export const OTTeamMemberEdge = {
 	cursor: t.String, 
 	memberAccessResourcePath: t.String, 
-	memberAccessUrl: t.String
+	memberAccessUrl: t.String, 
+	role: t.enum(TeamMemberRole)
 }
 
 export const OTTeamRepositoryConnection = {
@@ -882,7 +1384,8 @@ export const OTTeamRepositoryConnection = {
 }
 
 export const OTTeamRepositoryEdge = {
-	cursor: t.String
+	cursor: t.String, 
+	permission: t.enum(RepositoryPermission)
 }
 
 export const OTPullRequestReviewConnection = {
@@ -894,6 +1397,7 @@ export const OTPullRequestReviewEdge = {
 }
 
 export const OTPullRequestReview = {
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -903,14 +1407,16 @@ export const OTPullRequestReview = {
 	id: t.ID, 
 	includesCreatedEdit: t.Boolean, 
 	lastEditedAt: t.nullable.DateTime, 
-	publishedAt: t.nullable.DateTime,
+	publishedAt: t.nullable.DateTime, 
 	resourcePath: t.String, 
+	state: t.enum(PullRequestReviewState), 
 	submittedAt: t.nullable.DateTime, 
 	updatedAt: t.DateTime, 
 	url: t.String, 
 	viewerCanDelete: t.Boolean, 
 	viewerCanReact: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
 	viewerDidAuthor: t.Boolean
 }
 
@@ -923,6 +1429,7 @@ export const OTPullRequestReviewCommentEdge = {
 }
 
 export const OTPullRequestReviewComment = {
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -942,12 +1449,14 @@ export const OTPullRequestReviewComment = {
 	position: t.nullable.Int, 
 	publishedAt: t.nullable.DateTime, 
 	resourcePath: t.String, 
+	state: t.enum(PullRequestReviewCommentState), 
 	updatedAt: t.DateTime, 
 	url: t.String, 
 	viewerCanDelete: t.Boolean, 
 	viewerCanMinimize: t.Boolean, 
 	viewerCanReact: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
 	viewerDidAuthor: t.Boolean
 }
 
@@ -1062,7 +1571,8 @@ export const OTRenamedTitleEvent = {
 
 export const OTLockedEvent = {
 	createdAt: t.DateTime, 
-	id: t.ID
+	id: t.ID, 
+	lockReason: t.nullable.enum(LockReason)
 }
 
 export const OTUnlockedEvent = {
@@ -1084,6 +1594,7 @@ export const OTDeployment = {
 	environment: t.nullable.String, 
 	id: t.ID, 
 	payload: t.nullable.String, 
+	state: t.nullable.enum(DeploymentState), 
 	task: t.nullable.String, 
 	updatedAt: t.DateTime
 }
@@ -1094,6 +1605,7 @@ export const OTDeploymentStatus = {
 	environmentUrl: t.nullable.String, 
 	id: t.ID, 
 	logUrl: t.nullable.String, 
+	state: t.enum(DeploymentStatusState), 
 	updatedAt: t.DateTime
 }
 
@@ -1147,6 +1659,7 @@ export const OTReviewDismissedEvent = {
 	id: t.ID, 
 	message: t.String, 
 	messageHtml: t.String, 
+	previousReviewState: t.enum(PullRequestReviewState), 
 	resourcePath: t.String, 
 	url: t.String
 }
@@ -1188,7 +1701,8 @@ export const OTRepositoryCollaboratorConnection = {
 }
 
 export const OTRepositoryCollaboratorEdge = {
-	cursor: t.String
+	cursor: t.String, 
+	permission: t.enum(RepositoryPermission)
 }
 
 export const OTDeployKeyConnection = {
@@ -1437,6 +1951,7 @@ export const OTGistCommentEdge = {
 }
 
 export const OTGistComment = {
+	authorAssociation: t.enum(CommentAuthorAssociation), 
 	body: t.String, 
 	bodyHTML: t.String, 
 	bodyText: t.String, 
@@ -1453,6 +1968,7 @@ export const OTGistComment = {
 	viewerCanDelete: t.Boolean, 
 	viewerCanMinimize: t.Boolean, 
 	viewerCanUpdate: t.Boolean, 
+	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason), 
 	viewerDidAuthor: t.Boolean
 }
 
@@ -1512,7 +2028,8 @@ export const OTOrganizationMemberConnection = {
 }
 
 export const OTOrganizationMemberEdge = {
-	cursor: t.String
+	cursor: t.String, 
+	role: t.nullable.enum(OrganizationMemberRole)
 }
 
 export const OTOrganizationIdentityProvider = {
@@ -1589,6 +2106,7 @@ export const OTSecurityAdvisory = {
 	ghsaId: t.String, 
 	id: t.ID, 
 	publishedAt: t.DateTime, 
+	severity: t.enum(SecurityAdvisorySeverity), 
 	summary: t.String, 
 	updatedAt: t.DateTime, 
 	withdrawnAt: t.nullable.DateTime
@@ -1612,6 +2130,7 @@ export const OTSecurityVulnerabilityEdge = {
 }
 
 export const OTSecurityVulnerability = {
+	severity: t.enum(SecurityAdvisorySeverity), 
 	updatedAt: t.DateTime, 
 	vulnerableVersionRange: t.String
 }
@@ -1621,6 +2140,7 @@ export const OTSecurityAdvisoryPackageVersion = {
 }
 
 export const OTSecurityAdvisoryPackage = {
+	ecosystem: t.enum(SecurityAdvisoryEcosystem), 
 	name: t.String
 }
 
@@ -1772,7 +2292,8 @@ export const OTRepositoryInvitationEdge = {
 }
 
 export const OTRepositoryInvitation = {
-	id: t.ID
+	id: t.ID, 
+	permission: t.enum(RepositoryPermission)
 }
 
 export const OTBot = {
@@ -1896,6 +2417,7 @@ export const OTGpgSignature = {
 	keyId: t.nullable.String, 
 	payload: t.String, 
 	signature: t.String, 
+	state: t.enum(GitSignatureState), 
 	wasSignedByGitHub: t.Boolean
 }
 
@@ -1904,6 +2426,7 @@ export const OTSmimeSignature = {
 	isValid: t.Boolean, 
 	payload: t.String, 
 	signature: t.String, 
+	state: t.enum(GitSignatureState), 
 	wasSignedByGitHub: t.Boolean
 }
 
@@ -1921,6 +2444,7 @@ export const OTUnknownSignature = {
 	isValid: t.Boolean, 
 	payload: t.String, 
 	signature: t.String, 
+	state: t.enum(GitSignatureState), 
 	wasSignedByGitHub: t.Boolean
 }"
 `;

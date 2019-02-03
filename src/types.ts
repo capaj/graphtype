@@ -74,7 +74,7 @@ class nullableTypes {
     | boolean
     | null
   static DateTime = (new CoreType(TypeFlags.Date, true) as any) as Date | null
-  static oneOf = oneOfNullable
+  static enum = oneOfNullable
   static custom = custom
   static raw(name: string) {
     return new RawType(name)
@@ -96,7 +96,7 @@ export class types {
   static DateTime: Date = (new CoreType(TypeFlags.Date, false) as any) as Date
   static nullable = nullableTypes
   static constant = constant
-  static oneOf = oneOf
+  static enum = oneOf
   static custom = custom
   /**
    * use for custom queries

@@ -20,7 +20,7 @@ describe('graphqlify', () => {
         name: t.String,
         bankAccount: {
           id: t.Int,
-          branch: t.nullable.oneOf(BranchEnum)
+          branch: t.nullable.enum(BranchEnum)
         }
       }
     }
@@ -39,7 +39,7 @@ describe('graphqlify', () => {
           name: t.String,
           bankAccount: {
             id: t.Int,
-            branch: t.nullable.oneOf(BranchEnum)
+            branch: t.nullable.enum(BranchEnum)
           }
         }
       },
@@ -412,7 +412,7 @@ describe('graphqlify', () => {
     const queryObj = {
       user: {
         id: t.Int,
-        type: t.oneOf(UserType)
+        type: t.enum(UserType)
       }
     }
     // just type check
