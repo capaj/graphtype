@@ -1,10 +1,11 @@
 [![npm version](https://badge.fury.io/js/graphtype.svg)](https://badge.fury.io/js/graphtype)
 [![Build Status](https://travis-ci.org/capaj/graphtype.svg?branch=master)](https://travis-ci.org/capaj/graphtype)
-![image](https://github.com/capaj/graphtype/blob/master/logo-fixed.png)
 
 # graphtype
 
 Build Type-safe GraphQL Queries in TypeScript. Let the compiler typecheck your queries.
+
+![image](https://media.giphy.com/media/3o7TKsclBJdn4dSEPC/giphy.gif)
 
 # Install
 
@@ -123,8 +124,6 @@ const result: GraphQLData<typeof getUserQuery> = await executeGraphql(gqlString)
 //   }
 // }
 ```
-
-![image](https://github.com/capaj/graphtype/blob/master/screenshot.jpg)
 
 # Features
 
