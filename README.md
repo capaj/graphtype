@@ -21,9 +21,9 @@ yarn add graphtype
 
 # Motivation
 
-We all know that GraphQL is so great and solves many problems that we have with REST API, like overfetching and underfetching. Although writing queries is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
+GraphQL is great and solves many problems, like overfetching and underfetching. Although writing queries is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
 
-When we use GraphQL library such as Apollo, We have to define query and its interface like this:
+When we use GraphQL library such as Apollo, We usually define query and its interface like this:
 
 ```typescript
 interface GetUserQueryData {
