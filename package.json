@@ -1,6 +1,6 @@
 {
   "name": "graphtype",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "GraphQL query builder for typescript. Write GQL queries as TS objects and let compiler typecheck your queries",
   "keywords": [
     "graphql",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "debug": "^4.1.1",
-    "graphql-codegen-core": "^0.16.0",
+    "graphql-codegen-core": "^0.16.1",
     "lodash": "^4.17.11"
   },
   "peerDependencies": {
@@ -39,14 +39,14 @@
   "devDependencies": {
     "@types/graphql": "^14.0.5",
     "@types/debug": "^0.0.31",
-    "@types/jest": "^23.3.13",
+    "@types/jest": "^24.0.0",
     "@types/lodash.get": "^4.4.4",
     "@types/node": "^10.12.21",
     "@types/webpack-env": "^1.13.7",
     "graphql": "^14.1.1",
     "jest": "24.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.16.3",
+    "prettier": "^1.16.4",
     "rollup": "^1.1.2",
     "rollup-plugin-typescript2": "^0.19.2",
     "ts-jest": "^23.10.5",

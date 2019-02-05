@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renderSchemaTypes should render 1`] = `
-"enum ProjectCardArchivedState {
+"
+// ENUMS 
+enum ProjectCardArchivedState {
   'ARCHIVED', 
 	'NOT_ARCHIVED'
 }
@@ -466,44 +468,46 @@ enum ReportedContentClassifiers {
 	'OFF_TOPIC', 
 	'OUTDATED', 
 	'RESOLVED'
-}export const INode = {
+}
+// INTERFACES 
+export const INode = {
 	id: t.ID
-})
+}
 
 export const IActor = {
 	avatarUrl: t.String, 
 	login: t.String, 
 	resourcePath: t.String, 
 	url: t.String
-})
+}
 
 export const IRegistryPackageOwner = {
 	id: t.ID
-})
+}
 
 export const IRegistryPackageSearch = {
 	id: t.ID
-})
+}
 
 export const IProjectOwner = {
 	id: t.ID, 
 	projectsResourcePath: t.String, 
 	projectsUrl: t.String, 
 	viewerCanCreateProjects: t.Boolean
-})
+}
 
 export const IClosable = {
 	closed: t.Boolean, 
 	closedAt: t.nullable.DateTime
-})
+}
 
 export const IUpdatable = {
 	viewerCanUpdate: t.Boolean
-})
+}
 
 export const IAssignable = {
 	
-})
+}
 
 export const IRepositoryOwner = {
 	avatarUrl: t.String, 
@@ -511,23 +515,23 @@ export const IRepositoryOwner = {
 	login: t.String, 
 	resourcePath: t.String, 
 	url: t.String
-})
+}
 
 export const ISubscribable = {
 	id: t.ID, 
 	viewerCanSubscribe: t.Boolean, 
 	viewerSubscription: t.nullable.enum(SubscriptionState)
-})
+}
 
 export const IStarrable = {
 	id: t.ID, 
 	viewerHasStarred: t.Boolean
-})
+}
 
 export const IUniformResourceLocatable = {
 	resourcePath: t.String, 
 	url: t.String
-})
+}
 
 export const IRepositoryInfo = {
 	createdAt: t.DateTime, 
@@ -551,7 +555,7 @@ export const IRepositoryInfo = {
 	shortDescriptionHTML: t.String, 
 	updatedAt: t.DateTime, 
 	url: t.String
-})
+}
 
 export const IComment = {
 	authorAssociation: t.enum(CommentAuthorAssociation), 
@@ -566,41 +570,41 @@ export const IComment = {
 	publishedAt: t.nullable.DateTime, 
 	updatedAt: t.DateTime, 
 	viewerDidAuthor: t.Boolean
-})
+}
 
 export const IUpdatableComment = {
 	viewerCannotUpdateReasons: t.enum(CommentCannotUpdateReason)
-})
+}
 
 export const ILabelable = {
 	
-})
+}
 
 export const ILockable = {
 	activeLockReason: t.nullable.enum(LockReason), 
 	locked: t.Boolean
-})
+}
 
 export const IReactable = {
 	databaseId: t.nullable.Int, 
 	id: t.ID, 
 	viewerCanReact: t.Boolean
-})
+}
 
 export const IRepositoryNode = {
 	
-})
+}
 
 export const IDeletable = {
 	viewerCanDelete: t.Boolean
-})
+}
 
 export const IGitObject = {
 	abbreviatedOid: t.String, 
 	commitResourcePath: t.String, 
 	commitUrl: t.String, 
 	id: t.ID
-})
+}
 
 export const IGitSignature = {
 	email: t.String, 
@@ -609,14 +613,16 @@ export const IGitSignature = {
 	signature: t.String, 
 	state: t.enum(GitSignatureState), 
 	wasSignedByGitHub: t.Boolean
-})
+}
 
 export const IContribution = {
 	isRestricted: t.Boolean, 
 	occurredAt: t.DateTime, 
 	resourcePath: t.String, 
 	url: t.String
-})export const OTQuery = {
+}
+// OBJECT TYPES 
+export const OTQuery = {
 	
 }
 

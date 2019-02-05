@@ -2,11 +2,10 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "esnext",
-    "module": "ES2015",
+    "module": "esnext",
     "declaration": true,
     "sourceMap": true,
     "removeComments": true,
-    "noLib": false,
     "skipLibCheck": true,
     "jsx": "react",
     "types": ["node", "webpack-env", "jest"],
@@ -22,7 +21,7 @@
     // "alwaysStrict": true,
 
     /* Additional Checks */
-    "noUnusedLocals": true,
+    // "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -34,6 +33,7 @@
     /* Module Resolution Options */
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
 
     "outDir": "dist"
   }

@@ -1,15 +1,18 @@
-import { GraphQLSchema } from 'graphql'
-import { schemaToTemplateContext } from 'graphql-codegen-core'
-
+import {
+  SchemaTemplateContext,
+  Field,
+  Enum,
+  Interface,
+  Type
+} from 'node_modules/graphql-codegen-core/dist/types'
 const defaultScalars = ['Boolean', 'Float', 'Int', 'String', 'DateTime', 'ID']
 const enums = new Set()
 
 export const renderSchemaScalarTypes = (
-  schema: GraphQLSchema,
+  schemaContext: SchemaTemplateContext,
   extraScalars: object
 ) => {
   let graphTypeTypeDef = ''
-  const context = schemaToTemplateContext(schema)
 
   const isScalarOrEnum = (typeName) => {
     if (defaultScalars.includes(typeName)) {
@@ -35,20 +38,20 @@ export const renderSchemaScalarTypes = (
   }
 
   const renderers = {
-    interface({ name: intfName, fields: intfFields }) {
+    interface({ name: intfName, fields: intfFields }: Interface) {
       // console.log('intfFields: ', intfFields)
       const fields = intfFields
-        .filter((field) => isScalarOrEnum(field.type)) // ignore non scalar types
+        .filter((field: Field) => isScalarOrEnum(field.type)) // ignore non scalar types
         .map(renderField)
         .join(', \n\t')
       return `export const I${intfName} = {
 \t${fields}
-})`
+}`
     },
-    type({ name: typeName, fields: typeFields }) {
+    type({ name: typeName, fields: typeFields }: Type) {
       // console.log('intfFields: ', typeFields)
       const fields = typeFields
-        .filter((field) => isScalarOrEnum(field.type)) // ignore non scalar types
+        .filter((field: Field) => isScalarOrEnum(field.type)) // ignore non scalar types
 
         .map(renderField)
         .join(', \n\t')
@@ -56,7 +59,7 @@ export const renderSchemaScalarTypes = (
 \t${fields}
 }`
     },
-    fieldProp(field) {
+    fieldProp(field: Field) {
       const nullableModifier = field.isRequired ? '' : '.nullable'
       let { type } = field
       if (extraScalars[type]) {
@@ -72,7 +75,7 @@ export const renderSchemaScalarTypes = (
       }
       return `t${nullableModifier}.enum(${type})`
     },
-    enumTypeDefinition(en) {
+    enumTypeDefinition(en: Enum) {
       const { name, values } = en
       enums.add(name)
       return `enum ${name} {
@@ -81,18 +84,21 @@ export const renderSchemaScalarTypes = (
     }
   }
 
-  // console.log('context: ', context)
-  graphTypeTypeDef += context.enums
-    .map((type) => renderers.enumTypeDefinition(type))
-    .join('\n\n')
+  graphTypeTypeDef +=
+    '\n// ENUMS \n' +
+    schemaContext.enums
+      .map((type) => renderers.enumTypeDefinition(type))
+      .join('\n\n')
 
-  graphTypeTypeDef += context.interfaces
-    .map((intf) => renderers.interface(intf))
-    .join('\n\n')
+  graphTypeTypeDef +=
+    '\n// INTERFACES \n' +
+    schemaContext.interfaces
+      .map((intf) => renderers.interface(intf))
+      .join('\n\n')
   // console.log('context.types: ', context.types)
-  graphTypeTypeDef += context.types
-    .map((type) => renderers.type(type))
-    .join('\n\n')
+  graphTypeTypeDef +=
+    '\n// OBJECT TYPES \n' +
+    schemaContext.types.map((type) => renderers.type(type)).join('\n\n')
 
   return graphTypeTypeDef
 }

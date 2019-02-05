@@ -1,12 +1,12 @@
-import { graphtype, t, $ } from './index'
+import { Graphtype, t, $ } from './index'
 import { nullable } from './types'
 // import { GraphQLData } from './index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
-  let query: any
+  let gt: any
   beforeEach(function() {
-    query = graphtype()
+    gt = new Graphtype()
   })
   it('render GraphQL', () => {
     enum BranchEnum {
@@ -25,14 +25,18 @@ describe('graphqlify', () => {
       }
     }
 
-    const typeQuery = graphtype<
+    const gt1 = new Graphtype<
       typeof q,
       {
         user: { id: number; name: string; bankAccount: { accId: number } }
-      }
+      },
+      {},
+      {},
+      {},
+      {}
     >()
 
-    const actual = typeQuery(
+    const actual = gt1.query(
       {
         user: {
           id: t.Int,
@@ -43,7 +47,8 @@ describe('graphqlify', () => {
           }
         }
       },
-      { query: 'getUser', params: { user: { id: 1 } } }
+      { user: { id: 1 } },
+      'getUser'
     )
 
     expect(actual).toEqual(gql`
@@ -60,7 +65,7 @@ describe('graphqlify', () => {
     `)
 
     expect(
-      query(
+      gt.query(
         {
           user: {
             id: t.Int,
@@ -72,11 +77,9 @@ describe('graphqlify', () => {
           }
         },
         {
-          query: 'getUser',
-          params: {
-            user: { id: 2, name: 'Michel', bankAccount: { accId: 51 } }
-          }
-        }
+          user: { id: 2, name: 'Michel', bankAccount: { accId: 51 } }
+        },
+        'getUser'
       )
     ).toEqual(gql`
       query getUser {
@@ -99,7 +102,7 @@ describe('graphqlify', () => {
       }
     }
 
-    expect(query(queryObject, { query: 'getUser' })).toEqual(gql`
+    expect(gt.query(queryObject, 'getUser')).toEqual(gql`
       query getUser {
         user {
           id
@@ -120,7 +123,7 @@ describe('graphqlify', () => {
         }
       }
     }
-    const actual = query(queryObject, { query: 'getUser' })
+    const actual = gt.query(queryObject, 'getUser')
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -145,10 +148,7 @@ describe('graphqlify', () => {
     }
 
     expect(
-      query(queryObject, {
-        query: 'getActiveUsers',
-        params: { user: { status: 'active' } }
-      })
+      gt.query(queryObject, { user: { status: 'active' } }, 'getActiveUsers')
     ).toEqual(gql`
       query getActiveUsers {
         user(status: "active") {
@@ -168,7 +168,7 @@ describe('graphqlify', () => {
       }
     }
 
-    expect(query(queryObject, { query: 'getUser' })).toEqual(gql`
+    expect(gt.query(queryObject, 'getUser')).toEqual(gql`
       query getUser {
         user {
           id
@@ -182,7 +182,7 @@ describe('graphqlify', () => {
 
   it('render multiple GraphQL and params', () => {
     expect(
-      query(
+      gt.query(
         {
           user: {
             id: t.Int
@@ -192,10 +192,8 @@ describe('graphqlify', () => {
             type: t.nullable.String
           }
         },
-        {
-          query: 'getUser',
-          params: { user: { id: 1 }, bankAccount: { id: 2 } }
-        }
+        { user: { id: 1 }, bankAccount: { id: 2 } },
+        'getUser'
       )
     ).toEqual(gql`
       query getUser {
@@ -212,16 +210,14 @@ describe('graphqlify', () => {
 
   it('render variable param and name it the same', () => {
     expect(
-      query(
+      gt.query(
         {
           user: {
             id: t.Int
           }
         },
-        {
-          query: 'getUserById',
-          params: { user: { id: nullable(t.Int) } }
-        }
+        { user: { id: nullable(t.Int) } },
+        'getUserById'
       )
     ).toEqual(gql`
       query getUserById($id: Int) {
@@ -242,20 +238,18 @@ describe('graphqlify', () => {
     // }
 
     expect(
-      query(
+      gt.query(
         {
           user: fragment,
           bankAccount: fragment
         },
         {
-          query: 'getUserAndBankAccount',
-          params: {
-            user: { id: $('userId', nullable(t.Int)) },
-            bankAccount: {
-              id: nullable(t.Int)
-            }
+          user: { id: $('userId', nullable(t.Int)) },
+          bankAccount: {
+            id: nullable(t.Int)
           }
-        }
+        },
+        'getUserAndBankAccount'
       )
     ).toEqual(gql`
       query getUserAndBankAccount($userId: Int, $id: Int) {
@@ -271,16 +265,14 @@ describe('graphqlify', () => {
 
   it('render mutation', () => {
     expect(
-      query(
+      gt.mutation(
         {
           updateUser: {
             id: t.Int
           }
         },
-        {
-          mutation: 'updateUser',
-          params: { updateUser: { name: t.String } }
-        }
+        { updateUser: { name: t.String } },
+        'updateUser'
       )
     ).toEqual(gql`
       mutation updateUser($name: String!) {
@@ -293,16 +285,14 @@ describe('graphqlify', () => {
 
   it('render mutation with custom type name', () => {
     expect(
-      query(
+      gt.mutation(
         {
           updateUser: {
             id: t.Int
           }
         },
-        {
-          mutation: 'updateUser',
-          params: { updateUser: { input: t.raw('UserInput') } }
-        }
+        { updateUser: { input: t.raw('UserInput') } },
+        'updateUser'
       )
     ).toEqual(gql`
       mutation updateUser($input: UserInput) {
@@ -315,13 +305,13 @@ describe('graphqlify', () => {
 
   it('render nullable field', () => {
     expect(
-      query(
+      gt.query(
         {
           user: nullable({
             id: t.Int
           })
         },
-        { query: 'getUser' }
+        'getUser'
       )
     ).toEqual(gql`
       query getUser {
@@ -334,7 +324,7 @@ describe('graphqlify', () => {
 
   it('render array field', () => {
     expect(
-      query(
+      gt.query(
         {
           users: [
             {
@@ -342,7 +332,7 @@ describe('graphqlify', () => {
             }
           ]
         },
-        { query: 'getUsers' }
+        'getUsers'
       )
     ).toEqual(gql`
       query getUsers {
@@ -363,7 +353,7 @@ describe('graphqlify', () => {
     // }
 
     expect(
-      query({
+      gt.query({
         users: {
           id: t.Int,
           __typename: t.constant('User')
@@ -381,7 +371,7 @@ describe('graphqlify', () => {
 
   it('render parameters when array', () => {
     expect(
-      query(
+      gt.query(
         {
           users: [
             {
@@ -389,10 +379,8 @@ describe('graphqlify', () => {
             }
           ]
         },
-        {
-          query: 'getUsers',
-          params: { users: { status: t.String, limit: t.nullable.Int } }
-        }
+        { users: { status: t.String, limit: t.nullable.Int } },
+        'getUsers'
       )
     ).toEqual(gql`
       query getUsers($status: String!, $limit: Int) {
@@ -417,7 +405,7 @@ describe('graphqlify', () => {
     }
     // just type check
 
-    expect(query(queryObj)).toEqual(gql`
+    expect(gt.query(queryObj)).toEqual(gql`
       query {
         user {
           id
@@ -474,7 +462,7 @@ describe('graphqlify', () => {
         customField: t.custom<CustomField>()
       }
     }
-    const actual = query(queryObject)
+    const actual = gt.query(queryObject)
 
     expect(actual).toEqual(gql`
       query {
