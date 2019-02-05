@@ -1,10 +1,10 @@
 
-import {Graphtype, t} from 'graphtype'
+import { Graphtype, t } from '../src/index'
 
 
 // ENUMS 
 enum ProjectCardArchivedState {
-  'ARCHIVED',
+  'ARCHIVED', 
 	'NOT_ARCHIVED'
 }
 
@@ -2462,48 +2462,48 @@ interface IARGQuery{}
 interface IARGMutation{}
 interface IARGSubscriptio{}
 // INTERFACES 
-interface INode {
+type INode = {
 	id: string
-}
+} & (ILicense | IMarketplaceCategory | IMarketplaceListing | IApp | IOrganization | IProject | IProjectColumn | IProjectCard | IIssue | IUser | IRepository | IBranchProtectionRule | IRef | IPullRequest | IUserContentEdit | ILabel | IReaction | IIssueComment | IPullRequestCommit | ICommit | ICommitComment | IStatus | IStatusContext | ITree | IMilestone | IReviewRequest | ITeam | IOrganizationInvitation | IPullRequestReview | IPullRequestReviewComment | ICommitCommentThread | IPullRequestReviewThread | IClosedEvent | IReopenedEvent | ISubscribedEvent | IUnsubscribedEvent | IMergedEvent | IReferencedEvent | ICrossReferencedEvent | IAssignedEvent | IUnassignedEvent | ILabeledEvent | IUnlabeledEvent | IMilestonedEvent | IDemilestonedEvent | IRenamedTitleEvent | ILockedEvent | IUnlockedEvent | IDeployedEvent | IDeployment | IDeploymentStatus | IDeploymentEnvironmentChangedEvent | IHeadRefDeletedEvent | IHeadRefRestoredEvent | IHeadRefForcePushedEvent | IBaseRefForcePushedEvent | IReviewRequestedEvent | IReviewRequestRemovedEvent | IReviewDismissedEvent | IPushAllowance | IReviewDismissalAllowance | IDeployKey | ILanguage | IProtectedBranch | IRelease | IReleaseAsset | IRepositoryTopic | ITopic | IGist | IGistComment | IPublicKey | ITransferredEvent | IOrganizationIdentityProvider | IExternalIdentity | ISecurityAdvisory | IRepositoryInvitation | IBot | IBlob | IBaseRefChangedEvent | IAddedToProjectEvent | ICommentDeletedEvent | IConvertedNoteToIssueEvent | IMentionedEvent | IMovedColumnsInProjectEvent | IPinnedEvent | IRemovedFromProjectEvent | IUnpinnedEvent | ITag)
 
-interface IActor {
+type IActor = {
 	avatarUrl: string, 
 	login: string, 
 	resourcePath: string, 
 	url: string
-}
+} & (IOrganization | IUser | IBot)
 
-interface IRegistryPackageOwner {
+type IRegistryPackageOwner = {
 	id: string
-}
+} & (IOrganization | IUser | IRepository)
 
-interface IRegistryPackageSearch {
+type IRegistryPackageSearch = {
 	id: string
-}
+} & (IOrganization | IUser)
 
-interface IProjectOwner {
+type IProjectOwner = {
 	id: string, 
 	project: maybe<IProject>, 
 	projects: IProjectConnection, 
 	projectsResourcePath: string, 
 	projectsUrl: string, 
 	viewerCanCreateProjects: boolean
-}
+} & (IOrganization | IRepository)
 
-interface IClosable {
+type IClosable = {
 	closed: boolean, 
 	closedAt: maybe<string>
-}
+} & (IProject | IIssue | IPullRequest | IMilestone)
 
-interface IUpdatable {
+type IUpdatable = {
 	viewerCanUpdate: boolean
-}
+} & (IProject | IIssue | IPullRequest | IIssueComment | ICommitComment | IPullRequestReview | IPullRequestReviewComment | IGistComment)
 
-interface IAssignable {
+type IAssignable = {
 	assignees: IUserConnection
-}
+} & (IIssue | IPullRequest)
 
-interface IRepositoryOwner {
+type IRepositoryOwner = {
 	avatarUrl: string, 
 	id: string, 
 	login: string, 
@@ -2512,26 +2512,26 @@ interface IRepositoryOwner {
 	repository: maybe<IRepository>, 
 	resourcePath: string, 
 	url: string
-}
+} & (IOrganization | IUser)
 
-interface ISubscribable {
+type ISubscribable = {
 	id: string, 
 	viewerCanSubscribe: boolean, 
 	viewerSubscription: maybe<SubscriptionState>
-}
+} & (IIssue | IRepository | IPullRequest | ICommit | ITeam)
 
-interface IStarrable {
+type IStarrable = {
 	id: string, 
 	stargazers: IStargazerConnection, 
 	viewerHasStarred: boolean
-}
+} & (IRepository | ITopic | IGist)
 
-interface IUniformResourceLocatable {
+type IUniformResourceLocatable = {
 	resourcePath: string, 
 	url: string
-}
+} & (IOrganization | IIssue | IUser | IRepository | IPullRequest | IPullRequestCommit | ICommit | IMilestone | IClosedEvent | IMergedEvent | ICrossReferencedEvent | IReviewDismissedEvent | IRelease | IRepositoryTopic | IBot)
 
-interface IRepositoryInfo {
+type IRepositoryInfo = {
 	createdAt: string, 
 	description: maybe<string>, 
 	descriptionHTML: string, 
@@ -2555,9 +2555,9 @@ interface IRepositoryInfo {
 	shortDescriptionHTML: string, 
 	updatedAt: string, 
 	url: string
-}
+} & (IRepository)
 
-interface IComment {
+type IComment = {
 	author: maybe<IActor>, 
 	authorAssociation: CommentAuthorAssociation, 
 	body: string, 
@@ -2573,47 +2573,47 @@ interface IComment {
 	updatedAt: string, 
 	userContentEdits: maybe<IUserContentEditConnection>, 
 	viewerDidAuthor: boolean
-}
+} & (IIssue | IPullRequest | IIssueComment | ICommitComment | IPullRequestReview | IPullRequestReviewComment | IGistComment)
 
-interface IUpdatableComment {
+type IUpdatableComment = {
 	viewerCannotUpdateReasons: CommentCannotUpdateReason
-}
+} & (IIssue | IPullRequest | IIssueComment | ICommitComment | IPullRequestReview | IPullRequestReviewComment | IGistComment)
 
-interface ILabelable {
+type ILabelable = {
 	labels: maybe<ILabelConnection>
-}
+} & (IIssue | IPullRequest)
 
-interface ILockable {
+type ILockable = {
 	activeLockReason: maybe<LockReason>, 
 	locked: boolean
-}
+} & (IIssue | IPullRequest)
 
-interface IReactable {
+type IReactable = {
 	databaseId: maybe<number>, 
 	id: string, 
 	reactionGroups: maybe<IReactionGroup>, 
 	reactions: IReactionConnection, 
 	viewerCanReact: boolean
-}
+} & (IIssue | IPullRequest | IIssueComment | ICommitComment | IPullRequestReview | IPullRequestReviewComment)
 
-interface IRepositoryNode {
+type IRepositoryNode = {
 	repository: IRepository
-}
+} & (IIssue | IPullRequest | IIssueComment | ICommitComment | IPullRequestReview | IPullRequestReviewComment | ICommitCommentThread)
 
-interface IDeletable {
+type IDeletable = {
 	viewerCanDelete: boolean
-}
+} & (IIssueComment | ICommitComment | IPullRequestReview | IPullRequestReviewComment | IGistComment)
 
-interface IGitObject {
+type IGitObject = {
 	abbreviatedOid: string, 
 	commitResourcePath: string, 
 	commitUrl: string, 
 	id: string, 
 	oid: any, 
 	repository: IRepository
-}
+} & (ICommit | ITree | IBlob | ITag)
 
-interface IGitSignature {
+type IGitSignature = {
 	email: string, 
 	isValid: boolean, 
 	payload: string, 
@@ -2621,15 +2621,15 @@ interface IGitSignature {
 	signer: maybe<IUser>, 
 	state: GitSignatureState, 
 	wasSignedByGitHub: boolean
-}
+} & (IGpgSignature | ISmimeSignature | IUnknownSignature)
 
-interface IContribution {
+type IContribution = {
 	isRestricted: boolean, 
 	occurredAt: string, 
 	resourcePath: string, 
 	url: string, 
 	user: IUser
-}
+} & (ICreatedIssueContribution | IRestrictedContribution | ICreatedPullRequestContribution | IJoinedGitHubContribution)
 // OBJECT TYPES 
 interface IQuery {
 	codeOfConduct: maybe<ICodeOfConduct>, 
@@ -5713,22 +5713,6 @@ reactions: {
 	} & IReactionConnection
 }
 
-interface IARGRepositoryNode {
-	repository: IRepository
-}
-
-interface IARGGitObject {
-	repository: IRepository
-}
-
-interface IARGGitSignature {
-	signer: maybe<IUser>
-}
-
-interface IARGContribution {
-	user: IUser
-}
-
 interface IARGQuery {
 	codesOfConduct: maybe<ICodeOfConduct>, 
 	licenses: ILicense, 
@@ -5829,12 +5813,6 @@ codeOfConduct: {
 	} & maybe<IARGUser>
 }
 
-interface IARGLicense {
-	conditions: ILicenseRule, 
-	limitations: ILicenseRule, 
-	permissions: ILicenseRule
-}
-
 interface IARGMarketplaceListing {
 	logoUrl: {
 		size: maybe<number>
@@ -5848,16 +5826,6 @@ interface IARGApp {
 	logoUrl: {
 		size: maybe<number>
 	}
-}
-
-interface IARGMarketplaceListingConnection {
-	edges: maybe<IMarketplaceListingEdge>, 
-	nodes: maybe<IMarketplaceListing>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGMarketplaceListingEdge {
-	node: maybe<IMarketplaceListing>
 }
 
 interface IARGOrganization {
@@ -5957,16 +5925,6 @@ columns: {
 	} & IProjectCardConnection
 }
 
-interface IARGProjectColumnConnection {
-	edges: maybe<IProjectColumnEdge>, 
-	nodes: maybe<IProjectColumn>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGProjectColumnEdge {
-	node: maybe<IProjectColumn>
-}
-
 interface IARGProjectColumn {
 	project: IProject,
 cards: {
@@ -5976,23 +5934,6 @@ cards: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & IProjectCardConnection
-}
-
-interface IARGProjectCardConnection {
-	edges: maybe<IProjectCardEdge>, 
-	nodes: maybe<IProjectCard>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGProjectCardEdge {
-	node: maybe<IProjectCard>
-}
-
-interface IARGProjectCard {
-	column: maybe<IProjectColumn>, 
-	content: maybe<ProjectCardItem>, 
-	creator: maybe<IActor>, 
-	project: IProject
 }
 
 interface IARGIssue {
@@ -6053,16 +5994,6 @@ assignees: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & maybe<IUserContentEditConnection>
-}
-
-interface IARGUserConnection {
-	edges: maybe<IUserEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGUserEdge {
-	node: maybe<IUser>
 }
 
 interface IARGUser {
@@ -6206,16 +6137,6 @@ commitComments: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & IRepositoryConnection
-}
-
-interface IARGRepositoryConnection {
-	edges: maybe<IRepositoryEdge>, 
-	nodes: maybe<IRepository>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGRepositoryEdge {
-	node: maybe<IRepository>
 }
 
 interface IARGRepository {
@@ -6405,26 +6326,6 @@ assignableUsers: {
 	} & IUserConnection
 }
 
-interface IARGStargazerConnection {
-	edges: maybe<IStargazerEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGStargazerEdge {
-	node: IUser
-}
-
-interface IARGBranchProtectionRuleConnection {
-	edges: maybe<IBranchProtectionRuleEdge>, 
-	nodes: maybe<IBranchProtectionRule>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGBranchProtectionRuleEdge {
-	node: maybe<IBranchProtectionRule>
-}
-
 interface IARGBranchProtectionRule {
 	creator: maybe<IActor>, 
 	repository: maybe<IRepository>,
@@ -6454,22 +6355,6 @@ branchProtectionRuleConflicts: {
 	} & IReviewDismissalAllowanceConnection
 }
 
-interface IARGBranchProtectionRuleConflictConnection {
-	edges: maybe<IBranchProtectionRuleConflictEdge>, 
-	nodes: maybe<IBranchProtectionRuleConflict>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGBranchProtectionRuleConflictEdge {
-	node: maybe<IBranchProtectionRuleConflict>
-}
-
-interface IARGBranchProtectionRuleConflict {
-	branchProtectionRule: maybe<IBranchProtectionRule>, 
-	conflictingBranchProtectionRule: maybe<IBranchProtectionRule>, 
-	ref: maybe<IRef>
-}
-
 interface IARGRef {
 	repository: IRepository, 
 	target: IGitObject,
@@ -6484,16 +6369,6 @@ associatedPullRequests: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & IPullRequestConnection
-}
-
-interface IARGPullRequestConnection {
-	edges: maybe<IPullRequestEdge>, 
-	nodes: maybe<IPullRequest>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPullRequestEdge {
-	node: maybe<IPullRequest>
 }
 
 interface IARGPullRequest {
@@ -6584,31 +6459,6 @@ assignees: {
 	} & maybe<IUserContentEditConnection>
 }
 
-interface IARGUserContentEditConnection {
-	edges: maybe<IUserContentEditEdge>, 
-	nodes: maybe<IUserContentEdit>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGUserContentEditEdge {
-	node: maybe<IUserContentEdit>
-}
-
-interface IARGUserContentEdit {
-	deletedBy: maybe<IActor>, 
-	editor: maybe<IActor>
-}
-
-interface IARGLabelConnection {
-	edges: maybe<ILabelEdge>, 
-	nodes: maybe<ILabel>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGLabelEdge {
-	node: maybe<ILabel>
-}
-
 interface IARGLabel {
 	repository: IRepository,
 issues: {
@@ -6633,16 +6483,6 @@ issues: {
 	} & IPullRequestConnection
 }
 
-interface IARGIssueConnection {
-	edges: maybe<IIssueEdge>, 
-	nodes: maybe<IIssue>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGIssueEdge {
-	node: maybe<IIssue>
-}
-
 interface IARGReactionGroup {
 	subject: IReactable,
 users: {
@@ -6651,41 +6491,6 @@ users: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & IReactingUserConnection
-}
-
-interface IARGReactingUserConnection {
-	edges: maybe<IReactingUserEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGReactingUserEdge {
-	node: IUser
-}
-
-interface IARGReactionConnection {
-	edges: maybe<IReactionEdge>, 
-	nodes: maybe<IReaction>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGReactionEdge {
-	node: maybe<IReaction>
-}
-
-interface IARGReaction {
-	reactable: IReactable, 
-	user: maybe<IUser>
-}
-
-interface IARGIssueCommentConnection {
-	edges: maybe<IIssueCommentEdge>, 
-	nodes: maybe<IIssueComment>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGIssueCommentEdge {
-	node: maybe<IIssueComment>
 }
 
 interface IARGIssueComment {
@@ -6709,21 +6514,6 @@ reactions: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & maybe<IUserContentEditConnection>
-}
-
-interface IARGPullRequestCommitConnection {
-	edges: maybe<IPullRequestCommitEdge>, 
-	nodes: maybe<IPullRequestCommit>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPullRequestCommitEdge {
-	node: maybe<IPullRequestCommit>
-}
-
-interface IARGPullRequestCommit {
-	commit: ICommit, 
-	pullRequest: IPullRequest
 }
 
 interface IARGCommit {
@@ -6767,24 +6557,6 @@ interface IARGGitActor {
 user: maybe<IUser>
 }
 
-interface IARGBlame {
-	ranges: IBlameRange
-}
-
-interface IARGBlameRange {
-	commit: ICommit
-}
-
-interface IARGCommitCommentConnection {
-	edges: maybe<ICommitCommentEdge>, 
-	nodes: maybe<ICommitComment>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGCommitCommentEdge {
-	node: maybe<ICommitComment>
-}
-
 interface IARGCommitComment {
 	author: maybe<IActor>, 
 	commit: maybe<ICommit>, 
@@ -6807,43 +6579,12 @@ reactions: {
 	} & maybe<IUserContentEditConnection>
 }
 
-interface IARGCommitHistoryConnection {
-	edges: maybe<ICommitEdge>, 
-	nodes: maybe<ICommit>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGCommitEdge {
-	node: maybe<ICommit>
-}
-
-interface IARGCommitConnection {
-	edges: maybe<ICommitEdge>, 
-	nodes: maybe<ICommit>, 
-	pageInfo: IPageInfo
-}
-
 interface IARGStatus {
 	commit: maybe<ICommit>, 
 	contexts: IStatusContext,
 context: {
 		name: string
 	} & maybe<IStatusContext>
-}
-
-interface IARGStatusContext {
-	commit: maybe<ICommit>, 
-	creator: maybe<IActor>
-}
-
-interface IARGTree {
-	entries: maybe<ITreeEntry>, 
-	repository: IRepository
-}
-
-interface IARGTreeEntry {
-	object: maybe<IGitObject>, 
-	repository: IRepository
 }
 
 interface IARGMilestone {
@@ -6869,21 +6610,6 @@ issues: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & IPullRequestConnection
-}
-
-interface IARGReviewRequestConnection {
-	edges: maybe<IReviewRequestEdge>, 
-	nodes: maybe<IReviewRequest>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGReviewRequestEdge {
-	node: maybe<IReviewRequest>
-}
-
-interface IARGReviewRequest {
-	pullRequest: IPullRequest, 
-	requestedReviewer: maybe<RequestedReviewer>
 }
 
 interface IARGTeam {
@@ -6933,62 +6659,6 @@ ancestors: {
 	} & ITeamRepositoryConnection
 }
 
-interface IARGTeamConnection {
-	edges: maybe<ITeamEdge>, 
-	nodes: maybe<ITeam>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGTeamEdge {
-	node: maybe<ITeam>
-}
-
-interface IARGOrganizationInvitationConnection {
-	edges: maybe<IOrganizationInvitationEdge>, 
-	nodes: maybe<IOrganizationInvitation>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGOrganizationInvitationEdge {
-	node: maybe<IOrganizationInvitation>
-}
-
-interface IARGOrganizationInvitation {
-	invitee: maybe<IUser>, 
-	inviter: IUser, 
-	organization: IOrganization
-}
-
-interface IARGTeamMemberConnection {
-	edges: maybe<ITeamMemberEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGTeamMemberEdge {
-	node: IUser
-}
-
-interface IARGTeamRepositoryConnection {
-	edges: maybe<ITeamRepositoryEdge>, 
-	nodes: maybe<IRepository>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGTeamRepositoryEdge {
-	node: IRepository
-}
-
-interface IARGPullRequestReviewConnection {
-	edges: maybe<IPullRequestReviewEdge>, 
-	nodes: maybe<IPullRequestReview>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPullRequestReviewEdge {
-	node: maybe<IPullRequestReview>
-}
-
 interface IARGPullRequestReview {
 	author: maybe<IActor>, 
 	commit: maybe<ICommit>, 
@@ -7024,16 +6694,6 @@ comments: {
 	} & maybe<IUserContentEditConnection>
 }
 
-interface IARGPullRequestReviewCommentConnection {
-	edges: maybe<IPullRequestReviewCommentEdge>, 
-	nodes: maybe<IPullRequestReviewComment>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPullRequestReviewCommentEdge {
-	node: maybe<IPullRequestReviewComment>
-}
-
 interface IARGPullRequestReviewComment {
 	author: maybe<IActor>, 
 	commit: ICommit, 
@@ -7060,20 +6720,6 @@ reactions: {
 	} & maybe<IUserContentEditConnection>
 }
 
-interface IARGSuggestedReviewer {
-	reviewer: IUser
-}
-
-interface IARGPullRequestTimelineConnection {
-	edges: maybe<IPullRequestTimelineItemEdge>, 
-	nodes: maybe<PullRequestTimelineItem>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPullRequestTimelineItemEdge {
-	node: maybe<PullRequestTimelineItem>
-}
-
 interface IARGCommitCommentThread {
 	commit: ICommit, 
 	repository: IRepository,
@@ -7096,103 +6742,6 @@ comments: {
 	} & IPullRequestReviewCommentConnection
 }
 
-interface IARGClosedEvent {
-	actor: maybe<IActor>, 
-	closable: IClosable, 
-	closer: maybe<Closer>
-}
-
-interface IARGReopenedEvent {
-	actor: maybe<IActor>, 
-	closable: IClosable
-}
-
-interface IARGSubscribedEvent {
-	actor: maybe<IActor>, 
-	subscribable: ISubscribable
-}
-
-interface IARGUnsubscribedEvent {
-	actor: maybe<IActor>, 
-	subscribable: ISubscribable
-}
-
-interface IARGMergedEvent {
-	actor: maybe<IActor>, 
-	commit: maybe<ICommit>, 
-	mergeRef: maybe<IRef>, 
-	pullRequest: IPullRequest
-}
-
-interface IARGReferencedEvent {
-	actor: maybe<IActor>, 
-	commit: maybe<ICommit>, 
-	commitRepository: IRepository, 
-	subject: ReferencedSubject
-}
-
-interface IARGCrossReferencedEvent {
-	actor: maybe<IActor>, 
-	source: ReferencedSubject, 
-	target: ReferencedSubject
-}
-
-interface IARGAssignedEvent {
-	actor: maybe<IActor>, 
-	assignable: IAssignable, 
-	user: maybe<IUser>
-}
-
-interface IARGUnassignedEvent {
-	actor: maybe<IActor>, 
-	assignable: IAssignable, 
-	user: maybe<IUser>
-}
-
-interface IARGLabeledEvent {
-	actor: maybe<IActor>, 
-	label: ILabel, 
-	labelable: ILabelable
-}
-
-interface IARGUnlabeledEvent {
-	actor: maybe<IActor>, 
-	label: ILabel, 
-	labelable: ILabelable
-}
-
-interface IARGMilestonedEvent {
-	actor: maybe<IActor>, 
-	subject: MilestoneItem
-}
-
-interface IARGDemilestonedEvent {
-	actor: maybe<IActor>, 
-	subject: MilestoneItem
-}
-
-interface IARGRenamedTitleEvent {
-	actor: maybe<IActor>, 
-	subject: RenamedTitleSubject
-}
-
-interface IARGLockedEvent {
-	actor: maybe<IActor>, 
-	lockable: ILockable
-}
-
-interface IARGUnlockedEvent {
-	actor: maybe<IActor>, 
-	lockable: ILockable
-}
-
-interface IARGDeployedEvent {
-	actor: maybe<IActor>, 
-	deployment: IDeployment, 
-	pullRequest: IPullRequest, 
-	ref: maybe<IRef>
-}
-
 interface IARGDeployment {
 	commit: maybe<ICommit>, 
 	creator: maybe<IActor>, 
@@ -7205,183 +6754,6 @@ statuses: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & maybe<IDeploymentStatusConnection>
-}
-
-interface IARGDeploymentStatus {
-	creator: maybe<IActor>, 
-	deployment: IDeployment
-}
-
-interface IARGDeploymentStatusConnection {
-	edges: maybe<IDeploymentStatusEdge>, 
-	nodes: maybe<IDeploymentStatus>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGDeploymentStatusEdge {
-	node: maybe<IDeploymentStatus>
-}
-
-interface IARGDeploymentEnvironmentChangedEvent {
-	actor: maybe<IActor>, 
-	deploymentStatus: IDeploymentStatus, 
-	pullRequest: IPullRequest
-}
-
-interface IARGHeadRefDeletedEvent {
-	actor: maybe<IActor>, 
-	headRef: maybe<IRef>, 
-	pullRequest: IPullRequest
-}
-
-interface IARGHeadRefRestoredEvent {
-	actor: maybe<IActor>, 
-	pullRequest: IPullRequest
-}
-
-interface IARGHeadRefForcePushedEvent {
-	actor: maybe<IActor>, 
-	afterCommit: maybe<ICommit>, 
-	beforeCommit: maybe<ICommit>, 
-	pullRequest: IPullRequest, 
-	ref: maybe<IRef>
-}
-
-interface IARGBaseRefForcePushedEvent {
-	actor: maybe<IActor>, 
-	afterCommit: maybe<ICommit>, 
-	beforeCommit: maybe<ICommit>, 
-	pullRequest: IPullRequest, 
-	ref: maybe<IRef>
-}
-
-interface IARGReviewRequestedEvent {
-	actor: maybe<IActor>, 
-	pullRequest: IPullRequest, 
-	requestedReviewer: maybe<RequestedReviewer>
-}
-
-interface IARGReviewRequestRemovedEvent {
-	actor: maybe<IActor>, 
-	pullRequest: IPullRequest, 
-	requestedReviewer: maybe<RequestedReviewer>
-}
-
-interface IARGReviewDismissedEvent {
-	actor: maybe<IActor>, 
-	pullRequest: IPullRequest, 
-	pullRequestCommit: maybe<IPullRequestCommit>, 
-	review: maybe<IPullRequestReview>
-}
-
-interface IARGRefConnection {
-	edges: maybe<IRefEdge>, 
-	nodes: maybe<IRef>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGRefEdge {
-	node: maybe<IRef>
-}
-
-interface IARGPushAllowanceConnection {
-	edges: maybe<IPushAllowanceEdge>, 
-	nodes: maybe<IPushAllowance>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPushAllowanceEdge {
-	node: maybe<IPushAllowance>
-}
-
-interface IARGPushAllowance {
-	actor: maybe<PushAllowanceActor>, 
-	branchProtectionRule: maybe<IBranchProtectionRule>
-}
-
-interface IARGReviewDismissalAllowanceConnection {
-	edges: maybe<IReviewDismissalAllowanceEdge>, 
-	nodes: maybe<IReviewDismissalAllowance>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGReviewDismissalAllowanceEdge {
-	node: maybe<IReviewDismissalAllowance>
-}
-
-interface IARGReviewDismissalAllowance {
-	actor: maybe<ReviewDismissalAllowanceActor>, 
-	branchProtectionRule: maybe<IBranchProtectionRule>
-}
-
-interface IARGRepositoryCollaboratorConnection {
-	edges: maybe<IRepositoryCollaboratorEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGRepositoryCollaboratorEdge {
-	node: IUser
-}
-
-interface IARGDeployKeyConnection {
-	edges: maybe<IDeployKeyEdge>, 
-	nodes: maybe<IDeployKey>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGDeployKeyEdge {
-	node: maybe<IDeployKey>
-}
-
-interface IARGDeploymentConnection {
-	edges: maybe<IDeploymentEdge>, 
-	nodes: maybe<IDeployment>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGDeploymentEdge {
-	node: maybe<IDeployment>
-}
-
-interface IARGLanguageConnection {
-	edges: maybe<ILanguageEdge>, 
-	nodes: maybe<ILanguage>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGLanguageEdge {
-	node: ILanguage
-}
-
-interface IARGMilestoneConnection {
-	edges: maybe<IMilestoneEdge>, 
-	nodes: maybe<IMilestone>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGMilestoneEdge {
-	node: maybe<IMilestone>
-}
-
-interface IARGProjectConnection {
-	edges: maybe<IProjectEdge>, 
-	nodes: maybe<IProject>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGProjectEdge {
-	node: maybe<IProject>
-}
-
-interface IARGProtectedBranchConnection {
-	edges: maybe<IProtectedBranchEdge>, 
-	nodes: maybe<IProtectedBranch>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGProtectedBranchEdge {
-	node: maybe<IProtectedBranch>
 }
 
 interface IARGProtectedBranch {
@@ -7411,45 +6783,6 @@ releaseAssets: {
 	last: maybe<number>, 
 	name: maybe<string>
 	} & IReleaseAssetConnection
-}
-
-interface IARGReleaseAssetConnection {
-	edges: maybe<IReleaseAssetEdge>, 
-	nodes: maybe<IReleaseAsset>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGReleaseAssetEdge {
-	node: maybe<IReleaseAsset>
-}
-
-interface IARGReleaseAsset {
-	release: maybe<IRelease>, 
-	uploadedBy: IUser
-}
-
-interface IARGReleaseConnection {
-	edges: maybe<IReleaseEdge>, 
-	nodes: maybe<IRelease>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGReleaseEdge {
-	node: maybe<IRelease>
-}
-
-interface IARGRepositoryTopicConnection {
-	edges: maybe<IRepositoryTopicEdge>, 
-	nodes: maybe<IRepositoryTopic>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGRepositoryTopicEdge {
-	node: maybe<IRepositoryTopic>
-}
-
-interface IARGRepositoryTopic {
-	topic: ITopic
 }
 
 interface IARGTopic {
@@ -7510,55 +6843,6 @@ firstIssueContribution: {
 	} & maybe<IJoinedGitHubContribution>
 }
 
-interface IARGContributionCalendar {
-	months: IContributionCalendarMonth, 
-	weeks: IContributionCalendarWeek
-}
-
-interface IARGContributionCalendarWeek {
-	contributionDays: IContributionCalendarDay
-}
-
-interface IARGCreatedIssueContribution {
-	issue: IIssue, 
-	user: IUser
-}
-
-interface IARGRestrictedContribution {
-	user: IUser
-}
-
-interface IARGCreatedPullRequestContribution {
-	pullRequest: IPullRequest, 
-	user: IUser
-}
-
-interface IARGCreatedIssueContributionConnection {
-	edges: maybe<ICreatedIssueContributionEdge>, 
-	nodes: maybe<ICreatedIssueContribution>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGCreatedIssueContributionEdge {
-	node: maybe<ICreatedIssueContribution>
-}
-
-interface IARGJoinedGitHubContribution {
-	user: IUser
-}
-
-interface IARGFollowerConnection {
-	edges: maybe<IUserEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGFollowingConnection {
-	edges: maybe<IUserEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
 interface IARGGist {
 	owner: maybe<IRepositoryOwner>,
 comments: {
@@ -7576,16 +6860,6 @@ comments: {
 	} & IStargazerConnection
 }
 
-interface IARGGistCommentConnection {
-	edges: maybe<IGistCommentEdge>, 
-	nodes: maybe<IGistComment>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGGistCommentEdge {
-	node: maybe<IGistComment>
-}
-
 interface IARGGistComment {
 	author: maybe<IActor>, 
 	editor: maybe<IActor>, 
@@ -7598,72 +6872,6 @@ userContentEdits: {
 	} & maybe<IUserContentEditConnection>
 }
 
-interface IARGGistConnection {
-	edges: maybe<IGistEdge>, 
-	nodes: maybe<IGist>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGGistEdge {
-	node: maybe<IGist>
-}
-
-interface IARGOrganizationConnection {
-	edges: maybe<IOrganizationEdge>, 
-	nodes: maybe<IOrganization>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGOrganizationEdge {
-	node: maybe<IOrganization>
-}
-
-interface IARGPublicKeyConnection {
-	edges: maybe<IPublicKeyEdge>, 
-	nodes: maybe<IPublicKey>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGPublicKeyEdge {
-	node: maybe<IPublicKey>
-}
-
-interface IARGStarredRepositoryConnection {
-	edges: maybe<IStarredRepositoryEdge>, 
-	nodes: maybe<IRepository>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGStarredRepositoryEdge {
-	node: IRepository
-}
-
-interface IARGIssueTimelineConnection {
-	edges: maybe<IIssueTimelineItemEdge>, 
-	nodes: maybe<IssueTimelineItem>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGIssueTimelineItemEdge {
-	node: maybe<IssueTimelineItem>
-}
-
-interface IARGTransferredEvent {
-	actor: maybe<IActor>, 
-	fromRepository: maybe<IRepository>, 
-	issue: IIssue
-}
-
-interface IARGOrganizationMemberConnection {
-	edges: maybe<IOrganizationMemberEdge>, 
-	nodes: maybe<IUser>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGOrganizationMemberEdge {
-	node: maybe<IUser>
-}
-
 interface IARGOrganizationIdentityProvider {
 	organization: maybe<IOrganization>,
 externalIdentities: {
@@ -7672,48 +6880,6 @@ externalIdentities: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & IExternalIdentityConnection
-}
-
-interface IARGExternalIdentityConnection {
-	edges: maybe<IExternalIdentityEdge>, 
-	nodes: maybe<IExternalIdentity>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGExternalIdentityEdge {
-	node: maybe<IExternalIdentity>
-}
-
-interface IARGExternalIdentity {
-	organizationInvitation: maybe<IOrganizationInvitation>, 
-	samlIdentity: maybe<IExternalIdentitySamlAttributes>, 
-	scimIdentity: maybe<IExternalIdentityScimAttributes>, 
-	user: maybe<IUser>
-}
-
-interface IARGSearchResultItemConnection {
-	edges: maybe<ISearchResultItemEdge>, 
-	nodes: maybe<SearchResultItem>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGSearchResultItemEdge {
-	node: maybe<SearchResultItem>, 
-	textMatches: maybe<ITextMatch>
-}
-
-interface IARGTextMatch {
-	highlights: ITextMatchHighlight
-}
-
-interface IARGSecurityAdvisoryConnection {
-	edges: maybe<ISecurityAdvisoryEdge>, 
-	nodes: maybe<ISecurityAdvisory>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGSecurityAdvisoryEdge {
-	node: maybe<ISecurityAdvisory>
 }
 
 interface IARGSecurityAdvisory {
@@ -7729,22 +6895,6 @@ vulnerabilities: {
 	first: maybe<number>, 
 	last: maybe<number>
 	} & ISecurityVulnerabilityConnection
-}
-
-interface IARGSecurityVulnerabilityConnection {
-	edges: maybe<ISecurityVulnerabilityEdge>, 
-	nodes: maybe<ISecurityVulnerability>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGSecurityVulnerabilityEdge {
-	node: maybe<ISecurityVulnerability>
-}
-
-interface IARGSecurityVulnerability {
-	advisory: ISecurityAdvisory, 
-	firstPatchedVersion: maybe<ISecurityAdvisoryPackageVersion>, 
-	package: ISecurityAdvisoryPackage
 }
 
 interface IARGMutation {
@@ -7852,257 +7002,10 @@ interface IARGMutation {
 	} & maybe<IUpdateTopicsPayload>
 }
 
-interface IARGAcceptTopicSuggestionPayload {
-	topic: maybe<ITopic>
-}
-
-interface IARGAddCommentPayload {
-	commentEdge: maybe<IIssueCommentEdge>, 
-	subject: maybe<INode>, 
-	timelineEdge: maybe<IIssueTimelineItemEdge>
-}
-
-interface IARGAddProjectCardPayload {
-	cardEdge: maybe<IProjectCardEdge>, 
-	projectColumn: maybe<IProjectColumn>
-}
-
-interface IARGAddProjectColumnPayload {
-	columnEdge: maybe<IProjectColumnEdge>, 
-	project: maybe<IProject>
-}
-
-interface IARGAddPullRequestReviewPayload {
-	pullRequestReview: maybe<IPullRequestReview>, 
-	reviewEdge: maybe<IPullRequestReviewEdge>
-}
-
-interface IARGAddPullRequestReviewCommentPayload {
-	comment: maybe<IPullRequestReviewComment>, 
-	commentEdge: maybe<IPullRequestReviewCommentEdge>
-}
-
-interface IARGAddReactionPayload {
-	reaction: maybe<IReaction>, 
-	subject: maybe<IReactable>
-}
-
-interface IARGAddStarPayload {
-	starrable: maybe<IStarrable>
-}
-
-interface IARGCreateBranchProtectionRulePayload {
-	branchProtectionRule: maybe<IBranchProtectionRule>
-}
-
-interface IARGCreateProjectPayload {
-	project: maybe<IProject>
-}
-
-interface IARGDeclineTopicSuggestionPayload {
-	topic: maybe<ITopic>
-}
-
-interface IARGDeleteProjectPayload {
-	owner: maybe<IProjectOwner>
-}
-
-interface IARGDeleteProjectCardPayload {
-	column: maybe<IProjectColumn>
-}
-
-interface IARGDeleteProjectColumnPayload {
-	project: maybe<IProject>
-}
-
-interface IARGDeletePullRequestReviewPayload {
-	pullRequestReview: maybe<IPullRequestReview>
-}
-
-interface IARGDismissPullRequestReviewPayload {
-	pullRequestReview: maybe<IPullRequestReview>
-}
-
-interface IARGLockLockablePayload {
-	lockedRecord: maybe<ILockable>
-}
-
-interface IARGMoveProjectCardPayload {
-	cardEdge: maybe<IProjectCardEdge>
-}
-
-interface IARGMoveProjectColumnPayload {
-	columnEdge: maybe<IProjectColumnEdge>
-}
-
-interface IARGRemoveOutsideCollaboratorPayload {
-	removedUser: maybe<IUser>
-}
-
-interface IARGRemoveReactionPayload {
-	reaction: maybe<IReaction>, 
-	subject: maybe<IReactable>
-}
-
-interface IARGRemoveStarPayload {
-	starrable: maybe<IStarrable>
-}
-
-interface IARGRequestReviewsPayload {
-	pullRequest: maybe<IPullRequest>, 
-	requestedReviewersEdge: maybe<IUserEdge>
-}
-
-interface IARGSubmitPullRequestReviewPayload {
-	pullRequestReview: maybe<IPullRequestReview>
-}
-
-interface IARGUnlockLockablePayload {
-	unlockedRecord: maybe<ILockable>
-}
-
-interface IARGUpdateBranchProtectionRulePayload {
-	branchProtectionRule: maybe<IBranchProtectionRule>
-}
-
-interface IARGUpdateProjectPayload {
-	project: maybe<IProject>
-}
-
-interface IARGUpdateProjectCardPayload {
-	projectCard: maybe<IProjectCard>
-}
-
-interface IARGUpdateProjectColumnPayload {
-	projectColumn: maybe<IProjectColumn>
-}
-
-interface IARGUpdatePullRequestReviewPayload {
-	pullRequestReview: maybe<IPullRequestReview>
-}
-
-interface IARGUpdatePullRequestReviewCommentPayload {
-	pullRequestReviewComment: maybe<IPullRequestReviewComment>
-}
-
-interface IARGUpdateSubscriptionPayload {
-	subscribable: maybe<ISubscribable>
-}
-
-interface IARGUpdateTopicsPayload {
-	repository: maybe<IRepository>
-}
-
-interface IARGRepositoryInvitationEdge {
-	node: maybe<IRepositoryInvitation>
-}
-
-interface IARGRepositoryInvitation {
-	invitee: IUser, 
-	inviter: IUser, 
-	repository: maybe<IRepositoryInfo>
-}
-
 interface IARGBot {
 	avatarUrl: {
 		size: maybe<number>
 	}
-}
-
-interface IARGBlob {
-	repository: IRepository
-}
-
-interface IARGPullRequestTimelineItemsEdge {
-	node: maybe<PullRequestTimelineItems>
-}
-
-interface IARGBaseRefChangedEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGAddedToProjectEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGCommentDeletedEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGConvertedNoteToIssueEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGMentionedEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGMovedColumnsInProjectEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGPinnedEvent {
-	actor: maybe<IActor>, 
-	issue: IIssue
-}
-
-interface IARGRemovedFromProjectEvent {
-	actor: maybe<IActor>
-}
-
-interface IARGUnpinnedEvent {
-	actor: maybe<IActor>, 
-	issue: IIssue
-}
-
-interface IARGIssueTimelineItemsEdge {
-	node: maybe<IssueTimelineItems>
-}
-
-interface IARGTopicConnection {
-	edges: maybe<ITopicEdge>, 
-	nodes: maybe<ITopic>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGTopicEdge {
-	node: maybe<ITopic>
-}
-
-interface IARGCreatedPullRequestContributionConnection {
-	edges: maybe<ICreatedPullRequestContributionEdge>, 
-	nodes: maybe<ICreatedPullRequestContribution>, 
-	pageInfo: IPageInfo
-}
-
-interface IARGCreatedPullRequestContributionEdge {
-	node: maybe<ICreatedPullRequestContribution>
-}
-
-interface IARGAppEdge {
-	node: maybe<IApp>
-}
-
-interface IARGContentAttachment {
-	contentReference: IContentReference
-}
-
-interface IARGGpgSignature {
-	signer: maybe<IUser>
-}
-
-interface IARGSmimeSignature {
-	signer: maybe<IUser>
-}
-
-interface IARGTag {
-	repository: IRepository, 
-	tagger: maybe<IGitActor>, 
-	target: IGitObject
-}
-
-interface IARGUnknownSignature {
-	signer: maybe<IUser>
 }
 
 export const github = new Graphtype<IQuery,

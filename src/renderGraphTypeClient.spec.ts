@@ -17,7 +17,8 @@ describe('renderGraphTypeClient', function() {
           URI: types.String,
           HTML: types.String
         },
-        clientName: 'github'
+        clientName: 'github',
+        importOverride: `import { Graphtype, t } from '../src/index'`
       })
     )
   })

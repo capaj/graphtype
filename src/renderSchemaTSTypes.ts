@@ -33,6 +33,10 @@ export const renderSchemaTSTypes = (
     .filter((type) => !type.fields.find((field) => field.hasArguments))
     .map((type) => type.name)
 
+  const hasArgumentableFields = (type: string) =>
+    !typesWithNoArgumentableFields.includes(type) &&
+    !interfacesWithNoArgumentableFields.includes(type)
+
   Object.assign(scalarsToTypesMap, extraScalars)
   let graphTypeTypeDef = `type maybe<T> = T | null
 interface IQuery{}
@@ -69,11 +73,7 @@ interface IARGSubscriptio{}`
       if (isUnion || isEnum) {
         // typeLiteral = type
       } else if (isInterface || isType) {
-        if (
-          isForArgumentType &&
-          !typesWithNoArgumentableFields.includes(type) &&
-          !interfacesWithNoArgumentableFields.includes(type)
-        ) {
+        if (isForArgumentType && hasArgumentableFields(type)) {
           typeLiteral = `${argInterfacePrefix}${type}`
         } else {
           typeLiteral = `I${type}`
@@ -97,7 +97,11 @@ interface IARGSubscriptio{}`
   }
 
   const registerArgumentType = (type: Type | Interface) => {
-    const fieldsWithArguments = type.fields // we need to create new a type from arguments
+    const { fields, name } = type
+    if (!hasArgumentableFields(name)) {
+      return
+    }
+    const fieldsWithArguments = fields // we need to create new a type from arguments
       .filter(
         ({ isType, isInterface, isUnion, hasArguments }) =>
           hasArguments && !(isType || isInterface || isUnion)
@@ -110,7 +114,7 @@ interface IARGSubscriptio{}`
         return `${field.name}: ${argObjectTypeLiteral}`
       })
       .join(', \n\t')
-    const fieldsWithArgumentsReturningAComplexType = type.fields // we need to create new a type from arguments and merge it with the object type
+    const fieldsWithArgumentsReturningAComplexType = fields // we need to create new a type from arguments and merge it with the object type
       .filter(
         ({ isType, isInterface, isUnion, hasArguments }) =>
           (isType || isInterface || isUnion) && hasArguments
@@ -127,7 +131,7 @@ interface IARGSubscriptio{}`
       })
       .join(', \n\t')
 
-    const fieldsReturningAComplexType = type.fields
+    const fieldsReturningAComplexType = fields
       .filter(
         ({ isType, isInterface, isUnion, hasArguments }) =>
           (isType || isInterface || isUnion) && !hasArguments
@@ -135,22 +139,12 @@ interface IARGSubscriptio{}`
       .map(renderField)
       .join(', \n\t')
 
-    if (
-      fieldsReturningAComplexType.length === 0 &&
-      fieldsWithArgumentsReturningAComplexType.length === 0 &&
-      fieldsWithArguments.length === 0
-    ) {
-      typesWithNoArgumentableFields.push(type.name)
-      return
-    }
     const renderedFields = [
       fieldsWithArguments,
       fieldsReturningAComplexType,
       fieldsWithArgumentsReturningAComplexType
     ].filter(({ length }) => length > 0)
-    const argsInterfaceLiteral = `${exportLiteral}interface ${argInterfacePrefix}${
-      type.name
-    } {
+    const argsInterfaceLiteral = `${exportLiteral}interface ${argInterfacePrefix}${name} {
 \t${renderedFields.join(',\n')}
 }`
     typesWithArgumentableFields.push(argsInterfaceLiteral)
@@ -165,20 +159,25 @@ interface IARGSubscriptio{}`
       const { name: intfName, fields: intfFields } = intf
       // console.log('intfFields: ', intfFields)
       registerArgumentType(intf)
-
+      const possibleTypesEnumLiteral = intf.implementingTypes
+        .map((typeName) => `I${typeName}`)
+        .join(' | ')
       const fields = intfFields
         .map((field) => {
           return renderField(field)
         })
         .join(', \n\t')
-      return `${exportLiteral}interface I${intfName} {
+      return `${exportLiteral}type I${intfName} = {
 \t${fields}
-}`
+} & (${possibleTypesEnumLiteral})`
     },
     type(type: Type) {
       const { name: typeName, fields: typeFields } = type
       // console.log('intfFields: ', typeFields)
-      registerArgumentType(type)
+
+      if (!type.isInputType) {
+        registerArgumentType(type)
+      }
 
       const fields = typeFields
         .map((field) => {

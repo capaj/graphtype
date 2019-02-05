@@ -8,14 +8,18 @@ export const renderGraphTypeClient = (opts: {
   schema: GraphQLSchema
   extraScalars: object
   clientName: string
+  importOverride: string
 }) => {
-  const { schema, extraScalars, clientName } = opts
+  const { schema, extraScalars, clientName, importOverride } = opts
   const context: SchemaTemplateContext = schemaToTemplateContext(schema)
 
   const schemaScalarTypes = renderSchemaScalarTypes(context, extraScalars)
   const schemaTSTypes = renderSchemaTSTypes(context, extraScalars)
+  const importLiteral =
+    importOverride || `import {Graphtype, t} from 'graphtype'`
+
   return `
-import {Graphtype, t} from 'graphtype'
+${importLiteral}
 
 ${schemaScalarTypes}
 
