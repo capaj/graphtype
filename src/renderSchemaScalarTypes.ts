@@ -10,11 +10,11 @@ const enums = new Set()
 
 export const renderSchemaScalarTypes = (
   schemaContext: SchemaTemplateContext,
-  extraScalars: object
+  extraScalars: any
 ) => {
   let graphTypeTypeDef = ''
 
-  const isScalarOrEnum = (typeName) => {
+  const isScalarOrEnum = (typeName: string) => {
     if (defaultScalars.includes(typeName)) {
       return true
     }
@@ -27,7 +27,7 @@ export const renderSchemaScalarTypes = (
     return false
   }
 
-  const renderField = (field) => {
+  const renderField = (field: Field) => {
     let renderedType: string
     if (enums.has(field.type)) {
       renderedType = renderers.enumProp(field)
@@ -67,7 +67,7 @@ export const renderSchemaScalarTypes = (
       }
       return `t${nullableModifier}.${type}`
     },
-    enumProp(field) {
+    enumProp(field: Field) {
       const nullableModifier = field.isRequired ? '' : '.nullable'
       let { type } = field
       if (extraScalars[type]) {
