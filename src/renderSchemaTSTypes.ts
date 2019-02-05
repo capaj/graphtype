@@ -7,8 +7,11 @@ import {
   Type,
   Argument
 } from 'graphql-codegen-core'
+import { CoreType } from './types'
 
-const scalarsToTypesMap = {
+const scalarsToTypesMap: {
+  [key: string]: string | CoreType
+} = {
   Boolean: 'boolean',
   Float: 'number',
   Int: 'number',
