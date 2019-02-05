@@ -6,7 +6,7 @@ import {
   Union,
   Type,
   Argument
-} from '../node_modules/graphql-codegen-core/dist/types'
+} from 'graphql-codegen-core'
 
 const scalarsToTypesMap = {
   Boolean: 'boolean',

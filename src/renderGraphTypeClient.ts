@@ -1,7 +1,7 @@
 import { GraphQLSchema } from 'graphql'
 import { schemaToTemplateContext } from 'graphql-codegen-core'
 import { renderSchemaScalarTypes } from './renderSchemaScalarTypes'
-import { SchemaTemplateContext } from '../node_modules/graphql-codegen-core/dist/types'
+import { SchemaTemplateContext } from 'graphql-codegen-core'
 import { renderSchemaTSTypes } from './renderSchemaTSTypes'
 
 export const renderGraphTypeClient = (opts: {

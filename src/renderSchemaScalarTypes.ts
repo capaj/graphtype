@@ -4,7 +4,7 @@ import {
   Enum,
   Interface,
   Type
-} from 'node_modules/graphql-codegen-core/dist/types'
+} from 'graphql-codegen-core'
 const defaultScalars = ['Boolean', 'Float', 'Int', 'String', 'DateTime', 'ID']
 const enums = new Set()
 
