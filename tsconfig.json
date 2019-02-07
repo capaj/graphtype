@@ -35,6 +35,9 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
 
-    "outDir": "dist"
-  }
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
 }

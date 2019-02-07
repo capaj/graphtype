@@ -2,7 +2,6 @@ import { OperationVariable, Fragments } from './types'
 import { compileToGql } from './compileToGql'
 import { Spread, DeepPartial } from './tsUtilTypes'
 
-export { renderGraphTypeClient } from './renderGraphTypeClient'
 export { types } from './types'
 export { types as t } from './types'
 

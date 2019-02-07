@@ -1,6 +1,6 @@
 {
   "name": "graphtype",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "GraphQL query builder for typescript. Write GQL queries as TS objects and let compiler typecheck your queries",
   "keywords": [
     "graphql",
@@ -19,7 +19,8 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "npm run clean && rollup -c && npm run buildRenderers",
+    "buildRenderers": "tsc src/renderGraphTypeClient.ts --outDir dist",
     "clean": "rm -rf dist/*",
     "copy-dts": "cp dist/src/index.d.ts dist",
     "dist": "npm-run-all clean build copy-dts",

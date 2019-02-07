@@ -1,11 +1,10 @@
 import typescript from 'rollup-plugin-typescript2'
 
 export default {
-  input: './src/index.ts',
+  inputs: './src/index.ts',
   plugins: [
     typescript({
-      tslib: require('tslib'),
-      declaration: true
+      tslib: require('tslib')
     })
   ],
   external: (id) => !id.startsWith('.') && !id.startsWith('/'),
