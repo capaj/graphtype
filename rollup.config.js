@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2'
 
 export default {
-  inputs: './src/index.ts',
+  input: './src/index.ts',
   plugins: [
     typescript({
       tslib: require('tslib')
