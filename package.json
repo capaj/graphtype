@@ -19,7 +19,7 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc -p . -m CommonJS && rollup -c",
     "clean": "rm -rf dist/*",
     "dist": "npm-run-all clean build",
     "test": "jest",

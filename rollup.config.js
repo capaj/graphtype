@@ -10,12 +10,6 @@ export default {
   external: (id) => !id.startsWith('.') && !id.startsWith('/'),
   output: [
     {
-      file: 'dist/index.js',
-      format: 'cjs',
-      name: 'graphtype',
-      sourcemap: true
-    },
-    {
       file: 'dist/index.es.js',
       format: 'es',
       sourcemap: true
