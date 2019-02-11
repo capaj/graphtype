@@ -3004,7 +3004,7 @@ interface IUser {
 	resourcePath: string, 
 	starredRepositories: IStarredRepositoryConnection, 
 	updatedAt: string, 
-	url: string,
+	url: string, 
 	viewerCanFollow: boolean, 
 	viewerIsFollowing: boolean, 
 	watching: IRepositoryConnection, 
@@ -7013,5 +7013,4 @@ export const github = new Graphtype<IQuery,
   ISubscription,
   IARGQuery,
   IARGMutation,
-	IARGSubscriptio>()
-
+  IARGSubscriptio>()

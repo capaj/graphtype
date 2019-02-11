@@ -228,6 +228,26 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render raw variable param and name it the same', () => {
+    expect(
+      gt.query(
+        {
+          user: {
+            id: t.Int
+          }
+        },
+        { user: { filter: t.raw('UserFilter') } },
+        'getUserById'
+      )
+    ).toEqual(gql`
+      query getUserById($filter: UserFilter!) {
+        user(filter: $filter) {
+          id
+        }
+      }
+    `)
+  })
+
   it('render variable params with an alias', () => {
     const fragment = {
       id: t.Int
@@ -291,7 +311,7 @@ describe('graphqlify', () => {
             id: t.Int
           }
         },
-        { updateUser: { input: t.raw('UserInput') } },
+        { updateUser: { input: t.nullable.raw('UserInput') } },
         'updateUser'
       )
     ).toEqual(gql`

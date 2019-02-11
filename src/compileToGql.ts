@@ -147,7 +147,8 @@ export function compileToGql(
           const exclamationMark = value.nullable ? '' : '!'
           return '$' + key + ': ' + value.type + exclamationMark
         } else if (value instanceof RawType) {
-          return '$' + key + ': ' + value.raw
+          const exclamationMark = value.nullable ? '' : '!'
+          return '$' + key + ': ' + value.raw + exclamationMark
         }
         throw new Error(`unknown param type`)
       })

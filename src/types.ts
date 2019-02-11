@@ -42,8 +42,10 @@ export class CoreType {
 }
 export class RawType {
   raw: string
-  constructor(raw: string) {
+  nullable: boolean
+  constructor(raw: string, nullable = false) {
     this.raw = raw
+    this.nullable = nullable
   }
 }
 
@@ -77,7 +79,7 @@ class nullableTypes {
   static enum = oneOfNullable
   static custom = custom
   static raw(name: string) {
-    return new RawType(name)
+    return new RawType(name, true)
   }
 }
 
