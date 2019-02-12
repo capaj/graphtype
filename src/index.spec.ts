@@ -1,7 +1,12 @@
 import { Graphtype, t, $ } from './index'
 import { nullable } from './types'
 // import { GraphQLData } from './index'
-import { gql } from './test-utils'
+import gql from 'graphql-tag'
+import { print } from 'graphql'
+
+function assertGQLEqual(actual, expected) {
+  expect(print(actual)).toEqual(print(expected))
+}
 
 describe('graphqlify', () => {
   let gt: any
@@ -50,21 +55,23 @@ describe('graphqlify', () => {
       { user: { id: 1 } },
       'getUser'
     )
-
-    expect(actual).toEqual(gql`
-      query getUser {
-        user(id: 1) {
-          id
-          name
-          bankAccount {
+    assertGQLEqual(
+      actual,
+      gql`
+        query getUser {
+          user(id: 1) {
             id
-            branch
+            name
+            bankAccount {
+              id
+              branch
+            }
           }
         }
-      }
-    `)
+      `
+    )
 
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           user: {
@@ -80,19 +87,20 @@ describe('graphqlify', () => {
           user: { id: 2, name: 'Michel', bankAccount: { accId: 51 } }
         },
         'getUser'
-      )
-    ).toEqual(gql`
-      query getUser {
-        user(id: 2, name: "Michel") {
-          id
-          name
-          bankAccount(accId: 51) {
+      ),
+      gql`
+        query getUser {
+          user(id: 2, name: "Michel") {
             id
-            branch
+            name
+            bankAccount(accId: 51) {
+              id
+              branch
+            }
           }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render no params GraphQL', () => {
@@ -102,13 +110,18 @@ describe('graphqlify', () => {
       }
     }
 
-    expect(gt.query(queryObject, 'getUser')).toEqual(gql`
-      query getUser {
-        user {
-          id
+    const q = gt.query(queryObject, 'getUser')
+
+    assertGQLEqual(
+      q,
+      gql`
+        query getUser {
+          user {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render very deep GraphQL', () => {
@@ -125,19 +138,22 @@ describe('graphqlify', () => {
     }
     const actual = gt.query(queryObject, 'getUser')
 
-    expect(actual).toEqual(gql`
-      query getUser {
-        user {
-          student {
-            mother {
-              father {
-                id
+    assertGQLEqual(
+      actual,
+      gql`
+        query getUser {
+          user {
+            student {
+              mother {
+                father {
+                  id
+                }
               }
             }
           }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('renders string params in quotes', () => {
@@ -147,15 +163,16 @@ describe('graphqlify', () => {
       }
     }
 
-    expect(
-      gt.query(queryObject, { user: { status: 'active' } }, 'getActiveUsers')
-    ).toEqual(gql`
-      query getActiveUsers {
-        user(status: "active") {
-          id
+    assertGQLEqual(
+      gt.query(queryObject, { user: { status: 'active' } }, 'getActiveUsers'),
+      gql`
+        query getActiveUsers {
+          user(status: "active") {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('renders multiple GraphQL', () => {
@@ -168,20 +185,23 @@ describe('graphqlify', () => {
       }
     }
 
-    expect(gt.query(queryObject, 'getUser')).toEqual(gql`
-      query getUser {
-        user {
-          id
+    assertGQLEqual(
+      gt.query(queryObject, 'getUser'),
+      gql`
+        query getUser {
+          user {
+            id
+          }
+          bankAccount {
+            id
+          }
         }
-        bankAccount {
-          id
-        }
-      }
-    `)
+      `
+    )
   })
 
   it('render multiple GraphQL and params', () => {
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           user: {
@@ -194,22 +214,23 @@ describe('graphqlify', () => {
         },
         { user: { id: 1 }, bankAccount: { id: 2 } },
         'getUser'
-      )
-    ).toEqual(gql`
-      query getUser {
-        user(id: 1) {
-          id
+      ),
+      gql`
+        query getUser {
+          user(id: 1) {
+            id
+          }
+          bankAccount(id: 2) {
+            id
+            type
+          }
         }
-        bankAccount(id: 2) {
-          id
-          type
-        }
-      }
-    `)
+      `
+    )
   })
 
   it('render variable param and name it the same', () => {
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           user: {
@@ -218,34 +239,35 @@ describe('graphqlify', () => {
         },
         { user: { id: nullable(t.Int) } },
         'getUserById'
-      )
-    ).toEqual(gql`
-      query getUserById($id: Int) {
-        user(id: $id) {
-          id
+      ),
+      gql`
+        query getUserById($id: Int) {
+          user(id: $id) {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render raw variable param and name it the same', () => {
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           user: {
             id: t.Int
           }
         },
-        { user: { filter: t.raw('UserFilter') } },
-        'getUserById'
-      )
-    ).toEqual(gql`
-      query getUserById($filter: UserFilter!) {
-        user(filter: $filter) {
-          id
+        { user: { filter: t.raw('UserFilter') } }
+      ),
+      gql`
+        query($filter: UserFilter!) {
+          user(filter: $filter) {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render variable params with an alias', () => {
@@ -257,7 +279,7 @@ describe('graphqlify', () => {
     //   bankAccountId: types.number
     // }
 
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           user: fragment,
@@ -270,21 +292,22 @@ describe('graphqlify', () => {
           }
         },
         'getUserAndBankAccount'
-      )
-    ).toEqual(gql`
-      query getUserAndBankAccount($userId: Int, $id: Int) {
-        user(id: $userId) {
-          id
+      ),
+      gql`
+        query getUserAndBankAccount($userId: Int, $id: Int) {
+          user(id: $userId) {
+            id
+          }
+          bankAccount(id: $id) {
+            id
+          }
         }
-        bankAccount(id: $id) {
-          id
-        }
-      }
-    `)
+      `
+    )
   })
 
   it('render mutation', () => {
-    expect(
+    assertGQLEqual(
       gt.mutation(
         {
           updateUser: {
@@ -293,18 +316,19 @@ describe('graphqlify', () => {
         },
         { updateUser: { name: t.String } },
         'updateUser'
-      )
-    ).toEqual(gql`
-      mutation updateUser($name: String!) {
-        updateUser(name: $name) {
-          id
+      ),
+      gql`
+        mutation updateUser($name: String!) {
+          updateUser(name: $name) {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render mutation with custom type name', () => {
-    expect(
+    assertGQLEqual(
       gt.mutation(
         {
           updateUser: {
@@ -313,18 +337,19 @@ describe('graphqlify', () => {
         },
         { updateUser: { input: t.nullable.raw('UserInput') } },
         'updateUser'
-      )
-    ).toEqual(gql`
-      mutation updateUser($input: UserInput) {
-        updateUser(input: $input) {
-          id
+      ),
+      gql`
+        mutation updateUser($input: UserInput) {
+          updateUser(input: $input) {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render nullable field', () => {
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           user: nullable({
@@ -332,18 +357,19 @@ describe('graphqlify', () => {
           })
         },
         'getUser'
-      )
-    ).toEqual(gql`
-      query getUser {
-        user {
-          id
+      ),
+      gql`
+        query getUser {
+          user {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render array field', () => {
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           users: [
@@ -353,14 +379,15 @@ describe('graphqlify', () => {
           ]
         },
         'getUsers'
-      )
-    ).toEqual(gql`
-      query getUsers {
-        users {
-          id
+      ),
+      gql`
+        query getUsers {
+          users {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render __typename itself', () => {
@@ -372,25 +399,26 @@ describe('graphqlify', () => {
     //   },
     // }
 
-    expect(
+    assertGQLEqual(
       gt.query({
         users: {
           id: t.Int,
           __typename: t.constant('User')
         }
-      })
-    ).toEqual(gql`
-      query {
-        users {
-          id
-          __typename
+      }),
+      gql`
+        query {
+          users {
+            id
+            __typename
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render parameters when array', () => {
-    expect(
+    assertGQLEqual(
       gt.query(
         {
           users: [
@@ -401,14 +429,15 @@ describe('graphqlify', () => {
         },
         { users: { status: t.String, limit: t.nullable.Int } },
         'getUsers'
-      )
-    ).toEqual(gql`
-      query getUsers($status: String!, $limit: Int) {
-        users(status: $status, limit: $limit) {
-          id
+      ),
+      gql`
+        query getUsers($status: String!, $limit: Int) {
+          users(status: $status, limit: $limit) {
+            id
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   it('render enum', () => {
@@ -425,14 +454,17 @@ describe('graphqlify', () => {
     }
     // just type check
 
-    expect(gt.query(queryObj)).toEqual(gql`
-      query {
-        user {
-          id
-          type
+    assertGQLEqual(
+      gt.query(queryObj),
+      gql`
+        query {
+          user {
+            id
+            type
+          }
         }
-      }
-    `)
+      `
+    )
   })
 
   // it.skip('renders inline fragment spread', async () => {
@@ -484,13 +516,16 @@ describe('graphqlify', () => {
     }
     const actual = gt.query(queryObject)
 
-    expect(actual).toEqual(gql`
-      query {
-        users {
-          id
-          customField
+    assertGQLEqual(
+      actual,
+      gql`
+        query {
+          users {
+            id
+            customField
+          }
         }
-      }
-    `)
+      `
+    )
   })
 })

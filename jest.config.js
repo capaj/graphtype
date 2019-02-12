@@ -7,6 +7,7 @@ module.exports = {
   moduleNameMapper: {
     '^app(.*)$': '<rootDir>/src$1'
   },
+  modulePathIgnorePatterns: ['<rootDir>/fixtures/'],
   automock: false,
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/*.ts'],

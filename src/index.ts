@@ -1,6 +1,7 @@
 import { OperationVariable, Fragments } from './types'
 import { compileToGql } from './compileToGql'
 import { Spread, DeepPartial } from './tsUtilTypes'
+import { parse } from 'graphql'
 
 export { types } from './types'
 export { types as t } from './types'
@@ -22,17 +23,20 @@ export class Graphtype<
     operationName?: string
   ) {
     if (typeof paramsObjectOrOperationName === 'string') {
-      return `${op} ${compileToGql(
-        queryObject,
-        null,
-        paramsObjectOrOperationName
-      )}`
+      return parse(
+        `${op} ${compileToGql(queryObject, null, paramsObjectOrOperationName)}`
+      )
     } else {
-      return `${op} ${compileToGql(
-        queryObject,
-        paramsObjectOrOperationName,
-        operationName
-      )}`
+      if (operationName || !paramsObjectOrOperationName) {
+        op += ' '
+      }
+      return parse(
+        `${op}${compileToGql(
+          queryObject,
+          paramsObjectOrOperationName,
+          operationName
+        )}`
+      )
     }
   }
   query(

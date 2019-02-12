@@ -1,6 +1,6 @@
 {
   "name": "graphtype",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "GraphQL query builder for typescript. Write GQL queries as TS objects and let compiler typecheck your queries",
   "keywords": [
     "graphql",
@@ -30,6 +30,7 @@
   "dependencies": {
     "debug": "^4.1.1",
     "graphql-codegen-core": "^0.16.1",
+    "graphql-tag": "^2.10.1",
     "lodash": "^4.17.11"
   },
   "peerDependencies": {

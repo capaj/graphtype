@@ -50,7 +50,7 @@ export const getParams = (params: any) => {
 export function compileToGql(
   queryObject: any,
   allParamsObject: any,
-  opName?: string
+  opName: string = ''
 ) {
   const operationParamsObject: {
     [key: string]: CoreType | OperationVariable | RawType
