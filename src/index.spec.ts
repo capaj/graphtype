@@ -270,6 +270,32 @@ describe('graphqlify', () => {
     )
   })
 
+  it('renders a param nested inside another', () => {
+    assertGQLEqual(
+      gt.query(
+        {
+          user: {
+            id: t.Int,
+            pet: {
+              name: t.String
+            }
+          }
+        },
+        { user: { filter: t.raw('UserFilter'), pet: { id: t.Int } } }
+      ),
+      gql`
+        query($filter: UserFilter!, $id: Int!) {
+          user(filter: $filter) {
+            id
+            pet(id: $id) {
+              name
+            }
+          }
+        }
+      `
+    )
+  })
+
   it('render variable params with an alias', () => {
     const fragment = {
       id: t.Int

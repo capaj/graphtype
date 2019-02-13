@@ -1,18 +1,21 @@
 import { CoreType, RawType, OperationVariable } from './types'
 import { get, isObject } from 'lodash'
 import debug from 'debug'
-const log = debug('graphtype')
+const log = debug('gt')
 
 const operationParamTypes = [CoreType, OperationVariable, RawType]
 
 export const getParams = (params: any) => {
-  if (!params) {
+  log('getParams: ', params)
+  if (!params || !isObject(params)) {
     return ''
   }
   const variables = Object.keys(params)
+
     .filter((key) => {
-      log('key: ', key)
       const paramValue = params[key]
+      log('paramValue in filter: ', paramValue)
+      log('key: ', key)
       if (
         operationParamTypes.find((t) => {
           return paramValue instanceof t
@@ -20,7 +23,7 @@ export const getParams = (params: any) => {
       ) {
         return true
       }
-      const skip = !isObject(paramValue) && !paramValue.__typename
+      const skip = !isObject(paramValue)
 
       return skip // filter out objects without a typename-these are probably params for nested fields returned by the current field
     })
@@ -44,6 +47,10 @@ export const getParams = (params: any) => {
       }
     })
     .join(', ')
+  log('variables: ', variables)
+  if (variables.length === 0) {
+    return ''
+  }
   return `(${variables})`
 }
 
@@ -55,6 +62,41 @@ export function compileToGql(
   const operationParamsObject: {
     [key: string]: CoreType | OperationVariable | RawType
   } = {}
+  let operationParams = ''
+
+  function addParamsToOperationParams(paramsObject: any, fieldName: string) {
+    if (paramsObject) {
+      if (paramsObject instanceof OperationVariable) {
+        return ''
+      }
+      Object.keys(paramsObject).forEach((paramName) => {
+        const newParamDef = paramsObject[paramName]
+        // log('newParamDef: ', newParamDef, paramName)
+        if (
+          !(newParamDef instanceof CoreType) &&
+          !(newParamDef instanceof OperationVariable) &&
+          !(newParamDef instanceof RawType)
+        ) {
+          // this is just a raw value-we put it inline without naming a variable
+          return
+        }
+        const existingParamDef = operationParamsObject[paramName]
+        if (existingParamDef) {
+          throw new Error(
+            `variable for parameter "${paramName}" for field "${fieldName}" must be named as there already is a variable named as such`
+          )
+        }
+        if (newParamDef instanceof OperationVariable) {
+          operationParamsObject[newParamDef.varName] = newParamDef
+        } else {
+          operationParamsObject[paramName] = newParamDef
+        }
+      })
+      operationParams = getParams(paramsObject)
+      log(`params "${fieldName}" compiled as: `, operationParams)
+    }
+    return operationParams
+  }
 
   const joinFieldRecursively = (
     fieldOrObject: any,
@@ -64,12 +106,16 @@ export function compileToGql(
     const joinedFields = Object.keys(fieldOrObject)
       .map((key) => {
         log('key: ', key, parentPath)
-        const paramValue = get(allParamsObject, `${parentPath}.${key}`)
-        log('paramValue: ', paramValue)
-
+        const objectPath = `${parentPath}.${key}`
+        const paramsObject = get(allParamsObject, objectPath)
+        log('paramsObject on path: ', objectPath, paramsObject)
         let paramsAfterKey = ''
-        if (isObject(paramValue)) {
-          paramsAfterKey = getParams(paramValue)
+        if (paramsObject) {
+          paramsAfterKey = addParamsToOperationParams(paramsObject, key)
+        }
+        log('paramsAfterKey: ', paramsAfterKey)
+        if (isObject(paramsObject)) {
+          paramsAfterKey = getParams(paramsObject)
         }
         if (Array.isArray(fieldOrObject)) {
           return `${joinFieldRecursively(
@@ -102,37 +148,14 @@ export function compileToGql(
       const paramsObject = get(allParamsObject, fieldName)
       log('paramsObject: ', paramsObject)
 
-      let params = ''
-      if (paramsObject) {
-        Object.keys(paramsObject).forEach((paramName) => {
-          const newParamDef = paramsObject[paramName]
-          // log('newParamDef: ', newParamDef, paramName)
-          if (
-            !(newParamDef instanceof CoreType) &&
-            !(newParamDef instanceof OperationVariable) &&
-            !(newParamDef instanceof RawType)
-          ) {
-            // this is just a raw value-we put it inline without naming a variable
-            return
-          }
-          const existingParamDef = operationParamsObject[paramName]
-          if (existingParamDef) {
-            throw new Error(
-              `variable for parameter "${paramName}" for field "${fieldName}" must be named as there already is a variable named as such`
-            )
-          }
-          if (newParamDef instanceof OperationVariable) {
-            operationParamsObject[newParamDef.varName] = newParamDef
-          } else {
-            operationParamsObject[paramName] = newParamDef
-          }
-        })
-        params = getParams(paramsObject)
-        log(`params "${fieldName}" compiled as: `, params)
-      }
+      const outerOperationParams = addParamsToOperationParams(
+        paramsObject,
+        fieldName
+      )
+
       const joinedFields = joinFieldRecursively(fieldValue, fieldName)
       // log('fieldValue: ', fieldValue)
-      return `${fieldName}${params} { ${joinedFields} }`
+      return `${fieldName}${outerOperationParams} { ${joinedFields} }`
     })
     .join(' ')
   // log('operationParamsObject: ', operationParamsObject)
