@@ -1,6 +1,6 @@
 {
   "name": "graphtype",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "GraphQL query builder for typescript. Write GQL queries as TS objects and let compiler typecheck your queries",
   "keywords": [
     "graphql",

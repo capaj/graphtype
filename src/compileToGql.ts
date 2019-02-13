@@ -93,7 +93,7 @@ export function compileToGql(
         }
       })
       operationParams = getParams(paramsObject)
-      log(`params "${fieldName}" compiled as: `, operationParams)
+      log(`params for field "${fieldName}" compiled as: `, operationParams)
     }
     return operationParams
   }
@@ -104,36 +104,41 @@ export function compileToGql(
   ): string => {
     log('fieldOrObject: ', fieldOrObject)
     const joinedFields = Object.keys(fieldOrObject)
-      .map((key) => {
-        log('key: ', key, parentPath)
-        const objectPath = `${parentPath}.${key}`
+      .map((field) => {
+        log('field: ', field, parentPath)
+        const objectPath = `${parentPath}.${field}`
         const paramsObject = get(allParamsObject, objectPath)
+        let paramsAfterField = ''
+        const isGtType = operationParamTypes.find((t) => {
+          return paramsObject instanceof t
+        })
         log('paramsObject on path: ', objectPath, paramsObject)
-        let paramsAfterKey = ''
-        if (paramsObject) {
-          paramsAfterKey = addParamsToOperationParams(paramsObject, key)
+
+        if (paramsObject && !isGtType) {
+          paramsAfterField = addParamsToOperationParams(paramsObject, field)
         }
-        log('paramsAfterKey: ', paramsAfterKey)
-        if (isObject(paramsObject)) {
-          paramsAfterKey = getParams(paramsObject)
-        }
+        log('paramsAfterKey: ', paramsAfterField)
+
         if (Array.isArray(fieldOrObject)) {
           return `${joinFieldRecursively(
             fieldOrObject[0],
             parentPath
-          )}${paramsAfterKey}`
+          )}${paramsAfterField}`
         }
         if (
-          typeof fieldOrObject[key] === 'object' &&
-          !(fieldOrObject[key] instanceof CoreType)
+          typeof fieldOrObject[field] === 'object' &&
+          !(fieldOrObject[field] instanceof CoreType)
         ) {
-          return `${key}${paramsAfterKey} { ${joinFieldRecursively(
-            fieldOrObject[key],
-            parentPath + `.${key}`
+          return `${field}${paramsAfterField} { ${joinFieldRecursively(
+            fieldOrObject[field],
+            parentPath + `.${field}`
           )} }`
         }
+        if (paramsAfterField) {
+          return field + paramsAfterField
+        }
 
-        return key
+        return field
       })
       .join(' ')
     log('joinedFields: ', joinedFields)

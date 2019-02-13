@@ -466,6 +466,30 @@ describe('graphqlify', () => {
     )
   })
 
+  it('renders parameters for a scalar leaf node', () => {
+    const querySchema = {
+      analytics: {
+        totalViewsCount: t.Int
+      }
+    }
+    const query = gt.query(querySchema, {
+      analytics: {
+        filter: t.raw('AnalyticsFilter'),
+        totalViewsCount: { foo: 'bar' }
+      }
+    })
+    assertGQLEqual(
+      query,
+      gql`
+        query($filter: AnalyticsFilter!) {
+          analytics(filter: $filter) {
+            totalViewsCount(foo: "bar")
+          }
+        }
+      `
+    )
+  })
+
   it('render enum', () => {
     enum UserType {
       'Student',
