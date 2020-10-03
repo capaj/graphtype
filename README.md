@@ -1,6 +1,10 @@
 [![npm version](https://badge.fury.io/js/graphtype.svg)](https://badge.fury.io/js/graphtype)
 [![Build Status](https://travis-ci.org/capaj/graphtype.svg?branch=master)](https://travis-ci.org/capaj/graphtype)
 
+# DEPRECATED
+
+use https://graphql-code-generator.com/docs/getting-started/index instead. It provides much better DX.
+
 # graphtype
 
 Build Type-safe GraphQL Queries in TypeScript. Let the compiler typecheck your queries.
